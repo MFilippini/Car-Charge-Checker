@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49F29AEE218175C300A0F644 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49F29AED218175C300A0F644 /* GoogleService-Info.plist */; };
 		49FD4A31217E1EC60037DC74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FD4A30217E1EC60037DC74 /* AppDelegate.swift */; };
 		49FD4A33217E1EC60037DC74 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FD4A32217E1EC60037DC74 /* ViewController.swift */; };
 		49FD4A36217E1EC60037DC74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49FD4A34217E1EC60037DC74 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49F29AED218175C300A0F644 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		49FD4A2D217E1EC60037DC74 /* Car Charge Checker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Car Charge Checker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		49FD4A30217E1EC60037DC74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49FD4A32217E1EC60037DC74 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				49FD4A34217E1EC60037DC74 /* Main.storyboard */,
 				49FD4A37217E1EC70037DC74 /* Assets.xcassets */,
 				49FD4A39217E1EC70037DC74 /* LaunchScreen.storyboard */,
+				49F29AED218175C300A0F644 /* GoogleService-Info.plist */,
 				49FD4A3C217E1EC70037DC74 /* Info.plist */,
 			);
 			path = "Car Charge Checker";
@@ -149,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49FD4A3B217E1EC70037DC74 /* LaunchScreen.storyboard in Resources */,
+				49F29AEE218175C300A0F644 /* GoogleService-Info.plist in Resources */,
 				49FD4A38217E1EC70037DC74 /* Assets.xcassets in Resources */,
 				49FD4A36217E1EC60037DC74 /* Main.storyboard in Resources */,
 			);
