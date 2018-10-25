@@ -12,6 +12,7 @@
 		49FD4A36217E1EC60037DC74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49FD4A34217E1EC60037DC74 /* Main.storyboard */; };
 		49FD4A38217E1EC70037DC74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49FD4A37217E1EC70037DC74 /* Assets.xcassets */; };
 		49FD4A3B217E1EC70037DC74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49FD4A39217E1EC70037DC74 /* LaunchScreen.storyboard */; };
+		CB27A27EB8CBBF22E0A505E6 /* Pods_Car_Charge_Checker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1E00A3EACA941F4B391A7BB /* Pods_Car_Charge_Checker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		49FD4A37217E1EC70037DC74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49FD4A3A217E1EC70037DC74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49FD4A3C217E1EC70037DC74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		764E3DD0E50A1CE240ECBEEB /* Pods-Car Charge Checker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Car Charge Checker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Car Charge Checker/Pods-Car Charge Checker.release.xcconfig"; sourceTree = "<group>"; };
+		B1E00A3EACA941F4B391A7BB /* Pods_Car_Charge_Checker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Car_Charge_Checker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFBAF94A06930653E2641C22 /* Pods-Car Charge Checker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Car Charge Checker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Car Charge Checker/Pods-Car Charge Checker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB27A27EB8CBBF22E0A505E6 /* Pods_Car_Charge_Checker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				49FD4A2F217E1EC60037DC74 /* Car Charge Checker */,
 				49FD4A2E217E1EC60037DC74 /* Products */,
+				BB11F1D59885297B6419FDBF /* Pods */,
+				B2926B9601B36DC25C9B22AC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,23 @@
 			path = "Car Charge Checker";
 			sourceTree = "<group>";
 		};
+		B2926B9601B36DC25C9B22AC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B1E00A3EACA941F4B391A7BB /* Pods_Car_Charge_Checker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB11F1D59885297B6419FDBF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DFBAF94A06930653E2641C22 /* Pods-Car Charge Checker.debug.xcconfig */,
+				764E3DD0E50A1CE240ECBEEB /* Pods-Car Charge Checker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49FD4A3F217E1EC70037DC74 /* Build configuration list for PBXNativeTarget "Car Charge Checker" */;
 			buildPhases = (
+				0DC46FDE874F9AC0B09F2DFD /* [CP] Check Pods Manifest.lock */,
 				49FD4A29217E1EC60037DC74 /* Sources */,
 				49FD4A2A217E1EC60037DC74 /* Frameworks */,
 				49FD4A2B217E1EC60037DC74 /* Resources */,
+				5D52E0BC956A14F761A0CF46 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +155,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0DC46FDE874F9AC0B09F2DFD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Car Charge Checker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5D52E0BC956A14F761A0CF46 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Car Charge Checker/Pods-Car Charge Checker-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Car Charge Checker/Pods-Car Charge Checker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		49FD4A29217E1EC60037DC74 /* Sources */ = {
@@ -280,6 +357,7 @@
 		};
 		49FD4A40217E1EC70037DC74 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFBAF94A06930653E2641C22 /* Pods-Car Charge Checker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +376,7 @@
 		};
 		49FD4A41217E1EC70037DC74 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 764E3DD0E50A1CE240ECBEEB /* Pods-Car Charge Checker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
