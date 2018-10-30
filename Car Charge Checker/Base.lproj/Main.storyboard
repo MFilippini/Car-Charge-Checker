@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3nB-lH-jUx">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -66,10 +66,10 @@
             </objects>
             <point key="canvasLocation" x="471" y="-59"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign In View Controller-->
         <scene sceneID="oNX-B6-Xj7">
             <objects>
-                <viewController id="3nB-lH-jUx" sceneMemberID="viewController">
+                <viewController id="3nB-lH-jUx" customClass="SignInViewController" customModule="Car_Charge_Checker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f5R-p7-g7B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -134,12 +134,21 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-qm-WKY" customClass="GIDSignInButton">
+                                <rect key="frame" x="87" y="545" width="240" height="49"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="Mwf-Ol-dYu"/>
+                                    <constraint firstAttribute="width" constant="240" id="veI-Po-CjA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="O12-De-bKw" firstAttribute="trailing" secondItem="brW-zd-5cz" secondAttribute="trailing" id="1xn-Vf-LX4"/>
                             <constraint firstItem="O12-De-bKw" firstAttribute="top" secondItem="MKl-lZ-Ldo" secondAttribute="bottom" constant="8" symbolic="YES" id="3AC-KK-g0b"/>
                             <constraint firstItem="Cl8-Ca-jZE" firstAttribute="top" secondItem="brW-zd-5cz" secondAttribute="bottom" constant="13" id="4Zg-lN-TVW"/>
+                            <constraint firstItem="JAc-qm-WKY" firstAttribute="top" secondItem="Cl8-Ca-jZE" secondAttribute="bottom" constant="62" id="8AQ-CW-QbN"/>
                             <constraint firstItem="O12-De-bKw" firstAttribute="leading" secondItem="X6B-uz-rIA" secondAttribute="leading" constant="69" id="9Za-ah-fzd"/>
                             <constraint firstItem="X6B-uz-rIA" firstAttribute="bottom" secondItem="d2Z-1m-LA7" secondAttribute="bottom" constant="101" id="Ih4-zW-tDu"/>
                             <constraint firstItem="Cl8-Ca-jZE" firstAttribute="centerX" secondItem="f5R-p7-g7B" secondAttribute="centerX" id="OKE-Jf-xrG"/>
@@ -158,6 +167,7 @@
                             <constraint firstItem="Ji8-cO-i47" firstAttribute="top" secondItem="X6B-uz-rIA" secondAttribute="top" constant="9" id="saA-x2-ezJ"/>
                             <constraint firstItem="Ji8-cO-i47" firstAttribute="leading" secondItem="7GW-qy-D1r" secondAttribute="leading" id="tco-8d-6za"/>
                             <constraint firstItem="MKl-lZ-Ldo" firstAttribute="top" secondItem="7GW-qy-D1r" secondAttribute="bottom" constant="32" id="u7g-wh-sIe"/>
+                            <constraint firstItem="JAc-qm-WKY" firstAttribute="centerX" secondItem="f5R-p7-g7B" secondAttribute="centerX" id="ue9-QP-W85"/>
                             <constraint firstItem="Ji8-cO-i47" firstAttribute="leading" secondItem="f5R-p7-g7B" secondAttribute="leadingMargin" id="wNK-NR-uJF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="X6B-uz-rIA"/>
@@ -165,7 +175,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7U-Nx-RnU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="470" y="-753"/>
+            <point key="canvasLocation" x="469.56521739130437" y="-753.34821428571422"/>
         </scene>
     </scenes>
 </document>
