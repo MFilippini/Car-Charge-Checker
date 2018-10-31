@@ -11,7 +11,9 @@ import Firebase
 import GoogleSignIn
 
 class SignInViewController: UIViewController, GIDSignInUIDelegate {
-
+    
+    var signInListener: AuthStateDidChangeListenerHandle? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -19,17 +21,21 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         
         // Do any additional setup after loading the view.
     }
-    /*
+    
     override func viewWillAppear(_ animated: Bool) {
-        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            // ...
+        signInListener =    Auth.auth().addStateDidChangeListener { auth, user in
+            if let user = user {
+                self.performSegue(withIdentifier: "toMainViewController", sender: nil)
+            } else {
+                // No User is signed in. Show user the login screen
+            }
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        Auth.auth().removeStateDidChangeListener(handle!)
+        Auth.auth().removeStateDidChangeListener(signInListener!)
     }
-     */
+    
     
    
     
