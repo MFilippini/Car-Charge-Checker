@@ -22,12 +22,15 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         // Do any additional setup after loading the view.
     }
     
+    /*
     override func viewWillAppear(_ animated: Bool) {
         signInListener =    Auth.auth().addStateDidChangeListener { auth, user in
-            if let user = user {
+            if user != nil {
+                print("user")
                 self.performSegue(withIdentifier: "toMainViewController", sender: nil)
             } else {
-                // No User is signed in. Show user the login screen
+                print("no User")
+                print(Auth.auth().currentUser)
             }
         }
     }
@@ -35,11 +38,8 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         Auth.auth().removeStateDidChangeListener(signInListener!)
     }
+    */
     
-    
-   
-    
-
     /*
     // MARK: - Navigation
 
