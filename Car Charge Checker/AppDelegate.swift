@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 // ...
                 return
             }
-            // User is signed in
+            // User is scigned in
             // ...
         }
     }

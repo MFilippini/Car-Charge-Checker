@@ -27,6 +27,7 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         signInListener =    Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
                 print("user")
+                
                 self.performSegue(withIdentifier: "toMainViewController", sender: nil)
             } else {
                 print("no User")

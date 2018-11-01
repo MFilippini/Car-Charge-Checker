@@ -8,6 +8,7 @@ target 'Car Charge Checker' do
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
 	pod 'FirebaseUI/Phone'
+    pod 'Firebase/Database'
     pod 'GoogleSignIn'
 
 end
