@@ -19,15 +19,14 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         GIDSignIn.sharedInstance().uiDelegate = self
 //      GIDSignIn.sharedInstance().signIn()
         
-        // Do any additional setup after loading the view.
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         signInListener =    Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
-                print("user")
-                
+                print(user?.displayName)
+                print(user?.email)
                 self.performSegue(withIdentifier: "toMainViewController", sender: nil)
             } else {
                 print("no User")
