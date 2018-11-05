@@ -18,8 +18,15 @@ class UserSetupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupUI()
+        
+    }
+    
+    func setupUI(){
+        continueButton.layer.backgroundColor = evqBlue.cgColor
+        continueButton.tintColor = UIColor.white
+        continueButton.layer.cornerRadius = 15
     }
 
+    
 }

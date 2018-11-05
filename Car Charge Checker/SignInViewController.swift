@@ -45,8 +45,6 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         ref = Database.database().reference()
         
         ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-            
-//            let user = User(username: username)
             return true
         }) { (error) in
             
