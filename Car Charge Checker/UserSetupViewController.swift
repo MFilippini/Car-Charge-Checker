@@ -21,5 +21,11 @@ class UserSetupViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    
+    @IBAction func onSubmitClicked(_ sender: Any) {
+        
+    }
+    
 
 }
