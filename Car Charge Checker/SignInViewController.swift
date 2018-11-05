@@ -19,16 +19,19 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         GIDSignIn.sharedInstance().uiDelegate = self
 //      GIDSignIn.sharedInstance().signIn()
         
-        // Do any additional setup after loading the view.
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         signInListener =    Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
-                print("user")
-                
-                self.performSegue(withIdentifier: "toMainViewController", sender: nil)
+                if(self.userDataAvailable()){
+                    self.performSegue(withIdentifier: "toMainViewController", sender: nil)
+                }
+                else{
+                    self.performSegue(withIdentifier: "toSetUpScreen", sender: nil)
+                }
             } else {
                 print("no User")
                 print(Auth.auth().currentUser)
@@ -36,6 +39,22 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         }
     }
     
+    func userDataAvailable() -> Bool{
+        let userID = Auth.auth().currentUser?.uid
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        
+        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let username = value?["username"] as? String ?? ""
+//            let user = User(username: username)
+            
+            print(username)
+        }) { (error) in
+            return false
+        }
+        return true
+    }
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
                 withError error: NSError!) {

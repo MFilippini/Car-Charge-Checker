@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3nB-lH-jUx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3nB-lH-jUx">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -64,7 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="496" y="71"/>
+            <point key="canvasLocation" x="470" y="-636"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="iId-A9-9Ax">
@@ -103,7 +103,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V7b-jb-BoH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1329" y="71"/>
+            <point key="canvasLocation" x="1341" y="-636"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="oNX-B6-Xj7">
@@ -207,10 +207,10 @@
             </objects>
             <point key="canvasLocation" x="470" y="-1380"/>
         </scene>
-        <!--View Controller-->
+        <!--User Setup View Controller-->
         <scene sceneID="q3c-7p-3gO">
             <objects>
-                <viewController id="h8S-Np-17l" sceneMemberID="viewController">
+                <viewController id="h8S-Np-17l" customClass="UserSetupViewController" customModule="Car_Charge_Checker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EDZ-SB-yzM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -292,14 +292,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aw1-ut-zax">
+                                <rect key="frame" x="159.66666666666666" y="695" width="95" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="QcF-wy-YZT"/>
+                                    <constraint firstAttribute="width" constant="95" id="YNq-g6-WCU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <state key="normal" title="Submit"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Xgz-tg-naG" firstAttribute="bottom" secondItem="aw1-ut-zax" secondAttribute="bottom" constant="118" id="cmX-9z-efc"/>
+                            <constraint firstItem="aw1-ut-zax" firstAttribute="centerX" secondItem="EDZ-SB-yzM" secondAttribute="centerX" id="yaW-oT-WhY"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Xgz-tg-naG"/>
                     </view>
+                    <connections>
+                        <outlet property="continueButton" destination="aw1-ut-zax" id="AzB-qi-azu"/>
+                        <outlet property="firstNameField" destination="m6Z-6R-cJe" id="8ud-LA-AtO"/>
+                        <outlet property="lastNameField" destination="Cwg-jD-gOk" id="egr-Xl-iRL"/>
+                        <outlet property="licensePlateField" destination="cmC-k9-fd0" id="ByZ-uV-Rvg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ib7-Ug-OrU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1693" y="-1380"/>
+            <point key="canvasLocation" x="1342" y="-1380"/>
         </scene>
     </scenes>
 </document>
