@@ -26,8 +26,8 @@ class UserSetupViewController: UIViewController {
         continueButton.layer.backgroundColor = evqBlue.cgColor
         continueButton.tintColor = UIColor.white
         continueButton.layer.cornerRadius = 15
+        print("ui setup")
     }
-    
     
     @IBAction func onSubmitClicked(_ sender: Any) {
         
