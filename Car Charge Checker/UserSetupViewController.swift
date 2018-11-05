@@ -27,6 +27,6 @@ class UserSetupViewController: UIViewController {
         continueButton.tintColor = UIColor.white
         continueButton.layer.cornerRadius = 15
     }
-
+    
     
 }
