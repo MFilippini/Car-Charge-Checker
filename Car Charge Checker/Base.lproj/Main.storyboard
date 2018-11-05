@@ -286,7 +286,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="28"/>
                                 <state key="normal" title="Submit">
-                                    <color key="titleColor" red="0.0" green="0.7436818006" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="onSubmitClicked:" destination="h8S-Np-17l" eventType="touchUpInside" id="tYo-BZ-nkM"/>
