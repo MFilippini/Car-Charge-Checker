@@ -45,15 +45,13 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         ref = Database.database().reference()
         
         ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            let username = value?["username"] as? String ?? ""
-//            let user = User(username: username)
             
-            print(username)
+//            let user = User(username: username)
+            return true
         }) { (error) in
-            return false
+            
         }
-        return true
+        return false
     }
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
