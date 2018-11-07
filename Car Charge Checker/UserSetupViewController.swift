@@ -15,39 +15,60 @@ class UserSetupViewController: UIViewController {
     @IBOutlet weak var licensePlateField: UITextField!
     @IBOutlet weak var carColorTextField: UITextField!
     
+    var textFields : [UITextField] = []
+    
     @IBOutlet weak var continueButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        textFields = [firstNameField,lastNameField,licensePlateField,carColorTextField]
         continueButton.isEnabled = false
     }
     
+    func setupUI(){
+        continueButton.layer.backgroundColor = UIColor.black.cgColor
+        continueButton.layer.cornerRadius = 15
+    }
+    
+    @IBAction func firstNameFieldChanged(_ sender: Any) {
+        updateButton()
+    }
+   
+    @IBAction func lastNameFieldChanged(_ sender: Any) {
+        updateButton()
+    }
+    
+    @IBAction func lisencePlateFieldChanged(_ sender: Any) {
+        updateButton()
+    }
+    
+    @IBAction func carColorFieldChanged(_ sender: Any) {
+        updateButton()
+    }
+    
+    
+    func updateButton(){
+        if(allTextFilled()){
+            continueButton.isEnabled = true
+            continueButton.layer.backgroundColor = evqBlue.cgColor
+        }else{
+            continueButton.isEnabled = false
+            continueButton.layer.backgroundColor = UIColor.black.cgColor
+        }
+    }
     
     func allTextFilled() -> Bool{
-        if(firstNameField.text == nil){
-            return false
-        }
-        if(lastNameField.text == nil){
-            return false
-        }
-        if(licensePlateField.text == nil){
-            return false
-        }
-        if(carColorTextField.text == nil){
-            return false
+        for field in textFields{
+            let text = field.text
+            print("checkin")
+            if(text?.isEmpty ?? false){
+                return false
+            }
         }
         return true
     }
     
-    func setupUI(){
-        continueButton.layer.backgroundColor = evqBlue.cgColor
-        continueButton.tintColor = UIColor.white
-        continueButton.layer.cornerRadius = 15
-        
-        continueButton.setTitleColor(UIColor.lightGray, for: .disabled)
-        continueButton.setTitleColor(.white, for: .normal)
-    }
     
     @IBAction func onSubmitClicked(_ sender: Any) {
         print("clicked")
