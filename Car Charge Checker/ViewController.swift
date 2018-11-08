@@ -24,10 +24,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.rowHeight = 130
-        
-        
-        
-        
+        self.tableView.separatorStyle = .none
+        self.tableView.allowsSelection = false
     }
     
     
