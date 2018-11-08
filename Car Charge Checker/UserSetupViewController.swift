@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 class UserSetupViewController: UIViewController {
 
@@ -29,6 +31,8 @@ class UserSetupViewController: UIViewController {
     func setupUI(){
         continueButton.layer.backgroundColor = UIColor.black.cgColor
         continueButton.layer.cornerRadius = 15
+        
+        firstNameField.text = Auth.auth().currentUser?.displayName
     }
     
     @IBAction func firstNameFieldChanged(_ sender: Any) {
@@ -61,7 +65,6 @@ class UserSetupViewController: UIViewController {
     func allTextFilled() -> Bool{
         for field in textFields{
             let text = field.text
-            print("checkin")
             if(text?.isEmpty ?? false){
                 return false
             }
