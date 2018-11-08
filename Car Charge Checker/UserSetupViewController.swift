@@ -13,24 +13,65 @@ class UserSetupViewController: UIViewController {
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var licensePlateField: UITextField!
+    @IBOutlet weak var carColorTextField: UITextField!
+    
+    var textFields : [UITextField] = []
     
     @IBOutlet weak var continueButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        
+        textFields = [firstNameField,lastNameField,licensePlateField,carColorTextField]
+        continueButton.isEnabled = false
     }
     
     func setupUI(){
-        continueButton.layer.backgroundColor = evqBlue.cgColor
-        continueButton.tintColor = UIColor.white
+        continueButton.layer.backgroundColor = UIColor.black.cgColor
         continueButton.layer.cornerRadius = 15
-        print("ui setup")
     }
     
+    @IBAction func firstNameFieldChanged(_ sender: Any) {
+        updateButton()
+    }
+   
+    @IBAction func lastNameFieldChanged(_ sender: Any) {
+        updateButton()
+    }
+    
+    @IBAction func lisencePlateFieldChanged(_ sender: Any) {
+        updateButton()
+    }
+    
+    @IBAction func carColorFieldChanged(_ sender: Any) {
+        updateButton()
+    }
+    
+    
+    func updateButton(){
+        if(allTextFilled()){
+            continueButton.isEnabled = true
+            continueButton.layer.backgroundColor = evqBlue.cgColor
+        }else{
+            continueButton.isEnabled = false
+            continueButton.layer.backgroundColor = UIColor.black.cgColor
+        }
+    }
+    
+    func allTextFilled() -> Bool{
+        for field in textFields{
+            let text = field.text
+            print("checkin")
+            if(text?.isEmpty ?? false){
+                return false
+            }
+        }
+        return true
+    }
+    
+    
     @IBAction func onSubmitClicked(_ sender: Any) {
-        
+        print("clicked")
     }
     
 

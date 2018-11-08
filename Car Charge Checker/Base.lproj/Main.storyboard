@@ -262,18 +262,27 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="lastNameFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="oWQ-l1-Fj3"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cmC-k9-fd0">
                                 <rect key="frame" x="250" y="413" width="144" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="lisencePlateFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="PQP-Kh-Rc9"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="izd-Lb-sfi">
                                 <rect key="frame" x="250" y="477" width="144" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="carColorFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="MBl-Ty-m49"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11J-IZ-Vi5">
                                 <rect key="frame" x="20" y="292" width="212" height="30"/>
@@ -307,6 +316,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="firstNameFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="Bb6-So-f26"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aw1-ut-zax">
                                 <rect key="frame" x="107" y="721" width="200" height="60"/>
@@ -367,6 +379,7 @@
                         <viewLayoutGuide key="safeArea" id="Xgz-tg-naG"/>
                     </view>
                     <connections>
+                        <outlet property="carColorTextField" destination="izd-Lb-sfi" id="iBK-U8-mCy"/>
                         <outlet property="continueButton" destination="aw1-ut-zax" id="AzB-qi-azu"/>
                         <outlet property="firstNameField" destination="m6Z-6R-cJe" id="8ud-LA-AtO"/>
                         <outlet property="lastNameField" destination="Cwg-jD-gOk" id="egr-Xl-iRL"/>
@@ -375,7 +388,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ib7-Ug-OrU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1338.4000000000001" y="-1381.0344827586207"/>
+            <point key="canvasLocation" x="1337.68115942029" y="-1381.4732142857142"/>
         </scene>
     </scenes>
 </document>
