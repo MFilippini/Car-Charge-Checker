@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.rowHeight = 130
+        self.tableView.rowHeight = 140
         self.tableView.separatorStyle = .none
         self.tableView.allowsSelection = false
     }
@@ -39,7 +39,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.identifyingImage?.image = UIImage(named: "square")
         cell.name?.text = "Charger 1"
         cell.status?.text = "Reserved Until 5:00 PM"
-        cell.statusIndicator.backgroundColor = .red
+        cell.colorBackgroundView?.backgroundColor = .gray
+        cell.colorBackgroundView.layer.cornerRadius = 10
+        cell.reserveButton.layer.cornerRadius = 5
+
         
         //Constraints
 //        cell.identifyingImage.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
@@ -78,7 +81,9 @@ class CustomCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var reserveButton: UIButton!
-    @IBOutlet weak var statusIndicator: UIView!
+    @IBOutlet weak var colorBackgroundView: UIView!
+    
+    
     
 }
 
