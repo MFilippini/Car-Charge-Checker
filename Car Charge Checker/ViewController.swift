@@ -15,6 +15,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var reservationDescription: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var reserveButton: UIButton!
+    @IBOutlet weak var accentView: UIView!
     
     
     //var data = [String]
@@ -25,7 +27,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.dataSource = self
         self.tableView.rowHeight = 140
         self.tableView.separatorStyle = .none
-        self.tableView.allowsSelection = false
+        tableView.layer.cornerRadius = 15
+        reserveButton.layer.cornerRadius = 15
+        accentView.backgroundColor = evqBlue
+        accentView.layer.cornerRadius = 700
+        //reserveButton.alpha = 0.5
     }
     
     
@@ -39,18 +45,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.identifyingImage?.image = UIImage(named: "square")
         cell.name?.text = "Charger 1"
         cell.status?.text = "Reserved Until 5:00 PM"
-        cell.colorBackgroundView?.backgroundColor = .gray
-        cell.colorBackgroundView.layer.cornerRadius = 10
-        cell.reserveButton.layer.cornerRadius = 5
 
-        
-        //Constraints
-//        cell.identifyingImage.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
-//        cell.identifyingImage.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
-//        cell.identifyingImage.widthAnchor.constraint(equalToConstant: 124).isActive = true
-//        cell.identifyingImage.heightAnchor.constraint(equalToConstant: 124).isActive = true
-//
-//        cell.name.topAnchor
 
         
         return cell
@@ -68,6 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     @IBAction func PlusPressed(_ sender: Any) {
+        
     }
     
     
@@ -80,9 +76,8 @@ class CustomCell: UITableViewCell {
     @IBOutlet weak var identifyingImage: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var status: UILabel!
-    @IBOutlet weak var reserveButton: UIButton!
     @IBOutlet weak var colorBackgroundView: UIView!
-    
+
     
     
 }
