@@ -24,4 +24,3 @@ let evqTeal = UIColor(red: 0, green: 255, blue: 255)
 let notBlack = UIColor(red: 50, green: 50, blue: 50)
 let toothpaste = UIColor(red: 99, green: 255, blue: 148)
 let softRed = UIColor(red: 255, green: 107, blue: 122)
-
