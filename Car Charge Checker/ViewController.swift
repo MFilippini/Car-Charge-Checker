@@ -56,7 +56,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.tableView.contentInset = UIEdgeInsets(top: 0,left: 0,bottom: 55,right: 0)
+        //self.tableView.contentInset = UIEdgeInsets(top: 0,left: 0,bottom: 55,right: 0)
     }
     
     
@@ -66,11 +66,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func PlusPressed(_ sender: Any) {
     }
-    
-    
-    
-    
-    
     
     
     
@@ -84,9 +79,6 @@ class CustomCell: UITableViewCell {
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var reserveButton: UIButton!
     @IBOutlet weak var statusIndicator: UIView!
-    
-    
-    
     
 }
 
