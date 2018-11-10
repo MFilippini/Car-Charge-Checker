@@ -190,7 +190,7 @@
                                 <rect key="frame" x="250" y="352" width="144" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="family-name"/>
                                 <connections>
                                     <action selector="lastNameFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="oWQ-l1-Fj3"/>
                                 </connections>
@@ -199,7 +199,7 @@
                                 <rect key="frame" x="250" y="413" width="144" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
                                 <connections>
                                     <action selector="lisencePlateFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="PQP-Kh-Rc9"/>
                                 </connections>
@@ -208,7 +208,7 @@
                                 <rect key="frame" x="250" y="477" width="144" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes"/>
                                 <connections>
                                     <action selector="carColorFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="MBl-Ty-m49"/>
                                 </connections>
@@ -244,7 +244,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
                                 <connections>
                                     <action selector="firstNameFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="Bb6-So-f26"/>
                                 </connections>
