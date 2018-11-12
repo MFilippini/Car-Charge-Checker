@@ -35,7 +35,15 @@ class UserSetupViewController: UIViewController {
         continueButton.layer.backgroundColor = UIColor.black.cgColor
         continueButton.layer.cornerRadius = 15
         continueButton.isEnabled = false
-        firstNameField.text = Auth.auth().currentUser?.displayName
+        fillNames()
+    }
+    
+    func fillNames(){
+        var name = Auth.auth().currentUser?.displayName ?? ""
+        let nameBreak = name.lastIndex(of: " ") ?? name.endIndex
+        firstNameField.text = String(name[..<nameBreak])
+        name.removeSubrange(...nameBreak)
+        lastNameField.text = name
     }
     
     @IBAction func firstNameFieldChanged(_ sender: Any) {
