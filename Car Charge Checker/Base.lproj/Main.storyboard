@@ -119,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="469.56521739130437" y="-636.16071428571422"/>
+            <point key="canvasLocation" x="874" y="-560"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="oNX-B6-Xj7">
@@ -154,7 +154,7 @@
                     </view>
                     <connections>
                         <segue destination="h8S-Np-17l" kind="show" identifier="toSetUpScreen" id="a7z-KY-gU2"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="toMainViewController" id="keb-50-yHM"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="toMainViewFromSignIn" id="keb-50-yHM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7U-Nx-RnU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -200,7 +200,7 @@
                                 <rect key="frame" x="250" y="352" width="144" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="family-name"/>
                                 <connections>
                                     <action selector="lastNameFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="oWQ-l1-Fj3"/>
                                 </connections>
@@ -209,7 +209,7 @@
                                 <rect key="frame" x="250" y="413" width="144" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
                                 <connections>
                                     <action selector="lisencePlateFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="PQP-Kh-Rc9"/>
                                 </connections>
@@ -218,7 +218,7 @@
                                 <rect key="frame" x="250" y="477" width="144" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes"/>
                                 <connections>
                                     <action selector="carColorFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="MBl-Ty-m49"/>
                                 </connections>
@@ -254,7 +254,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
                                 <connections>
                                     <action selector="firstNameFieldChanged:" destination="h8S-Np-17l" eventType="editingChanged" id="Bb6-So-f26"/>
                                 </connections>
@@ -323,6 +323,7 @@
                         <outlet property="firstNameField" destination="m6Z-6R-cJe" id="8ud-LA-AtO"/>
                         <outlet property="lastNameField" destination="Cwg-jD-gOk" id="egr-Xl-iRL"/>
                         <outlet property="licensePlateField" destination="cmC-k9-fd0" id="ByZ-uV-Rvg"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="toMainViewFromSetup" id="Pbj-y0-j7B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ib7-Ug-OrU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -330,4 +331,7 @@
             <point key="canvasLocation" x="1337.68115942029" y="-1381.4732142857142"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Pbj-y0-j7B"/>
+    </inferredMetricsTieBreakers>
 </document>

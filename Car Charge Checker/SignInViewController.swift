@@ -30,14 +30,9 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        signInListener =    Auth.auth().addStateDidChangeListener { auth, user in
+        signInListener = Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
-                if(self.userDataAvailable()){
-                    self.performSegue(withIdentifier: "toMainViewController", sender: nil)
-                }
-                else{
-                    self.performSegue(withIdentifier: "toSetUpScreen", sender: nil)
-                }
+                self.userDataAvailable()
             } else {
                 print("no User")
                 print(Auth.auth().currentUser)
@@ -45,18 +40,20 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         }
     }
     
-    func userDataAvailable() -> Bool{
-        let userID = Auth.auth().currentUser?.uid
-        var ref: DatabaseReference!
-        ref = Database.database().reference()
-        
-        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-            return true
+    func userDataAvailable(){
+        let user = Auth.auth().currentUser
+        let ref = Database.database().reference()
+        ref.child("users").child(user!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            if(snapshot.exists()){
+                self.performSegue(withIdentifier: "toMainViewFromSignIn", sender: nil)
+            }else{
+                self.performSegue(withIdentifier: "toSetUpScreen", sender: nil)
+            }
         }) { (error) in
-            
         }
-        return false
     }
+    
+    
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
                 withError error: NSError!) {
