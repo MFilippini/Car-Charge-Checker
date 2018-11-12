@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var reserveButton: UIButton!
     @IBOutlet weak var accentView: UIView!
+    @IBOutlet weak var infoButton: UIButton!
     
     
     //var data = [String]
@@ -27,10 +28,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.dataSource = self
         self.tableView.rowHeight = 140
         self.tableView.separatorStyle = .none
-        tableView.layer.cornerRadius = 15
+        tableView.showsVerticalScrollIndicator = false
+        //tableView.layer.cornerRadius = 15
         reserveButton.layer.cornerRadius = 15
+        infoButton.layer.cornerRadius = 15
+        infoButton.alpha = 0.4
         accentView.backgroundColor = evqBlue
         accentView.layer.cornerRadius = 700
+        
         //reserveButton.alpha = 0.5
     }
     
@@ -42,9 +47,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "custom", for: indexPath) as! CustomCell
-        cell.identifyingImage?.image = UIImage(named: "square")
-        cell.name?.text = "Charger 1"
-        cell.status?.text = "Reserved Until 5:00 PM"
+        if indexPath.row != 0 {
+            cell.identifyingImage?.image = UIImage(named: "square")
+            cell.name?.text = "Charger 1"
+            cell.status?.text = "Reserved Until 5:00 PM"
+        } else {
+            cell.identifyingImage?.image = nil
+            cell.name?.text = ""
+            cell.status?.text = ""
+        }
+        
+        
 
 
         

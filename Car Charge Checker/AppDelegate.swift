@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         let colorView = UIView()
         colorView.backgroundColor = itsSpelledGrey
-        //colorView.layer.cornerRadius = 15
+        colorView.layer.cornerRadius = 15
         UITableViewCell.appearance().selectedBackgroundView = colorView
         
         return true
