@@ -17,7 +17,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var reserveButton: UIButton!
     @IBOutlet weak var accentView: UIView!
-    @IBOutlet weak var infoButton: UIButton!
     
     
     //var data = [String]
@@ -39,8 +38,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         reserveButton.backgroundColor = notBlack
         reserveButton.alpha = 0.4
         
-        infoButton.layer.cornerRadius = 15
-        infoButton.alpha = 0.4
         
         accentView.backgroundColor = evqBlue
         accentView.layer.cornerRadius = 700
@@ -62,7 +59,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             } else {
                 cell.statusIndicator.backgroundColor = softRed
             }
-            cell.statusIndicator.layer.cornerRadius = 3
+            cell.statusIndicator.layer.cornerRadius = 20
 
             
         } else {
@@ -91,6 +88,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         reserveButton.isEnabled = true
         reserveButton.backgroundColor = evqBlue
         reserveButton.alpha = 1
+        let cell = tableView.cellForRow(at: indexPath) as! CustomCell
+        cell.statusIndicator.backgroundColor = softRed
     }
     
     func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
