@@ -61,7 +61,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             cell.statusIndicator.layer.cornerRadius = 20
 
-            
         } else {
             cell.name?.text = ""
             cell.status?.text = ""

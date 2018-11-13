@@ -19,12 +19,12 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         GIDSignIn.sharedInstance().uiDelegate = self
 //      GIDSignIn.sharedInstance().signIn()
         
-        let gradient = CAGradientLayer()
-        
-        gradient.frame = view.bounds
-        gradient.colors = [evqBlue.cgColor, evqTeal.cgColor]
-        
-        view.layer.insertSublayer(gradient, at: 0)
+        view.layer.insertSublayer({
+            let layer = CAGradientLayer()
+            layer.frame = view.bounds
+            layer.colors = [evqBlue.cgColor, evqTeal.cgColor]
+            return layer
+        }(), at: 0)
         
     }
     
