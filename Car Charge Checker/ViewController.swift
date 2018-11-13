@@ -127,7 +127,5 @@ class CustomCell: UITableViewCell {
     @IBOutlet weak var colorBackgroundView: UIView!
     @IBOutlet weak var statusIndicator: UIView!
     
-    
-    
 }
 
