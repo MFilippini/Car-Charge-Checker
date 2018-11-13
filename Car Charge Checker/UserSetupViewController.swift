@@ -58,6 +58,11 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         for view in backgroundViews{
             view.layer.cornerRadius = 20
         }
+        for field in textFields{
+            field.layer.borderWidth = 1
+            field.layer.borderColor = evqBlue.cgColor
+            field.layer.cornerRadius = 5
+        }
         fillNames()
     }
     
