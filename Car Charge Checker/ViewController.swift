@@ -48,13 +48,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "custom", for: indexPath) as! CustomCell
         if indexPath.row != 0 {
-            cell.identifyingImage?.image = UIImage(named: "square")
-            cell.name?.text = "Charger 1"
+            cell.name?.text = "Charger " + String(indexPath.row)
             cell.status?.text = "Reserved Until 5:00 PM"
+            
+            if(cell.status.text?.prefix(1) == "F"){
+                cell.statusIndicator.backgroundColor = toothpaste
+            } else {
+                cell.statusIndicator.backgroundColor = softRed
+            }
+            cell.statusIndicator.layer.cornerRadius = 3
+
+            
         } else {
-            cell.identifyingImage?.image = nil
             cell.name?.text = ""
             cell.status?.text = ""
+            cell.statusIndicator.backgroundColor = nil
         }
         
         
@@ -62,6 +70,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! CustomCell
+        if(cell.status.text?.prefix(1) == "F"){
+            cell.statusIndicator.backgroundColor = toothpaste
+            cell.statusIndicator.layer.cornerRadius = 3
+        } else {
+            cell.statusIndicator.backgroundColor = softRed
+            cell.statusIndicator.layer.cornerRadius = 3
+        }
+    }
+    
+    func isAvalible() -> Bool {
+        return true
     }
 
     
@@ -86,11 +110,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 class CustomCell: UITableViewCell {
     
-    @IBOutlet weak var identifyingImage: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var colorBackgroundView: UIView!
-
+    @IBOutlet weak var statusIndicator: UIView!
+    
     
     
 }
