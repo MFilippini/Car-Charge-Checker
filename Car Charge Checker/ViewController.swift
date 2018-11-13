@@ -19,7 +19,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var accentView: UIView!
     @IBOutlet weak var infoButton: UIButton!
     
-    
     //var data = [String]
     
     override func viewDidLoad() {
@@ -63,7 +62,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.name?.text = ""
             cell.status?.text = ""
         }
-        
         return cell
     }
 
