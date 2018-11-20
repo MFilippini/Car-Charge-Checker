@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		492AAD6F2188936C006976DC /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492AAD6E2188936C006976DC /* SignInViewController.swift */; };
+		498CF2DE219B7C9200F2431E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CF2DD219B7C9200F2431E /* MenuViewController.swift */; };
 		49989FEE2190A0B300F61C58 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49989FED2190A0B300F61C58 /* Color.swift */; };
 		49D3DE64218C9A2A00CE7964 /* UserSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D3DE63218C9A2A00CE7964 /* UserSetupViewController.swift */; };
 		49FD4A31217E1EC60037DC74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FD4A30217E1EC60037DC74 /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		492AAD6E2188936C006976DC /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		498CF2DD219B7C9200F2431E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		49989FED2190A0B300F61C58 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		49D3DE63218C9A2A00CE7964 /* UserSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetupViewController.swift; sourceTree = "<group>"; };
 		49DE59E92182122B00EE51DE /* Car Charge Checker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Car Charge Checker.entitlements"; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				49FD4A34217E1EC60037DC74 /* Main.storyboard */,
 				49FD4A32217E1EC60037DC74 /* ViewController.swift */,
 				49FD4A30217E1EC60037DC74 /* AppDelegate.swift */,
+				498CF2DD219B7C9200F2431E /* MenuViewController.swift */,
 				49989FED2190A0B300F61C58 /* Color.swift */,
 				49D3DE63218C9A2A00CE7964 /* UserSetupViewController.swift */,
 				492AAD6E2188936C006976DC /* SignInViewController.swift */,
@@ -213,6 +216,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -224,6 +228,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -266,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49FD4A33217E1EC60037DC74 /* ViewController.swift in Sources */,
+				498CF2DE219B7C9200F2431E /* MenuViewController.swift in Sources */,
 				49FD4A31217E1EC60037DC74 /* AppDelegate.swift in Sources */,
 				492AAD6F2188936C006976DC /* SignInViewController.swift in Sources */,
 				49989FEE2190A0B300F61C58 /* Color.swift in Sources */,

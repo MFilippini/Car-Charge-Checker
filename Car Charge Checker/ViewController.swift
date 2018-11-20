@@ -8,24 +8,31 @@
 
 import UIKit
 import Foundation
+import FirebaseAuth
+import Firebase
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
     
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var reservationDescription: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var reserveButton: UIButton!
     @IBOutlet weak var accentView: UIView!
+    @IBOutlet weak var hamburgerButton: UIButton!
     
     
     //var data = [String]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.tableView.delegate = self
         self.tableView.dataSource = self
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        slideMenuController()?.addLeftGestures()
     }
     
     func setupUI(){
@@ -33,14 +40,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         //tableView.layer.cornerRadius = 15
+        
         reserveButton.layer.cornerRadius = 15
         reserveButton.isEnabled = false
         reserveButton.backgroundColor = notBlack
         reserveButton.alpha = 0.4
         
-        
         accentView.backgroundColor = evqBlue
         accentView.layer.cornerRadius = 700
+    }
+    
+    @IBAction func signOutUser(_ sender: Any) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+        let signIn = storyboard?.instantiateViewController(withIdentifier: "SignIn")
+        slideMenuController()?.changeMainViewController(signIn!, close: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -106,6 +125,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     
+    @IBAction func hamburgerPressed(_ sender: Any) {
+        slideMenuController()?.openLeft()
+    }
     
     
     

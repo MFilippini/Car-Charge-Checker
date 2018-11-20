@@ -44,6 +44,10 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         ref = Database.database().reference()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        slideMenuController()?.removeLeftGestures()
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for field in textFields{
             field.endEditing(true)
@@ -131,8 +135,11 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         let childUpdates = ["/users/\(key)": profile,]
         ref.updateChildValues(childUpdates)
         
-        performSegue(withIdentifier: "toMainViewFromSetup", sender: nil)
-    }
+        let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+        
+        self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
+        
+        }
     
 
     

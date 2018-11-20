@@ -10,5 +10,5 @@ target 'Car Charge Checker' do
 	pod 'FirebaseUI/Phone'
     pod 'Firebase/Database'
     pod 'GoogleSignIn'
-
+    pod 'SlideMenuControllerSwift'
 end

@@ -9,8 +9,10 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import SlideMenuControllerSwift
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
@@ -26,6 +28,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         var ref: DatabaseReference!
         ref = Database.database().reference()
         
+        
+        //slide menu
+        SlideMenuOptions.contentViewScale = 1
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainViewController = storyboard.instantiateViewController(withIdentifier: "SignIn") as! SignInViewController
+        let leftViewController = storyboard.instantiateViewController(withIdentifier: "Menu") as! MenuViewController
+
+        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController)
+
+        self.window?.rootViewController = slideMenuController
+        self.window?.makeKeyAndVisible()
+
         return true
     }
     
@@ -96,7 +111,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
-

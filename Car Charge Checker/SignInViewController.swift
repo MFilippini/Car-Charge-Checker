@@ -38,6 +38,8 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
                 print(Auth.auth().currentUser)
             }
         }
+        slideMenuController()?.removeLeftGestures()
+
     }
     
     func userDataAvailable(){
@@ -45,9 +47,12 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         let ref = Database.database().reference()
         ref.child("users").child(user!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
             if(snapshot.exists()){
-                self.performSegue(withIdentifier: "toMainViewFromSignIn", sender: nil)
+                let mainView = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+                self.slideMenuController()?.changeMainViewController(mainView!, close: true)
             }else{
-                self.performSegue(withIdentifier: "toSetUpScreen", sender: nil)
+                print("toSetup")
+                let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "UserData")
+                self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
             }
         }) { (error) in
         }
@@ -93,6 +98,5 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         Auth.auth().removeStateDidChangeListener(signInListener!)
     }
-    
 
 }
