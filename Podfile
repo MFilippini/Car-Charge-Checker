@@ -5,9 +5,10 @@ target 'Car Charge Checker' do
   use_frameworks!
 
   # Pods for Car Charge Checker
+
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
-	pod 'FirebaseUI/Phone'
+    pod 'FirebaseUI/Phone'
     pod 'Firebase/Database'
     pod 'GoogleSignIn'
     pod 'SlideMenuControllerSwift'
