@@ -13,9 +13,31 @@ import Firebase
 class MenuViewController: UIViewController {
 
     @IBOutlet weak var welcomeNameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var groupsTableView: UITableView!
+    @IBOutlet weak var newGroupButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var inboxButton: UIButton!
+    
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        newGroupButton.layer.cornerRadius = 10
+        ref = Database.database().reference()
+        let userID = Auth.auth().currentUser?.uid
+        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let firstName = value?["firstName"] as? String ?? ""
+            //let user = User(username: username)
+            self.welcomeNameLabel.text = "Hello, " + firstName
+
+            
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
 
     }
     
