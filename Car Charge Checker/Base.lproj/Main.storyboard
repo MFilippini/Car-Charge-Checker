@@ -112,10 +112,10 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Go5-Ou-txE">
-                                <rect key="frame" x="20" y="823" width="306" height="39"/>
+                                <rect key="frame" x="20" y="823" width="374" height="39"/>
                                 <color key="backgroundColor" red="0.0" green="0.74509803919999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="306" id="bO5-Ph-xEP"/>
+                                    <constraint firstAttribute="width" constant="374" id="bO5-Ph-xEP"/>
                                     <constraint firstAttribute="height" constant="39" id="gSE-en-sK2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="31"/>
@@ -123,26 +123,12 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJC-pC-xPE">
-                                <rect key="frame" x="334" y="826.66666666666663" width="63" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="63" id="foz-Vz-Krw"/>
-                                    <constraint firstAttribute="height" constant="32" id="uhh-IJ-NlE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Sign Out"/>
-                                <connections>
-                                    <action selector="signOutUser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wcq-ck-Xs6"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Go5-Ou-txE" firstAttribute="top" secondItem="NB7-0y-pvm" secondAttribute="bottom" constant="8" id="8ql-CG-80Y"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NB7-0y-pvm" secondAttribute="trailing" constant="20" id="bJ7-z9-m8e"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FJC-pC-xPE" secondAttribute="trailing" constant="17" id="bY4-Ms-QQp"/>
                             <constraint firstItem="NB7-0y-pvm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="44" id="be3-hY-Qdz"/>
-                            <constraint firstItem="FJC-pC-xPE" firstAttribute="centerY" secondItem="Go5-Ou-txE" secondAttribute="centerY" id="eRD-ov-mfb"/>
                             <constraint firstItem="NB7-0y-pvm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="gzk-v1-WCC"/>
                             <constraint firstItem="Go5-Ou-txE" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="iEj-ll-ZQC"/>
                             <constraint firstAttribute="trailing" secondItem="8Ox-Mj-EUd" secondAttribute="trailing" constant="-493" id="jIj-ur-f1f"/>
@@ -164,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="852" y="-664"/>
+            <point key="canvasLocation" x="850.72463768115949" y="-664.28571428571422"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="zTE-NR-T9w">
@@ -217,6 +203,9 @@
                                             <constraint firstAttribute="width" constant="45" id="g2A-sf-bNw"/>
                                         </constraints>
                                         <state key="normal" title="Sign Out" image="signOut"/>
+                                        <connections>
+                                            <action selector="signOutClicked:" destination="2wI-Bu-DfH" eventType="touchUpInside" id="nUW-MY-UgF"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1o8-bJ-Nzx">
                                         <rect key="frame" x="105.66666666666669" y="561" width="60" height="60"/>
@@ -233,6 +222,9 @@
                                             <constraint firstAttribute="height" constant="37" id="wfU-Tg-YTE"/>
                                         </constraints>
                                         <state key="normal" title="Settings" image="settingsIcon"/>
+                                        <connections>
+                                            <action selector="settingsClicked:" destination="2wI-Bu-DfH" eventType="touchUpInside" id="bC0-GN-8j8"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -270,6 +262,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="L3M-H4-mhX"/>
                     </view>
+                    <connections>
+                        <outlet property="welcomeNameLabel" destination="NxS-HW-HeK" id="uW4-0m-WnR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E9O-A4-1Kk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
