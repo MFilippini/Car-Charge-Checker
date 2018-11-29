@@ -210,13 +210,13 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Adh-bh-CJm">
-                                        <rect key="frame" x="8" y="561" width="60" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Adh-bh-CJm">
+                                        <rect key="frame" x="21" y="570" width="45" height="42"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="4bf-FQ-sxc"/>
-                                            <constraint firstAttribute="width" constant="60" id="g2A-sf-bNw"/>
+                                            <constraint firstAttribute="height" constant="42" id="4bf-FQ-sxc"/>
+                                            <constraint firstAttribute="width" constant="45" id="g2A-sf-bNw"/>
                                         </constraints>
-                                        <state key="normal" title="Sign Out"/>
+                                        <state key="normal" title="Sign Out" image="signOut"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1o8-bJ-Nzx">
                                         <rect key="frame" x="105.66666666666669" y="561" width="60" height="60"/>
@@ -226,30 +226,30 @@
                                         </constraints>
                                         <state key="normal" title="Inbox"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VvS-jZ-cCN">
-                                        <rect key="frame" x="203" y="561" width="60" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VvS-jZ-cCN">
+                                        <rect key="frame" x="204" y="573" width="37" height="37"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="Dc5-xd-eLb"/>
-                                            <constraint firstAttribute="height" constant="60" id="wfU-Tg-YTE"/>
+                                            <constraint firstAttribute="width" constant="37" id="Dc5-xd-eLb"/>
+                                            <constraint firstAttribute="height" constant="37" id="wfU-Tg-YTE"/>
                                         </constraints>
-                                        <state key="normal" title="Settings"/>
+                                        <state key="normal" title="Settings" image="settingsIcon"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="WzZ-UI-rev" firstAttribute="centerX" secondItem="Y7l-SU-Ria" secondAttribute="centerX" id="0CA-bS-pVy"/>
-                                    <constraint firstItem="Adh-bh-CJm" firstAttribute="top" secondItem="WzZ-UI-rev" secondAttribute="bottom" constant="34" id="2eg-vh-BqS"/>
+                                    <constraint firstItem="Adh-bh-CJm" firstAttribute="top" secondItem="WzZ-UI-rev" secondAttribute="bottom" constant="43" id="2eg-vh-BqS"/>
                                     <constraint firstAttribute="trailing" secondItem="hSD-DP-OBQ" secondAttribute="trailing" constant="8" id="4AF-xz-pJZ"/>
                                     <constraint firstItem="ydk-ae-ZMv" firstAttribute="leading" secondItem="Y7l-SU-Ria" secondAttribute="leading" constant="8" id="4wb-f7-cfu"/>
                                     <constraint firstItem="NxS-HW-HeK" firstAttribute="leading" secondItem="Y7l-SU-Ria" secondAttribute="leading" constant="8" id="7Lq-q0-Qfn"/>
                                     <constraint firstItem="hSD-DP-OBQ" firstAttribute="top" secondItem="NxS-HW-HeK" secondAttribute="bottom" constant="8" id="Ap2-un-lFE"/>
                                     <constraint firstItem="ydk-ae-ZMv" firstAttribute="top" secondItem="hSD-DP-OBQ" secondAttribute="bottom" constant="8" id="Dtk-Bn-bAT"/>
                                     <constraint firstItem="1o8-bJ-Nzx" firstAttribute="centerX" secondItem="Y7l-SU-Ria" secondAttribute="centerX" id="FBE-vb-hB4"/>
-                                    <constraint firstItem="Adh-bh-CJm" firstAttribute="leading" secondItem="Y7l-SU-Ria" secondAttribute="leading" constant="8" id="HYD-dT-iFS"/>
+                                    <constraint firstItem="Adh-bh-CJm" firstAttribute="leading" secondItem="Y7l-SU-Ria" secondAttribute="leading" constant="21" id="HYD-dT-iFS"/>
                                     <constraint firstAttribute="trailing" secondItem="WzZ-UI-rev" secondAttribute="trailing" constant="8" id="JFO-kT-FLZ"/>
                                     <constraint firstItem="WzZ-UI-rev" firstAttribute="top" secondItem="ydk-ae-ZMv" secondAttribute="bottom" constant="28.670000000000002" id="Pb8-4i-dZX"/>
-                                    <constraint firstAttribute="trailing" secondItem="VvS-jZ-cCN" secondAttribute="trailing" constant="8" id="Qy9-OE-PtO"/>
-                                    <constraint firstItem="VvS-jZ-cCN" firstAttribute="top" secondItem="WzZ-UI-rev" secondAttribute="bottom" constant="34" id="TgT-sy-1w3"/>
+                                    <constraint firstAttribute="trailing" secondItem="VvS-jZ-cCN" secondAttribute="trailing" constant="30" id="Qy9-OE-PtO"/>
+                                    <constraint firstItem="VvS-jZ-cCN" firstAttribute="top" secondItem="WzZ-UI-rev" secondAttribute="bottom" constant="46" id="TgT-sy-1w3"/>
                                     <constraint firstItem="hSD-DP-OBQ" firstAttribute="leading" secondItem="Y7l-SU-Ria" secondAttribute="leading" constant="8" id="WNC-V3-6MX"/>
                                     <constraint firstAttribute="width" constant="271" id="XHY-yr-uJX"/>
                                     <constraint firstItem="1o8-bJ-Nzx" firstAttribute="top" secondItem="WzZ-UI-rev" secondAttribute="bottom" constant="34" id="bEd-Q3-Ugn"/>
@@ -539,6 +539,8 @@
     </scenes>
     <resources>
         <image name="menu" width="220" height="220"/>
+        <image name="settingsIcon" width="1536" height="1536"/>
+        <image name="signOut" width="1536" height="1536"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="keb-50-yHM"/>
