@@ -50,17 +50,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         accentView.layer.cornerRadius = 700
     }
     
-    @IBAction func signOutUser(_ sender: Any) {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-        
-        let signIn = storyboard?.instantiateViewController(withIdentifier: "SignIn")
-        slideMenuController()?.changeMainViewController(signIn!, close: true)
-    }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 7
