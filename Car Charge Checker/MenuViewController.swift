@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import GoogleSignIn
 
 class MenuViewController: UIViewController {
 
@@ -24,27 +25,34 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         newGroupButton.layer.cornerRadius = 10
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         ref = Database.database().reference()
-        let userID = Auth.auth().currentUser?.uid
-        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+        if let userID = Auth.auth().currentUser?.uid {
+        ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
             let firstName = value?["firstName"] as? String ?? ""
             //let user = User(username: username)
             self.welcomeNameLabel.text = "Hello, " + firstName
-
+            
+            print(Auth.auth().currentUser?.displayName)
             
             // ...
         }) { (error) in
             print(error.localizedDescription)
         }
-
+        }
     }
     
     @IBAction func signOutClicked(_ sender: Any) {
         let firebaseAuth = Auth.auth()
+        
         do {
             try firebaseAuth.signOut()
+            GIDSignIn.sharedInstance().signOut()
+            
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
