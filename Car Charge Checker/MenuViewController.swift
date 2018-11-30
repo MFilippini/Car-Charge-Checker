@@ -30,11 +30,7 @@ class MenuViewController: UIViewController {
             // Get user value
             let value = snapshot.value as? NSDictionary
             let firstName = value?["firstName"] as? String ?? ""
-            //let user = User(username: username)
             self.welcomeNameLabel.text = "Hello, " + firstName
-
-            
-            // ...
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -54,6 +50,7 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func settingsClicked(_ sender: Any) {
+        
     }
     
 }
