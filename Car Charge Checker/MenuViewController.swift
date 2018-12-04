@@ -62,6 +62,19 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func settingsClicked(_ sender: Any) {
+        let settings = storyboard?.instantiateViewController(withIdentifier: "Settings")
+        slideMenuController()?.changeMainViewController(settings!, close: true)
+    }
+    
+    @IBAction func homeTapped(_ sender: Any) {
+        let main = storyboard?.instantiateViewController(withIdentifier: "Main")
+        slideMenuController()?.changeMainViewController(main!, close: true)
+    }
+    
+    @IBAction func bellTapped(_ sender: Any) {
+    }
+    
+    @IBAction func createNewGroupTapped(_ sender: Any) {
     }
     
 }
