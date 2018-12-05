@@ -75,6 +75,8 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func createNewGroupTapped(_ sender: Any) {
+        let groupCreate = storyboard?.instantiateViewController(withIdentifier: "GroupCreate")
+        slideMenuController()?.changeMainViewController(groupCreate!, close: true)
     }
     
 }
