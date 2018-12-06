@@ -131,7 +131,8 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         let profile = [ "firstName": firstNameField.text,
                         "lastName": lastNameField.text,
                         "licensePlate": licensePlateField.text,
-                        "carColor": carColorTextField.text]
+                        "carColor": carColorTextField.text,
+                        "email": user?.email?.debugDescription]
         let childUpdates = ["/users/\(key)": profile,]
         ref.updateChildValues(childUpdates)
         
