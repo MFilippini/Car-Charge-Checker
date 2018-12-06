@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import GoogleSignIn
 
 class MenuViewController: UIViewController {
 
@@ -24,23 +25,33 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         newGroupButton.layer.cornerRadius = 10
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         ref = Database.database().reference()
-        let userID = Auth.auth().currentUser?.uid
-        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+        if let userID = Auth.auth().currentUser?.uid {
+        ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
             let firstName = value?["firstName"] as? String ?? ""
             self.welcomeNameLabel.text = "Hello, " + firstName
+            
+            print(Auth.auth().currentUser?.displayName)
+            
+            // ...
         }) { (error) in
             print(error.localizedDescription)
         }
-
+        }
     }
     
     @IBAction func signOutClicked(_ sender: Any) {
         let firebaseAuth = Auth.auth()
+        
         do {
             try firebaseAuth.signOut()
+            GIDSignIn.sharedInstance().signOut()
+            
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
@@ -50,7 +61,21 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func settingsClicked(_ sender: Any) {
-        
+        let settings = storyboard?.instantiateViewController(withIdentifier: "Settings")
+        slideMenuController()?.changeMainViewController(settings!, close: true)
+    }
+    
+    @IBAction func homeTapped(_ sender: Any) {
+        let main = storyboard?.instantiateViewController(withIdentifier: "Main")
+        slideMenuController()?.changeMainViewController(main!, close: true)
+    }
+    
+    @IBAction func bellTapped(_ sender: Any) {
+    }
+    
+    @IBAction func createNewGroupTapped(_ sender: Any) {
+        let groupCreate = storyboard?.instantiateViewController(withIdentifier: "GroupCreate")
+        slideMenuController()?.changeMainViewController(groupCreate!, close: true)
     }
     
 }

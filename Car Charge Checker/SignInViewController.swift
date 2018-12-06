@@ -17,7 +17,6 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance().uiDelegate = self
-//      GIDSignIn.sharedInstance().signIn()
         
         view.layer.insertSublayer({
             let layer = CAGradientLayer()
@@ -35,11 +34,9 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
                 self.userDataAvailable()
             } else {
                 print("no User")
-                print(Auth.auth().currentUser)
             }
         }
         slideMenuController()?.removeLeftGestures()
-
     }
     
     func userDataAvailable(){
@@ -76,7 +73,6 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
             // ...
             return
         }
-        
         guard let authentication = user.authentication else { return }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
