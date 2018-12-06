@@ -9,7 +9,13 @@
 import UIKit
 
 class CreateGroupViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var numberOfChargersField: UITextField!
+    @IBOutlet weak var inviteField: UITextField!
+    @IBOutlet weak var inGroupList: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
