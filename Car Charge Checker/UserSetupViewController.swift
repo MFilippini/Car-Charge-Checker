@@ -124,24 +124,39 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
     
     
     @IBAction func onSubmitClicked(_ sender: Any) {
-        print("clicked")
-        print(user!.uid)
+        
+        //setup user list
         let id = user!.uid
-        let key = ref.child("users").child(id).key!
+        let userKey = ref.child("users").child(id).key!
+        var email = user!.email
         let profile = [ "firstName": firstNameField.text,
                         "lastName": lastNameField.text,
                         "licensePlate": licensePlateField.text,
                         "carColor": carColorTextField.text,
-                        "email": user?.email?.debugDescription]
-        let childUpdates = ["/users/\(key)": profile,]
-        ref.updateChildValues(childUpdates)
+                        "email": email]
+        let childUpdatesUser = ["/users/\(userKey)": profile,]
+        ref.updateChildValues(childUpdatesUser)
+        
+        //setup email list
+        print("email setup")
+        clean(String: &email!)
+        let emailKey = ref.child("emails").child(email!).key!
+        print("key formed")
+        let childUpdateEmail = ["/emails/\(emailKey)":[id],]
+        ref.updateChildValues(childUpdateEmail)
         
         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "Main")
-        
         self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
         
         }
     
+    func clean(String: inout String){
+        let notAllowed = [".","#","$","[","]"]
+        let allowed = ["dot","pound","dollar","openBracket","closeBracket"]
+        for i in 0..<notAllowed.count{
+            String = String.replacingOccurrences(of: notAllowed[i], with: allowed[i])
+        }
+    }
 
     
 }
