@@ -214,8 +214,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJV-aU-xBg">
                                         <rect key="frame" x="-26" y="138" width="216" height="67"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Group Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TS-xL-D6F">
-                                                <rect key="frame" x="48" y="17.666666666666657" width="146" height="31.666666666666671"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TS-xL-D6F">
+                                                <rect key="frame" x="26" y="17.666666666666657" width="190" height="31.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="23"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -223,6 +223,8 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.002058630344" green="0.79325693850000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstItem="1TS-xL-D6F" firstAttribute="leading" secondItem="mJV-aU-xBg" secondAttribute="leading" constant="26" id="3R2-tt-1P7"/>
+                                            <constraint firstAttribute="trailing" secondItem="1TS-xL-D6F" secondAttribute="trailing" id="BfZ-fJ-HsS"/>
                                             <constraint firstAttribute="height" constant="67" id="Ypx-wM-lnK"/>
                                             <constraint firstItem="1TS-xL-D6F" firstAttribute="centerY" secondItem="mJV-aU-xBg" secondAttribute="centerY" id="fsb-LE-udX"/>
                                             <constraint firstAttribute="width" constant="216" id="nJg-KU-bdR"/>
@@ -231,9 +233,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFB-bc-Ue6">
                                         <rect key="frame" x="-26" y="230" width="216" height="67"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Number of Chargers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9a-V7-7FR">
-                                                <rect key="frame" x="43" y="22.666666666666657" width="156" height="22"/>
-                                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Chargers" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9a-V7-7FR">
+                                                <rect key="frame" x="26" y="2" width="190" height="63"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="23"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -243,6 +245,8 @@
                                             <constraint firstAttribute="height" constant="67" id="6FP-Ik-5UH"/>
                                             <constraint firstItem="l9a-V7-7FR" firstAttribute="centerY" secondItem="WFB-bc-Ue6" secondAttribute="centerY" id="Dpf-Ed-w8W"/>
                                             <constraint firstAttribute="width" constant="216" id="MCd-Se-wXo"/>
+                                            <constraint firstItem="l9a-V7-7FR" firstAttribute="leading" secondItem="WFB-bc-Ue6" secondAttribute="leading" constant="26" id="PKa-E3-h34"/>
+                                            <constraint firstAttribute="trailing" secondItem="l9a-V7-7FR" secondAttribute="trailing" id="czM-uD-nvp"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a new Group!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYC-L2-4JB">
@@ -267,15 +271,17 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KSQ-80-f2o">
                                         <rect key="frame" x="-26" y="322" width="216" height="67"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Insert email of invitees" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w37-qd-yeI">
-                                                <rect key="frame" x="22" y="23" width="172" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Group Members" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w37-qd-yeI">
+                                                <rect key="frame" x="26" y="2" width="190" height="63"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="23"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.002058630344" green="0.79325693850000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="w37-qd-yeI" secondAttribute="trailing" id="K6O-2K-ihh"/>
+                                            <constraint firstItem="w37-qd-yeI" firstAttribute="leading" secondItem="KSQ-80-f2o" secondAttribute="leading" constant="26" id="Pxi-t3-F0p"/>
                                             <constraint firstAttribute="width" constant="216" id="eEB-xf-RVJ"/>
                                             <constraint firstItem="w37-qd-yeI" firstAttribute="centerY" secondItem="KSQ-80-f2o" secondAttribute="centerY" id="nZs-hj-Jf3"/>
                                             <constraint firstAttribute="height" constant="67" id="wTM-W8-drr"/>
@@ -336,9 +342,12 @@
                         <viewLayoutGuide key="safeArea" id="tt0-FN-qDg"/>
                     </view>
                     <connections>
+                        <outlet property="groupMembersView" destination="KSQ-80-f2o" id="a22-ge-Jb6"/>
+                        <outlet property="groupNameView" destination="mJV-aU-xBg" id="pyo-dC-SEj"/>
                         <outlet property="inGroupList" destination="4jT-FZ-tmU" id="xyG-ez-jA4"/>
                         <outlet property="inviteField" destination="1U3-t8-feP" id="fYg-hn-XYJ"/>
                         <outlet property="nameField" destination="7VW-SU-rtT" id="6Y0-Dd-lwF"/>
+                        <outlet property="numChargersView" destination="WFB-bc-Ue6" id="8kx-hW-erQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yqp-wb-ZtA" userLabel="First Responder" sceneMemberID="firstResponder"/>

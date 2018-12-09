@@ -12,13 +12,18 @@ class CreateGroupViewController: UIViewController {
     
     
     @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var numberOfChargersField: UITextField!
     @IBOutlet weak var inviteField: UITextField!
     @IBOutlet weak var inGroupList: UITableView!
     
+    @IBOutlet weak var groupNameView: UIView!
+    @IBOutlet weak var groupMembersView: UIView!
+    @IBOutlet weak var numChargersView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        for view in [groupNameView,groupMembersView,numChargersView]{
+            view!.layer.cornerRadius = 26
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
