@@ -13,17 +13,29 @@ class CreateGroupViewController: UIViewController {
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var inviteField: UITextField!
+    
     @IBOutlet weak var inGroupList: UITableView!
     
     @IBOutlet weak var groupNameView: UIView!
     @IBOutlet weak var groupMembersView: UIView!
     @IBOutlet weak var numChargersView: UIView!
     
+    @IBOutlet weak var numChargersStepper: UIStepper!
+    @IBOutlet weak var stepperLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         for view in [groupNameView,groupMembersView,numChargersView]{
             view!.layer.cornerRadius = 26
         }
+        numChargersStepper.minimumValue = 1
+        numChargersStepper.maximumValue = 50
+        numChargersStepper.stepValue = 1
+    }
+    
+    @IBAction func stepperChanged(_ sender: Any) {
+        stepperLabel.text = String(Int(numChargersStepper.value))
     }
     
     override func viewWillAppear(_ animated: Bool) {
