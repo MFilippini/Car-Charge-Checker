@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateGroupViewController: UIViewController {
+class CreateGroupViewController: UIViewController,UITextFieldDelegate {
     
     
     @IBOutlet weak var nameField: UITextField!
@@ -23,7 +23,10 @@ class CreateGroupViewController: UIViewController {
     @IBOutlet weak var numChargersStepper: UIStepper!
     @IBOutlet weak var stepperLabel: UILabel!
     
+    @IBOutlet weak var createGroupButton: UIButton!
     
+    var textFields : [UITextField] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         for view in [groupNameView,groupMembersView,numChargersView]{
@@ -32,6 +35,33 @@ class CreateGroupViewController: UIViewController {
         numChargersStepper.minimumValue = 1
         numChargersStepper.maximumValue = 50
         numChargersStepper.stepValue = 1
+        
+        createGroupButton.layer.cornerRadius = 15
+        createGroupButton.isEnabled = false
+        createGroupButton.backgroundColor = notBlack
+        createGroupButton.alpha = 0.4
+        
+        textFields = [nameField,inviteField]
+        for field in textFields{
+            field.delegate = self
+        }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        view.addGestureRecognizer(tap)
+        
+    }
+    
+    @IBAction func groupNameChanged(_ sender: Any) {
+        let text = nameField.text
+        if(text?.isEmpty ?? false){
+            createGroupButton.isEnabled = false
+            createGroupButton.backgroundColor = notBlack
+            createGroupButton.alpha = 0.4
+        }else{
+            createGroupButton.isEnabled = true
+            createGroupButton.backgroundColor = evqBlue
+            createGroupButton.alpha = 1
+        }
     }
     
     @IBAction func stepperChanged(_ sender: Any) {
@@ -42,11 +72,19 @@ class CreateGroupViewController: UIViewController {
         slideMenuController()?.addLeftGestures()
     }
     
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        for field in textFields{
+            field.endEditing(true)
+        }
+    }
+    
     @IBAction func hamburgerTapped(_ sender: Any) {
         slideMenuController()?.openLeft()
     }
     
-
+    @IBAction func createGroupPressed(_ sender: Any) {
+    }
+    
     /*
     // MARK: - Navigation
 
