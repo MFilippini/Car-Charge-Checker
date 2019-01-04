@@ -8,8 +8,7 @@
 
 import UIKit
 
-class CreateGroupViewController: UIViewController,UITextFieldDelegate {
-    
+class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var inviteField: UITextField!
@@ -26,12 +25,16 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var createGroupButton: UIButton!
     
     var textFields : [UITextField] = []
-
+    var inGroupNames : [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         for view in [groupNameView,groupMembersView,numChargersView]{
             view!.layer.cornerRadius = 26
         }
+        
+        self.inGroupList.delegate = self
+        self.inGroupList.dataSource = self
         numChargersStepper.minimumValue = 1
         numChargersStepper.maximumValue = 50
         numChargersStepper.stepValue = 1
@@ -49,6 +52,16 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         view.addGestureRecognizer(tap)
         
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return inGroupNames.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.inGroupList.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! nameCell
+        cell.nameLabel.text = inGroupNames[indexPath.row]
+        return cell
     }
     
     @IBAction func groupNameChanged(_ sender: Any) {
@@ -82,17 +95,27 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate {
         slideMenuController()?.openLeft()
     }
     
+    @IBAction func addNameToGroupPressed(_ sender: Any) {
+        print("pressed")
+        if(inviteField.text != ""){
+            print("inside")
+            inGroupNames.insert(inviteField.text ?? "error", at: 0)
+            inviteField.text = ""
+            print("gonna reload")
+            inGroupList.reloadData()
+            print("done")
+
+        }
+    }
+    
     @IBAction func createGroupPressed(_ sender: Any) {
     }
     
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
+class nameCell: UITableViewCell{
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
 }
