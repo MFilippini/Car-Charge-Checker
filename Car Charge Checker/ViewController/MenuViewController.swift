@@ -15,6 +15,7 @@ class MenuViewController: UIViewController {
 
     @IBOutlet weak var welcomeNameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var notificationBellLabel: UILabel!
     @IBOutlet weak var groupsTableView: UITableView!
     @IBOutlet weak var newGroupButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
@@ -25,6 +26,11 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         newGroupButton.layer.cornerRadius = 10
+       // notificationBellLabel.layer.borderWidth = 3
+       // notificationBellLabel.layer.borderColor = UIColor.black.cgColor
+        notificationBellLabel.textColor = .white
+        notificationBellLabel.layer.backgroundColor = evqBlue.cgColor
+        notificationBellLabel.layer.cornerRadius = 9
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +49,10 @@ class MenuViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+       // notificationBellLabel.isHidden = true
+        //check for notifications
+        
+        
     }
     
     @IBAction func signOutClicked(_ sender: Any) {

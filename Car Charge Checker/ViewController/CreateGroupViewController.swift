@@ -124,10 +124,10 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         let id = "\(groupName)\(user!.uid)"
         let groupKey = ref.child("groups").child(id).key!
         let numChargers = Int(numChargersStepper.value)
-        inGroupNames.append(user?.email ?? "error")
         let groupInfo = [ "groupName": nameField.text,
                         "numChargers": numChargers,
-                        "membersInGroup": inGroupNames ] as [String : Any]
+                        "membersInvited": inGroupNames,
+                        "membersInGroup": ["\(user?.email ?? "error")"]] as [String : Any]
         let childUpdatesUser = ["/groups/\(groupKey)": groupInfo,]
         ref.updateChildValues(childUpdatesUser)
         
