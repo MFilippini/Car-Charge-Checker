@@ -55,10 +55,11 @@ class MenuViewController: UIViewController {
                 // Get user value
                 let value = snapshot.value as? NSDictionary
                 let requests = value?["groupRequests"] as? NSDictionary
-                
-                if(requests?.count != 0){
-                    self.notificationBellLabel.isHidden = false
-                    self.notificationBellLabel.text = String(requests?.count ?? 0)
+                if(requests != nil){
+                    if(requests?.count != 0){
+                        self.notificationBellLabel.isHidden = false
+                        self.notificationBellLabel.text = String(requests?.count ?? 0)
+                    }
                 }
                 // ...
             }) { (error) in

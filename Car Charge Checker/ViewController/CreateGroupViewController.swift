@@ -120,7 +120,8 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         //Put Data In
         
         //Data Under Groups
-        let groupName = (nameField.text?.replacingOccurrences(of: " ", with: "").lowercased())!
+        var groupName = (nameField.text?.replacingOccurrences(of: " ", with: "").lowercased())!
+        clean(String: &groupName)
         let id = "\(groupName)\(user!.uid)"
         let groupKey = ref.child("groups").child(id).key!
         let numChargers = Int(numChargersStepper.value)
