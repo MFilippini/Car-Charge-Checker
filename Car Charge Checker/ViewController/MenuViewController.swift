@@ -30,18 +30,18 @@ class MenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         ref = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
-        ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let firstName = value?["firstName"] as? String ?? ""
-            self.welcomeNameLabel.text = "Hello, " + firstName
-            
-            print(Auth.auth().currentUser?.displayName)
-            
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
-        }
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                let firstName = value?["firstName"] as? String ?? ""
+                self.welcomeNameLabel.text = "Hello, " + firstName
+                
+                print(Auth.auth().currentUser?.displayName)
+                
+                // ...
+            }) { (error) in
+                print(error.localizedDescription)
+            }
         }
     }
     

@@ -142,7 +142,7 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         clean(String: &email!)
         let emailKey = ref.child("emails").child(email!).key!
         print("key formed")
-        let childUpdateEmail = ["/emails/\(emailKey)":[id],]
+        let childUpdateEmail = ["/emails/\(emailKey)":["id":id],]
         ref.updateChildValues(childUpdateEmail)
         
         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "Main")

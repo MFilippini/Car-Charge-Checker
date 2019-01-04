@@ -120,22 +120,46 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         //Put Data In
         
         //Data Under Groups
-        let id = "\(nameField.text ?? "error")\(user!.uid)"
+        let name = (nameField.text?.replacingOccurrences(of: " ", with: "").lowercased())!
+        let id = "\(name)\(user!.uid)"
         let groupKey = ref.child("groups").child(id).key!
-        let name = nameField.text?.replacingOccurrences(of: " ", with: "")
         let numChargers = Int(numChargersStepper.value)
         inGroupNames.append(user?.email ?? "error")
-        let groupInfo = [ "groupName": name,
+        let groupInfo = [ "groupName": nameField.text,
                         "numChargers": numChargers,
                         "membersInGroup": inGroupNames ] as [String : Any]
         let childUpdatesUser = ["/groups/\(groupKey)": groupInfo,]
         ref.updateChildValues(childUpdatesUser)
         
         //Find People
-        
+        for name in inGroupNames{
+            var email = name
+            clean(String: &email)
+            print(email)
+            ref = Database.database().reference()
+            ref.child("emails").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                let foundID = value?["id"] as? String ?? "noID"
+                
+                print(foundID)
+                // ...
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+    
+        }
         //Adjust Local Data
         
         //Return to Main Screen
+    }
+    
+    func clean(String: inout String){
+        let notAllowed = [".","#","$","[","]"]
+        let allowed = ["dot","pound","dollar","openBracket","closeBracket"]
+        for i in 0..<notAllowed.count{
+            String = String.replacingOccurrences(of: notAllowed[i], with: allowed[i])
+        }
     }
     
 }
