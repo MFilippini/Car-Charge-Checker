@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource {
     
@@ -27,12 +29,17 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     var textFields : [UITextField] = []
     var inGroupNames : [String] = []
     
+    var ref: DatabaseReference!
+    let user = Auth.auth().currentUser
+
     override func viewDidLoad() {
         super.viewDidLoad()
         for view in [groupNameView,groupMembersView,numChargersView]{
             view!.layer.cornerRadius = 26
         }
         
+        ref = Database.database().reference()
+
         self.inGroupList.delegate = self
         self.inGroupList.dataSource = self
         numChargersStepper.minimumValue = 1
@@ -109,6 +116,26 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     }
     
     @IBAction func createGroupPressed(_ sender: Any) {
+        
+        //Put Data In
+        
+        //Data Under Groups
+        let id = "\(nameField.text ?? "error")\(user!.uid)"
+        let groupKey = ref.child("groups").child(id).key!
+        let name = nameField.text?.replacingOccurrences(of: " ", with: "")
+        let numChargers = Int(numChargersStepper.value)
+        inGroupNames.append(user?.email ?? "error")
+        let groupInfo = [ "groupName": name,
+                        "numChargers": numChargers,
+                        "membersInGroup": inGroupNames ] as [String : Any]
+        let childUpdatesUser = ["/groups/\(groupKey)": groupInfo,]
+        ref.updateChildValues(childUpdatesUser)
+        
+        //Find People
+        
+        //Adjust Local Data
+        
+        //Return to Main Screen
     }
     
 }

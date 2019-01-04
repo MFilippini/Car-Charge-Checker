@@ -148,7 +148,7 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "Main")
         self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
         
-        }
+    }
     
     func clean(String: inout String){
         let notAllowed = [".","#","$","[","]"]
