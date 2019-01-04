@@ -163,6 +163,8 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         self.ref.updateChildValues(childUpdates)
         //Adjust Local Data
         
+        
+        
         //Return to Main Screen
     }
     

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 class SettingsViewController: UIViewController {
 
@@ -23,6 +25,7 @@ class SettingsViewController: UIViewController {
     @IBAction func hamburgerTapped(_ sender: Any) {
         slideMenuController()?.openLeft()
     }
+    
     /*
     // MARK: - Navigation
 

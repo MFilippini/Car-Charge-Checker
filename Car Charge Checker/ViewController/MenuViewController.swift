@@ -56,9 +56,6 @@ class MenuViewController: UIViewController {
                 let value = snapshot.value as? NSDictionary
                 let requests = value?["groupRequests"] as? NSDictionary
                 
-                print("data:")
-                print(value)
-                print(requests)
                 if(requests?.count != 0){
                     self.notificationBellLabel.isHidden = false
                     self.notificationBellLabel.text = String(requests?.count ?? 0)
@@ -68,7 +65,6 @@ class MenuViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        
     }
     
     @IBAction func signOutClicked(_ sender: Any) {
@@ -97,6 +93,8 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func bellTapped(_ sender: Any) {
+        let notification = storyboard?.instantiateViewController(withIdentifier: "Notifications")
+        slideMenuController()?.changeMainViewController(notification!, close: true)
     }
     
     @IBAction func createNewGroupTapped(_ sender: Any) {
