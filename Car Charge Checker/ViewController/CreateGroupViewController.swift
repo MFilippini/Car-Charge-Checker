@@ -120,8 +120,8 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         //Put Data In
         
         //Data Under Groups
-        let name = (nameField.text?.replacingOccurrences(of: " ", with: "").lowercased())!
-        let id = "\(name)\(user!.uid)"
+        let groupName = (nameField.text?.replacingOccurrences(of: " ", with: "").lowercased())!
+        let id = "\(groupName)\(user!.uid)"
         let groupKey = ref.child("groups").child(id).key!
         let numChargers = Int(numChargersStepper.value)
         inGroupNames.append(user?.email ?? "error")
@@ -142,8 +142,13 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
                 let value = snapshot.value as? NSDictionary
                 let foundID = value?["id"] as? String ?? "noID"
                 
-                print(foundID)
-                // ...
+                
+                let key = self.ref.child("users").childByAutoId().key!
+                
+                let childUpdates = ["/users/\(foundID)/groupRequests/\(key)": id,]
+                self.ref.updateChildValues(childUpdates)
+                
+                
             }) { (error) in
                 print(error.localizedDescription)
             }
