@@ -126,6 +126,7 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         let numChargers = Int(numChargersStepper.value)
         let groupInfo = [ "groupName": nameField.text,
                         "numChargers": numChargers,
+                        "creator": "\(user?.email ?? "error")",
                         "membersInvited": inGroupNames,
                         "membersInGroup": ["\(user?.email ?? "error")"]] as [String : Any]
         let childUpdatesUser = ["/groups/\(groupKey)": groupInfo,]
@@ -154,6 +155,12 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
             }
     
         }
+        //adds creator to group
+        ref = Database.database().reference()
+        let key = self.ref.child("users").childByAutoId().key!
+        
+        let childUpdates = ["/users/\(user!.uid)/groupsIn/\(key)": id,]
+        self.ref.updateChildValues(childUpdates)
         //Adjust Local Data
         
         //Return to Main Screen

@@ -42,16 +42,32 @@ class MenuViewController: UIViewController {
                 let firstName = value?["firstName"] as? String ?? ""
                 self.welcomeNameLabel.text = "Hello, " + firstName
                 
-                print(Auth.auth().currentUser?.displayName)
-                
                 // ...
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
-       // notificationBellLabel.isHidden = true
+        notificationBellLabel.isHidden = true
         //check for notifications
-        
+        ref = Database.database().reference()
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                let requests = value?["groupRequests"] as? NSDictionary
+                
+                print("data:")
+                print(value)
+                print(requests)
+                if(requests?.count != 0){
+                    self.notificationBellLabel.isHidden = false
+                    self.notificationBellLabel.text = String(requests?.count ?? 0)
+                }
+                // ...
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
         
     }
     
