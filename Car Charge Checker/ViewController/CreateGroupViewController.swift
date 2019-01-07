@@ -105,21 +105,15 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     @IBAction func addNameToGroupPressed(_ sender: Any) {
         print("pressed")
         if(inviteField.text != ""){
-            print("inside")
             inGroupNames.insert(inviteField.text ?? "error", at: 0)
             inviteField.text = ""
-            print("gonna reload")
             inGroupList.reloadData()
-            print("done")
-
         }
     }
     
     @IBAction func createGroupPressed(_ sender: Any) {
         
-        //Put Data In
-        
-        //Data Under Groups
+        //Data To Groups
         var groupName = (nameField.text?.replacingOccurrences(of: " ", with: "").lowercased())!
         clean(String: &groupName)
         let id = "\(groupName)\(user!.uid)"
