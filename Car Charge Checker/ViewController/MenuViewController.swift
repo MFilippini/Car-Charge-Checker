@@ -11,7 +11,8 @@ import FirebaseAuth
 import Firebase
 import GoogleSignIn
 
-class MenuViewController: UIViewController {
+class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
 
     @IBOutlet weak var welcomeNameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -20,6 +21,9 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var newGroupButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var inboxButton: UIButton!
+    @IBOutlet weak var groupsCellLabel: UILabel!
+    
+    var groupsInArray: [String] = []
     
     var ref: DatabaseReference!
     
@@ -31,6 +35,7 @@ class MenuViewController: UIViewController {
         notificationBellLabel.textColor = .white
         notificationBellLabel.layer.backgroundColor = evqBlue.cgColor
         notificationBellLabel.layer.cornerRadius = 9
+        groupsTableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +70,20 @@ class MenuViewController: UIViewController {
             }) { (error) in
                 print(error.localizedDescription)
             }
+        }
+        
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                let value = snapshot.value as? NSDictionary
+                let groups = value?["groupsIn"] as? NSDictionary
+                if(groups != nil){
+                    if(groups?.count != 0){
+                        self.groupsTableView.backgroundColor = .yellow
+                        //Add data to groupsInArray
+                    }
+                }
+            })
         }
     }
     
@@ -101,6 +120,16 @@ class MenuViewController: UIViewController {
     @IBAction func createNewGroupTapped(_ sender: Any) {
         let groupCreate = storyboard?.instantiateViewController(withIdentifier: "GroupCreate")
         slideMenuController()?.changeMainViewController(groupCreate!, close: true)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //let cell = groupsTableView.dequeueReusableCell(withReuseIdentifier: "groupsCell", for: indexPath as IndexPath)
+        let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return groupsInArray.count
     }
     
 }
