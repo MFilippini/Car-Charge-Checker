@@ -21,7 +21,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var newGroupButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var inboxButton: UIButton!
-    @IBOutlet weak var groupsCellLabel: UILabel!
     
     var groupsInArray: [String] = []
     
@@ -35,7 +34,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         notificationBellLabel.textColor = .white
         notificationBellLabel.layer.backgroundColor = evqBlue.cgColor
         notificationBellLabel.layer.cornerRadius = 9
-        groupsTableView.delegate = self
+        self.groupsTableView.delegate = self
+        self.groupsTableView.dataSource = self
+        self.groupsTableView.register(UINib.init(nibName: "GroupSelectionCell", bundle: nil), forCellReuseIdentifier: "GroupSelectionCell")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,8 +48,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let value = snapshot.value as? NSDictionary
                 let firstName = value?["firstName"] as? String ?? ""
                 self.welcomeNameLabel.text = "Hello, " + firstName
-                
-                // ...
             }) { (error) in
                 print(error.localizedDescription)
             }
@@ -66,7 +66,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         self.notificationBellLabel.text = String(requests?.count ?? 0)
                     }
                 }
-                // ...
             }) { (error) in
                 print(error.localizedDescription)
             }
@@ -79,13 +78,34 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let groups = value?["groupsIn"] as? NSDictionary
                 if(groups != nil){
                     if(groups?.count != 0){
-                        self.groupsTableView.backgroundColor = .yellow
+                        //self.groupsTableView.backgroundColor = .yellow
                         //Add data to groupsInArray
+                        for (_, group) in groups!{
+                            self.groupsInArray.append(group as! String)
+                        }
                     }
                 }
-            })
+            }) { (error) in
+                print(error.localizedDescription)
+            }
         }
     }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
+        //let cell = Bundle.main.loadNibNamed("GroupSelectionCell", owner: self, options: nil)?.first as! GroupSelectionCell
+        cell.groupLabel.text = groupsInArray[indexPath.row]
+        print("here")
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return groupsInArray.count
+    }
+    
+    
+    
     
     @IBAction func signOutClicked(_ sender: Any) {
         let firebaseAuth = Auth.auth()
@@ -122,14 +142,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         slideMenuController()?.changeMainViewController(groupCreate!, close: true)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = groupsTableView.dequeueReusableCell(withReuseIdentifier: "groupsCell", for: indexPath as IndexPath)
-        let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath)
-        return cell
-    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groupsInArray.count
-    }
-    
+
 }
