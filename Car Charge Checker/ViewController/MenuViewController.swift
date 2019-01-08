@@ -36,7 +36,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         notificationBellLabel.layer.cornerRadius = 9
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
-        self.groupsTableView.register(UINib.init(nibName: "GroupSelectionCell", bundle: nil), forCellReuseIdentifier: "GroupSelectionCell")
+        //self.groupsTableView.register(UINib.init(nibName: "GroupSelectionCell", bundle: nil), forCellReuseIdentifier: "groupsCell")
         
     }
     
@@ -71,9 +71,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
         
+        
         if let userID = Auth.auth().currentUser?.uid {
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-                
+                self.groupsInArray = []
                 let value = snapshot.value as? NSDictionary
                 let groups = value?["groupsIn"] as? NSDictionary
                 if(groups != nil){
@@ -89,14 +90,15 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print(error.localizedDescription)
             }
         }
+        print(groupsInArray)
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("here")
         let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
         //let cell = Bundle.main.loadNibNamed("GroupSelectionCell", owner: self, options: nil)?.first as! GroupSelectionCell
-        cell.groupLabel.text = groupsInArray[indexPath.row]
-        print("here")
+        cell.groupNameLabel.text = groupsInArray[indexPath.row]
         return cell
     }
     
