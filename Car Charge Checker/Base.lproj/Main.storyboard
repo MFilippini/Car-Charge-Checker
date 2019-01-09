@@ -556,7 +556,7 @@
                                             <constraint firstAttribute="height" constant="280" id="fMH-kF-KNz"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="groupCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gqK-g0-Kt2" customClass="GroupSelectionCell" customModule="Car_Charge_Checker" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="groupCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="groupsCell" id="gqK-g0-Kt2" customClass="GroupSelectionCell" customModule="Car_Charge_Checker" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="231" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gqK-g0-Kt2" id="xcg-kQ-1cs">

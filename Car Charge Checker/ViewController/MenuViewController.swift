@@ -23,7 +23,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var inboxButton: UIButton!
     
     var groupsInArray: [String] = []
-    
+    var groupInNamesArray: [String] = []
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
@@ -89,8 +89,22 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }) { (error) in
                 print(error.localizedDescription)
             }
+            
+            self.groupInNamesArray = []
+            
+            for group in groupsInArray{
+                print(group)
+                ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSDictionary
+                    let name = value?["groupName"] as? String
+                    print("name: \(name)")
+                    self.groupInNamesArray.append(name ?? "error")
+                    self.groupsTableView.reloadData()
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+            }
         }
-        print(groupsInArray)
     }
     
     
@@ -98,12 +112,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         print("here")
         let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
         //let cell = Bundle.main.loadNibNamed("GroupSelectionCell", owner: self, options: nil)?.first as! GroupSelectionCell
-        cell.groupNameLabel.text = groupsInArray[indexPath.row]
+        cell.groupNameLabel.text = groupInNamesArray[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groupsInArray.count
+        return groupInNamesArray.count
     }
     
     
