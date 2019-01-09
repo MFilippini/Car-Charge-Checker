@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4916533721E650E80072D075 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4916533621E650E80072D075 /* Globals.swift */; };
 		492AAD6F2188936C006976DC /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492AAD6E2188936C006976DC /* SignInViewController.swift */; };
 		492C241C21E016A900DB88C7 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C241B21E016A900DB88C7 /* NotificationsViewController.swift */; };
 		498CF2DE219B7C9200F2431E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498CF2DD219B7C9200F2431E /* MenuViewController.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4916533621E650E80072D075 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		492AAD6E2188936C006976DC /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		492C241B21E016A900DB88C7 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		498CF2DD219B7C9200F2431E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				49FD4A34217E1EC60037DC74 /* Main.storyboard */,
 				49FD4A30217E1EC60037DC74 /* AppDelegate.swift */,
 				49989FED2190A0B300F61C58 /* Color.swift */,
+				4916533621E650E80072D075 /* Globals.swift */,
 				4995391921BACDB800949ACA /* ViewController */,
 				49DE59E92182122B00EE51DE /* Car Charge Checker.entitlements */,
 				49FD4A37217E1EC70037DC74 /* Assets.xcassets */,
@@ -295,6 +298,7 @@
 				498CF2DE219B7C9200F2431E /* MenuViewController.swift in Sources */,
 				49BE8F3A21B717A300B19F71 /* CreateGroupViewController.swift in Sources */,
 				49D1852321B5EA4C0034E239 /* SettingsViewController.swift in Sources */,
+				4916533721E650E80072D075 /* Globals.swift in Sources */,
 				49FD4A31217E1EC60037DC74 /* AppDelegate.swift in Sources */,
 				492AAD6F2188936C006976DC /* SignInViewController.swift in Sources */,
 				49989FEE2190A0B300F61C58 /* Color.swift in Sources */,
