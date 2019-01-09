@@ -9,12 +9,31 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-class NotificationsViewController: UIViewController {
-
+class NotificationsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
+    
+    @IBOutlet weak var requestsCollectionView: UICollectionView!
+    
+    var groupRequests: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestsCollectionView.delegate = self
+        requestsCollectionView.dataSource = self
+        
     }
 
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return groupRequests.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = requestsCollectionView.dequeueReusableCell(withReuseIdentifier: "requestCell", for: indexPath) as! RequestCollectionViewCell
+        
+        
+        
+        return cell
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         slideMenuController()?.addLeftGestures()
     }

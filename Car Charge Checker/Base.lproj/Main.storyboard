@@ -45,42 +45,121 @@
                                     <action selector="hamburgerTapped:" destination="aMU-yN-jBi" eventType="touchUpInside" id="rzs-gL-mf0"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0p8-W4-ike">
-                                <rect key="frame" x="24" y="145" width="370" height="693"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0p8-W4-ike">
+                                <rect key="frame" x="24.666666666666657" y="217" width="365" height="621"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="365" id="B9a-e4-Fg6"/>
+                                    <constraint firstAttribute="height" constant="621" id="tom-XI-1Pg"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mJp-6S-bdu">
-                                    <size key="itemSize" width="358" height="125"/>
+                                    <size key="itemSize" width="364" height="125"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="H5a-CS-DIh">
-                                        <rect key="frame" x="6" y="0.0" width="358" height="125"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="requestCell" id="H5a-CS-DIh" customClass="RequestCollectionViewCell" customModule="Car_Charge_Checker" customModuleProvider="target">
+                                        <rect key="frame" x="0.66666666666666663" y="0.0" width="364" height="125"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="358" height="125"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="364" height="125"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Da Boys" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6u-Gv-pZR">
+                                                    <rect key="frame" x="20" y="6" width="324" height="38"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="38" id="i9L-zg-a9Y"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="32"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Created by: Alush B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BX-sC-TlX">
+                                                    <rect key="frame" x="19" y="44" width="324" height="24"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-MediumItalic" family="Avenir Next" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Z4-WB-5PS">
+                                                    <rect key="frame" x="194" y="76" width="150" height="36"/>
+                                                    <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="hDu-9w-Y5D"/>
+                                                        <constraint firstAttribute="height" constant="36" id="pBy-BU-2Qq"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                                    <state key="normal" title="Reject">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4GE-KZ-jlY">
+                                                    <rect key="frame" x="20" y="77" width="150" height="36"/>
+                                                    <color key="backgroundColor" red="0.36730567089999999" green="0.87090386279999998" blue="0.22138129340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="Iva-pM-ZDh"/>
+                                                        <constraint firstAttribute="height" constant="36" id="h6W-cp-aAD"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                                    <state key="normal" title="Accept">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailingMargin" secondItem="b6u-Gv-pZR" secondAttribute="trailing" constant="12" id="20k-3Z-Ljc"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="2BX-sC-TlX" secondAttribute="trailing" constant="12" id="6d5-l6-sGX"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="2Z4-WB-5PS" secondAttribute="trailing" constant="12" id="PLw-5G-Zjt"/>
+                                            <constraint firstItem="b6u-Gv-pZR" firstAttribute="leading" secondItem="H5a-CS-DIh" secondAttribute="leadingMargin" constant="12" id="a5g-is-apO"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="4GE-KZ-jlY" secondAttribute="bottom" constant="4" id="apP-Ae-cbN"/>
+                                            <constraint firstItem="2BX-sC-TlX" firstAttribute="top" secondItem="b6u-Gv-pZR" secondAttribute="bottom" id="fbt-o0-hen"/>
+                                            <constraint firstItem="4GE-KZ-jlY" firstAttribute="leading" secondItem="H5a-CS-DIh" secondAttribute="leadingMargin" constant="12" id="lDp-Y7-XUK"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="2Z4-WB-5PS" secondAttribute="bottom" constant="4" id="rlT-5x-N7G"/>
+                                            <constraint firstItem="b6u-Gv-pZR" firstAttribute="top" secondItem="H5a-CS-DIh" secondAttribute="top" constant="6" id="roy-fj-Sky"/>
+                                            <constraint firstItem="2BX-sC-TlX" firstAttribute="leading" secondItem="H5a-CS-DIh" secondAttribute="leadingMargin" constant="12" id="vVU-2B-2bN"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="acceptButton" destination="4GE-KZ-jlY" id="klE-PZ-K6F"/>
+                                            <outlet property="createdByLabel" destination="2BX-sC-TlX" id="bRq-8P-LOT"/>
+                                            <outlet property="groupNameLabel" destination="b6u-Gv-pZR" id="uHc-Rd-Cxq"/>
+                                            <outlet property="rejectButton" destination="2Z4-WB-5PS" id="kjN-4i-9C5"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Requests" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpv-Uo-4S4">
+                                <rect key="frame" x="95.666666666666686" y="151" width="223" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="WQY-nG-V54"/>
+                                    <constraint firstAttribute="width" constant="223" id="sOm-2a-tOi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
+                                <color key="textColor" red="0.002058630344" green="0.79325693850000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="cpv-Uo-4S4" firstAttribute="centerX" secondItem="jgJ-uK-6fM" secondAttribute="centerX" id="7d3-SP-3z5"/>
+                            <constraint firstItem="cpv-Uo-4S4" firstAttribute="top" secondItem="8hJ-d3-Sk9" secondAttribute="bottom" constant="42" id="KgB-g2-8wL"/>
+                            <constraint firstItem="0p8-W4-ike" firstAttribute="top" secondItem="cpv-Uo-4S4" secondAttribute="bottom" constant="25" id="P79-Z1-DTA"/>
                             <constraint firstItem="8hJ-d3-Sk9" firstAttribute="top" secondItem="jgJ-uK-6fM" secondAttribute="top" id="UoA-51-nhZ"/>
                             <constraint firstItem="Wce-J6-KHh" firstAttribute="top" secondItem="s34-lj-b5o" secondAttribute="top" constant="13" id="cKJ-5l-hMK"/>
                             <constraint firstItem="Wce-J6-KHh" firstAttribute="leading" secondItem="s34-lj-b5o" secondAttribute="leading" constant="24" id="iSL-bA-HWc"/>
+                            <constraint firstItem="0p8-W4-ike" firstAttribute="centerX" secondItem="jgJ-uK-6fM" secondAttribute="centerX" id="kKm-Wi-yQ9"/>
                             <constraint firstItem="s34-lj-b5o" firstAttribute="trailing" secondItem="8hJ-d3-Sk9" secondAttribute="trailing" id="r0y-81-GLY"/>
                             <constraint firstItem="8hJ-d3-Sk9" firstAttribute="leading" secondItem="Wce-J6-KHh" secondAttribute="trailing" constant="-56" id="t3A-qf-Or7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="s34-lj-b5o"/>
                     </view>
+                    <connections>
+                        <outlet property="requestsCollectionView" destination="0p8-W4-ike" id="uob-Jw-f44"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s2s-Z4-7eG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2870" y="-664"/>
+            <point key="canvasLocation" x="2869.5652173913045" y="-664.28571428571422"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
