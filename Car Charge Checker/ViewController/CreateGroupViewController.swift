@@ -141,9 +141,10 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
                 
                 let key = self.ref.child("users").childByAutoId().key!
                 
-                let childUpdates = ["/users/\(foundID)/groupRequests/\(key)": id,]
-                self.ref.updateChildValues(childUpdates)
-                
+                if(foundID != "noID"){
+                    let childUpdates = ["/users/\(foundID)/groupRequests/\(key)": id,]
+                    self.ref.updateChildValues(childUpdates)
+                }
                 
             }) { (error) in
                 print(error.localizedDescription)
