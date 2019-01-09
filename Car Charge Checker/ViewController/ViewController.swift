@@ -20,8 +20,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var accentView: UIView!
     @IBOutlet weak var hamburgerButton: UIButton!
     
-    
-    //var data = [String]
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +52,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        ref = Database.database().reference()
+        var numberOfChargers = 0
+        if currentGroup != nil {
+            ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                numberOfChargers = (value?["numOfChargers"] as? Int)!
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+        if numberOfChargers == 0 {
+            tableView.isHidden = true
+        }
+        return numberOfChargers
         //Return total number of chargers
     }
     
