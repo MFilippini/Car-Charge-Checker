@@ -10,3 +10,4 @@ import Foundation
 import UIKit
 
 var currentGroup: String? = nil
+var numberOfChargers: Int? = 0
