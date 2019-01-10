@@ -68,7 +68,6 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        print("here")
         if let error = error {
             // ...
             return

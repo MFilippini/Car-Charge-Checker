@@ -93,11 +93,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.groupInNamesArray = []
             
             for group in groupsInArray{
-                print(group)
                 ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
                     let name = value?["groupName"] as? String
-                    print("name: \(name)")
                     self.groupInNamesArray.append(name ?? "error")
                     self.groupsTableView.reloadData()
                 }) { (error) in
@@ -109,7 +107,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("here")
         let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
         //let cell = Bundle.main.loadNibNamed("GroupSelectionCell", owner: self, options: nil)?.first as! GroupSelectionCell
         cell.groupNameLabel.text = groupInNamesArray[indexPath.row]

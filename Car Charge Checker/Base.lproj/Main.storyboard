@@ -75,8 +75,8 @@
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Created by: Alush B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BX-sC-TlX">
-                                                    <rect key="frame" x="19" y="44" width="324" height="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by: Alush B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2BX-sC-TlX">
+                                                    <rect key="frame" x="20" y="44" width="324" height="23"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-MediumItalic" family="Avenir Next" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -86,24 +86,30 @@
                                                     <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="hDu-9w-Y5D"/>
-                                                        <constraint firstAttribute="height" constant="36" id="pBy-BU-2Qq"/>
+                                                        <constraint firstAttribute="height" constant="40" id="pBy-BU-2Qq"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                     <state key="normal" title="Reject">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="rejectTapped:" destination="96N-pG-73R" eventType="touchUpInside" id="bxm-qg-ihW"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4GE-KZ-jlY">
-                                                    <rect key="frame" x="20" y="77" width="150" height="36"/>
+                                                    <rect key="frame" x="20" y="75" width="150" height="40"/>
                                                     <color key="backgroundColor" red="0.36730567089999999" green="0.87090386279999998" blue="0.22138129340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="Iva-pM-ZDh"/>
-                                                        <constraint firstAttribute="height" constant="36" id="h6W-cp-aAD"/>
+                                                        <constraint firstAttribute="height" constant="40" id="h6W-cp-aAD"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                     <state key="normal" title="Accept">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="acceptTapped:" destination="96N-pG-73R" eventType="touchUpInside" id="iDI-2i-Nns"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>
@@ -112,10 +118,10 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="2BX-sC-TlX" secondAttribute="trailing" constant="12" id="6d5-l6-sGX"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="2Z4-WB-5PS" secondAttribute="trailing" constant="12" id="PLw-5G-Zjt"/>
                                             <constraint firstItem="b6u-Gv-pZR" firstAttribute="leading" secondItem="H5a-CS-DIh" secondAttribute="leadingMargin" constant="12" id="a5g-is-apO"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="4GE-KZ-jlY" secondAttribute="bottom" constant="4" id="apP-Ae-cbN"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="4GE-KZ-jlY" secondAttribute="bottom" constant="2" id="apP-Ae-cbN"/>
                                             <constraint firstItem="2BX-sC-TlX" firstAttribute="top" secondItem="b6u-Gv-pZR" secondAttribute="bottom" id="fbt-o0-hen"/>
                                             <constraint firstItem="4GE-KZ-jlY" firstAttribute="leading" secondItem="H5a-CS-DIh" secondAttribute="leadingMargin" constant="12" id="lDp-Y7-XUK"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="2Z4-WB-5PS" secondAttribute="bottom" constant="4" id="rlT-5x-N7G"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="2Z4-WB-5PS" secondAttribute="bottom" constant="2" id="rlT-5x-N7G"/>
                                             <constraint firstItem="b6u-Gv-pZR" firstAttribute="top" secondItem="H5a-CS-DIh" secondAttribute="top" constant="6" id="roy-fj-Sky"/>
                                             <constraint firstItem="2BX-sC-TlX" firstAttribute="leading" secondItem="H5a-CS-DIh" secondAttribute="leadingMargin" constant="12" id="vVU-2B-2bN"/>
                                         </constraints>

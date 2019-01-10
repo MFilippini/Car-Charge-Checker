@@ -16,3 +16,4 @@ class RequestCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var rejectButton: UIButton!
     
 }
+
