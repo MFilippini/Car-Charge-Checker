@@ -30,45 +30,46 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.delegate = self
         self.tableView.dataSource = self
         setupUI()
-        
-        /*
- NEEDS FIXING
+        setupFirstGroup()
+    }
+    
+    func setupFirstGroup() {
+        //NEEDS FIXING
         ref = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-                self.groupsInArray = []
                 let value = snapshot.value as? NSDictionary
                 let groups = value?["groupsIn"] as? NSDictionary
                 if(groups != nil){
                     if(groups?.count != 0){
-                        //self.groupsTableView.backgroundColor = .yellow
-                        //Add data to groupsInArray
                         for (_, group) in groups!{
                             self.groupsInArray.append(group as! String)
+                            currentGroup = self.groupsInArray.first
+                            if currentGroup != nil {
+                                self.ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
+                                    let value = snapshot.value as? NSDictionary
+                                    numberOfChargers = value?["numChargers"] as? Int
+//                                  self.tableView.numberOfRows(inSection: numberOfChargers! + 1)
+                                    self.tableView.reloadData()
+                                    print(numberOfChargers)
+                                }) { (error) in
+                                    print(error.localizedDescription)
+                                }
+                            }
                         }
                     }
                 }
             }) { (error) in
                 print(error.localizedDescription)
             }
- 
- THIS LINE IS NIL IT SHOULN'T
-            currentGroup = groupsInArray.first
-            if currentGroup != nil {
-                ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let value = snapshot.value as? NSDictionary
-                    numberOfChargers = value?["numChargers"] as? Int
-                    
-                }) { (error) in
-                    print(error.localizedDescription)
-                }
-            }
         }
- */
+
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         slideMenuController()?.addLeftGestures()
+        tableView.reloadData()
     }
     
     func setupUI(){
@@ -87,6 +88,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
+
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

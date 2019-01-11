@@ -24,6 +24,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var groupsInArray: [String] = []
     var groupInNamesArray: [String] = []
+    var selectedIndexRow: Int = -1
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
@@ -110,6 +111,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
         cell.groupNameLabel.text = groupInNamesArray[indexPath.row]
+        if selectedIndexRow == indexPath.row {
+            cell.backgroundColor = itsSpelledGrey
+            cell.layer.cornerRadius = 15
+        } else {
+            cell.backgroundColor = .white
+        }
         return cell
     }
     
@@ -124,16 +131,24 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
                 numberOfChargers = value?["numChargers"] as? Int
+                let deselectIndexPath = IndexPath(row: self.selectedIndexRow, section: 0)
+                self.groupsTableView.deselectRow(at: deselectIndexPath, animated: true)
+                self.groupsTableView.cellForRow(at: deselectIndexPath)?.isSelected = false
+                self.selectedIndexRow = indexPath.row
+                self.groupsTableView.reloadData()
+                let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+                self.slideMenuController()?.changeMainViewController(main!, close: true)
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
-//        let main = storyboard?.instantiateViewController(withIdentifier: "Main")
-//        slideMenuController()?.changeMainViewController(main!, close: true)
-        
-        
     }
     
+    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+        let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
+        cell.backgroundColor = .white
+        return indexPath
+    }
     
     
     
