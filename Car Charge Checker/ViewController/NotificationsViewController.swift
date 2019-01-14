@@ -55,22 +55,17 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
                 let groups = value?["groupRequests"] as? NSDictionary
                 if(groups != nil){
                     if(groups?.count != 0){
-                        print("groups: \(groups!)")
                         for (_, group) in groups!{
-                            print("group: \(group)")
                             self.groupRequests.append(group as? String ?? "error")
                         }
                     }
                 }
                 self.groupRequestsInfo = [[String]](repeating: ["",""], count: self.groupRequests.count)
-                print("grouprequest: \(self.groupRequests)")
                 for group in self.groupRequests{
-                    print("group: \(group)")
                     self.ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
                         let value = snapshot.value as? NSDictionary
                         let name = value?["groupName"] as? String ?? "nameError"
                         let createdBy = value?["creator"] as? String ?? "createError"
-                        print("name: \(name)+\(createdBy)")
                         self.groupRequestsInfo[self.groupRequests.firstIndex(of: group) ?? 0][0] = name
                         self.groupRequestsInfo[self.groupRequests.firstIndex(of: group) ?? 0][1] = createdBy
                         self.requestsCollectionView.reloadData()
@@ -88,6 +83,47 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
     
     @IBAction func acceptTapped(_ sender: UIButton) {
         print(groupRequests[sender.tag])
+        
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                let value = snapshot.value as? NSDictionary
+                var groups = value?["groupRequests"] as? NSMutableDictionary
+                
+                for (key,group) in groups ?? [:]{
+                    if self.groupRequests[sender.tag] == group as! String{
+                        groups![key] = nil
+                    }
+                }
+                let key = self.ref.child("users").childByAutoId().key!
+                
+               self.ref.child("groups").child(self.groupRequests[sender.tag]).observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    let value = snapshot.value as? NSDictionary
+                    var inGroup = value?["membersInGroup"] as? NSMutableArray
+                    var requestedGroup = value?["membersInvited"] as? NSMutableArray
+                
+                    let email = Auth.auth().currentUser?.email
+
+                    inGroup?.add(email)
+                    requestedGroup?.remove(email)
+                
+                
+                    let childUpdates = ["/users/\(userID)/groupRequests/": groups,
+                                        "/users/\(userID)/groupsIn/\(key)": self.groupRequests[sender.tag],
+                                        "/groups/\(self.groupRequests[sender.tag])/membersInGroup/": inGroup,
+                                        "/groups/\(self.groupRequests[sender.tag])/membersInvited/": requestedGroup,] as [String : Any]
+                    self.ref.updateChildValues(childUpdates)
+                
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+                
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
         
     }
     
