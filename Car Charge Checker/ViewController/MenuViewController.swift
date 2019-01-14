@@ -24,6 +24,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var groupsInArray: [String] = []
     var groupInNamesArray: [String] = []
+    var selectedIndexRow: Int = -1
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
@@ -96,6 +97,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
                     let name = value?["groupName"] as? String
+                    //print("name: \(name)")
                     self.groupInNamesArray.append(name ?? "error")
                     self.groupsTableView.reloadData()
                 }) { (error) in
@@ -108,8 +110,13 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
-        //let cell = Bundle.main.loadNibNamed("GroupSelectionCell", owner: self, options: nil)?.first as! GroupSelectionCell
         cell.groupNameLabel.text = groupInNamesArray[indexPath.row]
+        if selectedIndexRow == indexPath.row {
+            cell.backgroundColor = itsSpelledGrey
+            cell.layer.cornerRadius = 15
+        } else {
+            cell.backgroundColor = .white
+        }
         return cell
     }
     
@@ -117,6 +124,31 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return groupInNamesArray.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        currentGroup = groupsInArray[indexPath.row]
+        ref = Database.database().reference()
+        if currentGroup != nil {
+            ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                numberOfChargers = value?["numChargers"] as? Int
+                let deselectIndexPath = IndexPath(row: self.selectedIndexRow, section: 0)
+                self.groupsTableView.deselectRow(at: deselectIndexPath, animated: true)
+                self.groupsTableView.cellForRow(at: deselectIndexPath)?.isSelected = false
+                self.selectedIndexRow = indexPath.row
+                self.groupsTableView.reloadData()
+                let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+                self.slideMenuController()?.changeMainViewController(main!, close: true)
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+        let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
+        cell.backgroundColor = .white
+        return indexPath
+    }
     
     
     

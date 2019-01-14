@@ -20,6 +20,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var accentView: UIView!
     @IBOutlet weak var hamburgerButton: UIButton!
     
+    var groupsInArray: [String] = []
+    
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
@@ -28,10 +30,46 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.delegate = self
         self.tableView.dataSource = self
         setupUI()
+        setupFirstGroup()
     }
+    
+    func setupFirstGroup() {
+        //NEEDS FIXING
+        ref = Database.database().reference()
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                let groups = value?["groupsIn"] as? NSDictionary
+                if(groups != nil){
+                    if(groups?.count != 0){
+                        for (_, group) in groups!{
+                            self.groupsInArray.append(group as! String)
+                            currentGroup = self.groupsInArray.first
+                            if currentGroup != nil {
+                                self.ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
+                                    let value = snapshot.value as? NSDictionary
+                                    numberOfChargers = value?["numChargers"] as? Int
+//                                  self.tableView.numberOfRows(inSection: numberOfChargers! + 1)
+                                    self.tableView.reloadData()
+                                    print(numberOfChargers)
+                                }) { (error) in
+                                    print(error.localizedDescription)
+                                }
+                            }
+                        }
+                    }
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         slideMenuController()?.addLeftGestures()
+        tableView.reloadData()
     }
     
     func setupUI(){
@@ -47,25 +85,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         accentView.backgroundColor = evqBlue
         accentView.layer.cornerRadius = 700
+        
     }
     
 
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        ref = Database.database().reference()
-        var numberOfChargers = 0
-        if currentGroup != nil {
-            ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
-                let value = snapshot.value as? NSDictionary
-                numberOfChargers = (value?["numOfChargers"] as? Int)!
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        }
-        if numberOfChargers == 0 {
-            tableView.isHidden = true
-        }
-        return numberOfChargers
+          return numberOfChargers! + 1
         //Return total number of chargers
     }
     
