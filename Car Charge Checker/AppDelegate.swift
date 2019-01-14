@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         //slide menu
         SlideMenuOptions.contentViewScale = 1
+        SlideMenuOptions.leftBezelWidth = 100
+        
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainViewController = storyboard.instantiateViewController(withIdentifier: "SignIn") as! SignInViewController
