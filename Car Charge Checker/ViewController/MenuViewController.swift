@@ -24,21 +24,19 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var groupsInArray: [String] = []
     var groupInNamesArray: [String] = []
+    var groupInNamesArrayTemp: [String] = []
     var selectedIndexRow: Int = -1
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         newGroupButton.layer.cornerRadius = 10
-       // notificationBellLabel.layer.borderWidth = 3
-       // notificationBellLabel.layer.borderColor = UIColor.black.cgColor
         notificationBellLabel.textColor = .white
         notificationBellLabel.layer.backgroundColor = evqBlue.cgColor
         notificationBellLabel.layer.cornerRadius = 9
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
-        //self.groupsTableView.register(UINib.init(nibName: "GroupSelectionCell", bundle: nil), forCellReuseIdentifier: "groupsCell")
-        
+        notificationBellLabel.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,7 +51,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print(error.localizedDescription)
             }
         }
-        notificationBellLabel.isHidden = true
+        
         //check for notifications
         ref = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
@@ -61,11 +59,15 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 // Get user value
                 let value = snapshot.value as? NSDictionary
                 let requests = value?["groupRequests"] as? NSDictionary
-                if(requests != nil){
-                    if(requests?.count != 0){
-                        self.notificationBellLabel.isHidden = false
+                if(requests != nil && requests?.count != 0){
+                    if((self.notificationBellLabel.text ?? "none" != String(requests?.count ?? 0)) || ((self.notificationBellLabel.text == String(requests?.count ?? 0)) && self.notificationBellLabel.isHidden)){
+                        print( "updateNotif textNow\(self.notificationBellLabel.text ?? "none") update\(String(requests?.count ?? 0)) hidden \(self.notificationBellLabel.isHidden)")
+                        
                         self.notificationBellLabel.text = String(requests?.count ?? 0)
+                        self.notificationBellLabel.isHidden = false
                     }
+                }else{
+                    self.notificationBellLabel.isHidden = true
                 }
             }) { (error) in
                 print(error.localizedDescription)
@@ -91,15 +93,18 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print(error.localizedDescription)
             }
             
-            self.groupInNamesArray = []
+            self.groupInNamesArrayTemp = []
             
             for group in groupsInArray{
                 ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
                     let name = value?["groupName"] as? String
                     //print("name: \(name)")
-                    self.groupInNamesArray.append(name ?? "error")
-                    self.groupsTableView.reloadData()
+                    self.groupInNamesArrayTemp.append(name ?? "error")
+                    if( group == self.groupsInArray[self.groupsInArray.count - 1] && self.groupInNamesArray != self.groupInNamesArrayTemp ){
+                        self.groupInNamesArray = self.groupInNamesArrayTemp
+                        self.groupsTableView.reloadData()
+                    }
                 }) { (error) in
                     print(error.localizedDescription)
                 }
@@ -110,6 +115,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
+        print("row:\(indexPath.row) \n data\(groupInNamesArray)")
         cell.groupNameLabel.text = groupInNamesArray[indexPath.row]
         if selectedIndexRow == indexPath.row {
             cell.backgroundColor = itsSpelledGrey

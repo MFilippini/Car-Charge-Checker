@@ -68,16 +68,17 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
                         let createdBy = value?["creator"] as? String ?? "createError"
                         self.groupRequestsInfo[self.groupRequests.firstIndex(of: group) ?? 0][0] = name
                         self.groupRequestsInfo[self.groupRequests.firstIndex(of: group) ?? 0][1] = createdBy
+                        
                         self.requestsCollectionView.reloadData()
                     }) { (error) in
                         print(error.localizedDescription)
                     }
                 }
+                self.requestsCollectionView.reloadData()
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
-
     }
     
     
@@ -96,8 +97,7 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
                     }
                 }
                 let key = self.ref.child("users").childByAutoId().key!
-                
-               self.ref.child("groups").child(self.groupRequests[sender.tag]).observeSingleEvent(of: .value, with: { (snapshot) in
+                self.ref.child("groups").child(self.groupRequests[sender.tag]).observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     let value = snapshot.value as? NSDictionary
                     var inGroup = value?["membersInGroup"] as? NSMutableArray
@@ -107,29 +107,58 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
 
                     inGroup?.add(email)
                     requestedGroup?.remove(email)
-                
-                
+  
                     let childUpdates = ["/users/\(userID)/groupRequests/": groups,
                                         "/users/\(userID)/groupsIn/\(key)": self.groupRequests[sender.tag],
                                         "/groups/\(self.groupRequests[sender.tag])/membersInGroup/": inGroup,
                                         "/groups/\(self.groupRequests[sender.tag])/membersInvited/": requestedGroup,] as [String : Any]
                     self.ref.updateChildValues(childUpdates)
-                
+                    self.viewWillAppear(true)
+
                 }) { (error) in
                     print(error.localizedDescription)
                 }
-                
-                
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
-        
     }
     
     @IBAction func rejectTapped(_ sender: UIButton) {
         print(groupRequests[sender.tag])
-    }
+        
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                let value = snapshot.value as? NSDictionary
+                var groups = value?["groupRequests"] as? NSMutableDictionary
+                
+                for (key,group) in groups ?? [:]{
+                    if self.groupRequests[sender.tag] == group as! String{
+                        groups![key] = nil
+                    }
+                }
+                self.ref.child("groups").child(self.groupRequests[sender.tag]).observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    let value = snapshot.value as? NSDictionary
+                    var requestedGroup = value?["membersInvited"] as? NSMutableArray
+                    
+                    let email = Auth.auth().currentUser?.email
+                    
+                    requestedGroup?.remove(email)
+                    
+                    let childUpdates = ["/users/\(userID)/groupRequests/": groups,
+                                        "/groups/\(self.groupRequests[sender.tag])/membersInvited/": requestedGroup,] as [String : Any]
+                    self.ref.updateChildValues(childUpdates)
+                    self.viewWillAppear(true)
+                    
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }    }
     
     @IBAction func hamburgerTapped(_ sender: Any) {
         slideMenuController()?.openLeft()

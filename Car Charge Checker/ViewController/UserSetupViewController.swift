@@ -23,7 +23,7 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var carColorBackgroundView: UIView!
     
     @IBOutlet weak var continueButton: UIButton!
-
+    
     var textFields : [UITextField] = []
     var backgroundViews : [UIView] = []
     let user = Auth.auth().currentUser
