@@ -48,7 +48,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 // Get user value
                 let value = snapshot.value as? NSDictionary
                 let firstName = value?["firstName"] as? String ?? ""
-                self.welcomeNameLabel.text = "Hello, " + firstName
+                self.welcomeNameLabel.text = "Hey, " + firstName + "!"
             }) { (error) in
                 print(error.localizedDescription)
             }

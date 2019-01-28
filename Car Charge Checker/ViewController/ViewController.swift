@@ -30,7 +30,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.delegate = self
         self.tableView.dataSource = self
         setupUI()
-        setupFirstGroup()
+        //setupFirstGroup()
     }
     
     func setupFirstGroup() {
@@ -158,6 +158,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         slideMenuController()?.openLeft()
     }
     
+    @IBAction func reservePressed(_ sender: Any) {
+        
+        
+    }
     
 }
 
