@@ -34,6 +34,7 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         for view in [groupNameView,groupMembersView,numChargersView]{
             view!.layer.cornerRadius = 26
         }
@@ -58,8 +59,8 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         view.addGestureRecognizer(tap)
-        
     }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return inGroupNames.count
@@ -90,6 +91,7 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         slideMenuController()?.addLeftGestures()
+
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
@@ -112,56 +114,70 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     }
     
     @IBAction func createGroupPressed(_ sender: Any) {
-        
         //Data To Groups
         var groupName = (nameField.text?.replacingOccurrences(of: " ", with: "").lowercased())!
         clean(String: &groupName)
         let id = "\(groupName)\(user!.uid)"
         let groupKey = ref.child("groups").child(id).key!
         let numChargers = Int(numChargersStepper.value)
-        let groupInfo = [ "groupName": nameField.text,
-                        "numChargers": numChargers,
-                        "creator": "\(user?.email ?? "error")",
-                        "membersInvited": inGroupNames,
-                        "membersInGroup": ["\(user?.email ?? "error")"]] as [String : Any]
-        let childUpdatesUser = ["/groups/\(groupKey)": groupInfo,]
-        ref.updateChildValues(childUpdatesUser)
         
-        //Find People
-        for name in inGroupNames{
-            var email = name
-            clean(String: &email)
-            print(email)
-            ref = Database.database().reference()
-            ref.child("emails").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
-                let value = snapshot.value as? NSDictionary
-                let foundID = value?["id"] as? String ?? "noID"
+        ref.child("groups").observeSingleEvent(of: .value, with: { (snapshot) in
+            let groups = snapshot.value as? NSDictionary
+            
+            if(groups?[groupKey] == nil){
+            
+                let groupInfo = [ "groupName": self.nameField.text,
+                                  "numChargers": numChargers,
+                                  "creator": "\(self.user?.email ?? "error")",
+                    "membersInvited": self.inGroupNames,
+                    "membersInGroup": ["\(self.user?.email ?? "error")"]] as [String : Any]
+                let childUpdatesUser = ["/groups/\(groupKey)": groupInfo,]
+                self.ref.updateChildValues(childUpdatesUser)
                 
-                
+                //Find People
+                for name in self.inGroupNames{
+                    var email = name
+                    self.clean(String: &email)
+                    print(email)
+                    self.ref = Database.database().reference()
+                    self.ref.child("emails").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
+                        // Get user value
+                        let value = snapshot.value as? NSDictionary
+                        let foundID = value?["id"] as? String ?? "noID"
+                        
+                        
+                        let key = self.ref.child("users").childByAutoId().key!
+                        
+                        if(foundID != "noID"){
+                            let childUpdates = ["/users/\(foundID)/groupRequests/\(key)": id,]
+                            self.ref.updateChildValues(childUpdates)
+                        }
+                        
+                    }) { (error) in
+                        print(error.localizedDescription)
+                    }
+                }
+                //adds creator to group
+                self.ref = Database.database().reference()
                 let key = self.ref.child("users").childByAutoId().key!
                 
-                if(foundID != "noID"){
-                    let childUpdates = ["/users/\(foundID)/groupRequests/\(key)": id,]
-                    self.ref.updateChildValues(childUpdates)
-                }
+                let childUpdates = ["/users/\(self.user!.uid)/groupsIn/\(key)": id,]
+                self.ref.updateChildValues(childUpdates)
                 
-            }) { (error) in
-                print(error.localizedDescription)
+                //Return to Main Screen
+                
+                let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+                self.slideMenuController()?.changeMainViewController(main!, close: true)
+                
+            }else{
+                let alert = UIAlertController(title: "Invalid Name", message: "You may not make two groups with the same name.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
-    
+            
+        }) { (error) in
+            print(error.localizedDescription)
         }
-        //adds creator to group
-        ref = Database.database().reference()
-        let key = self.ref.child("users").childByAutoId().key!
-        
-        let childUpdates = ["/users/\(user!.uid)/groupsIn/\(key)": id,]
-        self.ref.updateChildValues(childUpdates)
-        //Adjust Local Data
-        
-        
-        
-        //Return to Main Screen
     }
     
     func clean(String: inout String){
@@ -171,12 +187,9 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
             String = String.replacingOccurrences(of: notAllowed[i], with: allowed[i])
         }
     }
-    
-}
 
+    class nameCell: UITableViewCell{
+        @IBOutlet weak var nameLabel: UILabel!
+    }
 
-class nameCell: UITableViewCell{
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    
 }
