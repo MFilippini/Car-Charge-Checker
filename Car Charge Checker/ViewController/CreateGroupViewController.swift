@@ -94,6 +94,11 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
 
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return false
+    }
+    
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         for field in textFields{
             field.endEditing(true)
@@ -105,7 +110,6 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     }
     
     @IBAction func addNameToGroupPressed(_ sender: Any) {
-        print("pressed")
         if(inviteField.text != ""){
             inGroupNames.insert(inviteField.text ?? "error", at: 0)
             inviteField.text = ""

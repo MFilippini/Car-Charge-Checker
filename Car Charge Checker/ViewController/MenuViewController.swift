@@ -178,11 +178,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         slideMenuController()?.changeMainViewController(settings!, close: true)
     }
     
-    @IBAction func homeTapped(_ sender: Any) {
-        let main = storyboard?.instantiateViewController(withIdentifier: "Main")
-        slideMenuController()?.changeMainViewController(main!, close: true)
-    }
-    
     @IBAction func bellTapped(_ sender: Any) {
         let notification = storyboard?.instantiateViewController(withIdentifier: "Notifications")
         slideMenuController()?.changeMainViewController(notification!, close: true)
