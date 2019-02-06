@@ -11,10 +11,8 @@ import UIKit
 class ReservationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var calander: UICollectionView!
-    @IBOutlet weak var rightMonthButton: UIButton!
-    @IBOutlet weak var leftMonthButton: UIButton!
     @IBOutlet weak var monthLabel: UILabel!
-    
+    @IBOutlet weak var nextMonthButton: UIButton!
     @IBOutlet weak var reserveButton: UIButton!
     
     var currentYear = -1
@@ -24,15 +22,18 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     var daysInMonth = -1
     var lastDayInMonthWeek = -1
     
+    var firstSelectedTime = 8
+    var firstAM = true
+    var secondSelectedTime = 8
+    var secondAM = false
+    
     var shownMonth = -1
     var shownDay = -1
     
     let monthDays: NSDictionary = [1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31]
     let monthNames: NSDictionary = [1: "January", 2: "Febuary", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"]
 
-    
     var firstDayOfWeek = -1
-    
     var leapYear: Bool = false
     
     @IBOutlet weak var timeSelectionView: UIView!
@@ -42,22 +43,26 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var firstPMButton: UIButton!
     @IBOutlet weak var firstAMButton: UIButton!
     
-    
-    
-    
+    @IBOutlet weak var timeSelectionViewTwo: UIView!
+    @IBOutlet weak var secondTimeLabel: UILabel!
+    @IBOutlet weak var secondLeftButton: UIButton!
+    @IBOutlet weak var secondRightButton: UIButton!
+    @IBOutlet weak var secondAMButton: UIButton!
+    @IBOutlet weak var secondPMButton: UIButton!
+
     override func viewDidLoad() {
         //CALANDER STUFF
         super.viewDidLoad()
+        uiSetup()
+        
         calander.dataSource = self
         calander.delegate = self
         calander.allowsSelection = true
-        calander.backgroundColor = notBlack
-        
-        reserveButton.layer.cornerRadius = 10
-        
+    
         let date = Date()
         let cal = Calendar.current
         let components = cal.dateComponents([.year, .month, .day, .weekday], from: date)
+        
         currentYear =  components.year!
         currentMonth = components.month!
         shownMonth = currentMonth
@@ -72,13 +77,21 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         }
         
         monthLabel.text = monthNames[shownMonth] as? String
-        monthLabel.layer.cornerRadius = 10
+        
         let date2 = Date(timeIntervalSinceNow: Double((-currentDay + 1) * 86400))
         let components2 = cal.dateComponents([.weekday, .month, .day], from: date2)
         firstDayOfWeek = components2.weekday!
     }
     
-    
+    fileprivate func uiSetup() {
+        reserveButton.layer.cornerRadius = 10
+        timeSelectionView.layer.cornerRadius = 20
+        calander.backgroundColor = notBlack
+        monthLabel.layer.cornerRadius = 10
+        nextMonthButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        firstLeftButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        //timeSelectionView.layer.backgroundColor = notBlack.cgColor
+    }
     
     
     //**************
@@ -135,6 +148,10 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
+
+    
+    
+    
     @IBAction func previousMonth(_ sender: Any) {
         if shownMonth == currentMonth + 1 {
             shownMonth -= 1
@@ -158,10 +175,34 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
+    @IBAction func backButtonPressed(_ sender: Any) {
+    }
     
+    @IBAction func firstTimeDecrease(_ sender: Any) {
+    }
     
+    @IBAction func firstTimeIncrease(_ sender: Any) {
+    }
     
+    @IBAction func secondTimeDecrease(_ sender: Any) {
+    }
     
+    @IBAction func secondTimeIncrease(_ sender: Any) {
+    }
     
+    @IBAction func firstTimeAMPress(_ sender: Any) {
+    }
+    
+    @IBAction func firstTimePMPress(_ sender: Any) {
+    }
+    
+    @IBAction func secondTimeAMPress(_ sender: Any) {
+    }
+    
+    @IBAction func secondTimePMPress(_ sender: Any) {
+    }
+    
+    @IBAction func reservePressed(_ sender: Any) {
+    }
     
 }
