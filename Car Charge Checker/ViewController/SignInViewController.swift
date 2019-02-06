@@ -24,7 +24,6 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
             layer.colors = [evqBlue.cgColor, evqTeal.cgColor]
             return layer
         }(), at: 0)
-        
     }
     
     

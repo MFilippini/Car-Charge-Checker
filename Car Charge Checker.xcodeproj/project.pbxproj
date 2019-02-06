@@ -70,6 +70,7 @@
 		4916533821E68F260072D075 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4AC4D42221F7D35100FA5349 /* CalendarCell.swift */,
 				4A9A863F21E3ACFD004943EE /* GroupSelectionCell.swift */,
 				4916533921E68F530072D075 /* RequestCollectionViewCell.swift */,
 			);
@@ -81,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				4AC4D42021F7753200FA5349 /* ReservationViewController.swift */,
-				4AC4D42221F7D35100FA5349 /* CalendarCell.swift */,
 				49D3DE63218C9A2A00CE7964 /* UserSetupViewController.swift */,
 				49D1852221B5EA4C0034E239 /* SettingsViewController.swift */,
 				492C241B21E016A900DB88C7 /* NotificationsViewController.swift */,
@@ -473,7 +473,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Car-Charge-Checker2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -492,7 +492,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Car-Charge-Checker2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
