@@ -14,7 +14,6 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var rightMonthButton: UIButton!
     @IBOutlet weak var leftMonthButton: UIButton!
     @IBOutlet weak var monthLabel: UILabel!
-    
     @IBOutlet weak var reserveButton: UIButton!
     
     var currentYear = -1
@@ -43,6 +42,9 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var firstAMButton: UIButton!
     
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     
     override func viewDidLoad() {
@@ -135,6 +137,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
+    
     @IBAction func previousMonth(_ sender: Any) {
         if shownMonth == currentMonth + 1 {
             shownMonth -= 1
@@ -157,11 +160,4 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
 }
