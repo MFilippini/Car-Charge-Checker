@@ -89,16 +89,22 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         firstDayOfWeek = components2.weekday!
     }
     
+    fileprivate func updateTimes() {
+        firstTimeLabel.text = String(firstSelectedTime)
+        secondTimeLabel.text = String(secondSelectedTime)
+    }
+    
     fileprivate func uiSetup() {
         reserveButton.layer.cornerRadius = 10
         timeSelectionView.layer.cornerRadius = 20
+        timeSelectionViewTwo.layer.cornerRadius = 20
         calander.backgroundColor = notBlack
         monthLabel.layer.cornerRadius = 10
         nextMonthButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
-        firstLeftButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
-        //timeSelectionView.layer.backgroundColor = notBlack.cgColor
+        firstRightButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        secondRightButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        updateTimes()
     }
-    
     
     //**************
     //CALENDAR STUFF
@@ -128,6 +134,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         return cell
     }
     
+    
     @IBAction func nextMonth(_ sender: Any) {
         if shownMonth == currentMonth {
             if currentMonth == 12 {
@@ -154,9 +161,6 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
-
-    
-    
     
     @IBAction func previousMonth(_ sender: Any) {
         if shownMonth == currentMonth + 1 {
@@ -182,18 +186,35 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func firstTimeDecrease(_ sender: Any) {
+        if(firstSelectedTime>1){
+            firstSelectedTime -= 1
+            updateTimes()
+        }
     }
     
     @IBAction func firstTimeIncrease(_ sender: Any) {
+        if(firstSelectedTime<12){
+            firstSelectedTime += 1
+            updateTimes()
+        }
     }
     
     @IBAction func secondTimeDecrease(_ sender: Any) {
+        if(secondSelectedTime>1){
+            secondSelectedTime -= 1
+            updateTimes()
+        }
     }
     
     @IBAction func secondTimeIncrease(_ sender: Any) {
+        if(secondSelectedTime<12){
+            secondSelectedTime += 1
+            updateTimes()
+        }
     }
     
     @IBAction func firstTimeAMPress(_ sender: Any) {
@@ -210,5 +231,5 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     
     @IBAction func reservePressed(_ sender: Any) {
     }
-    
+
 }
