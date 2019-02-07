@@ -83,6 +83,11 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         firstDayOfWeek = components2.weekday!
     }
     
+    fileprivate func updateTimes() {
+        firstTimeLabel.text = String(firstSelectedTime)
+        secondTimeLabel.text = String(secondSelectedTime)
+    }
+    
     fileprivate func uiSetup() {
         reserveButton.layer.cornerRadius = 10
         timeSelectionView.layer.cornerRadius = 20
@@ -92,9 +97,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         nextMonthButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
         firstRightButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
         secondRightButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
-        
-        firstTimeLabel.text = String(firstSelectedTime)
-        secondTimeLabel.text = String(secondSelectedTime)
+        updateTimes()
     }
     
     //**************
@@ -181,18 +184,34 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     @IBAction func firstTimeDecrease(_ sender: Any) {
+        if(firstSelectedTime>1){
+            firstSelectedTime -= 1
+            updateTimes()
+        }
     }
     
     @IBAction func firstTimeIncrease(_ sender: Any) {
+        if(firstSelectedTime<12){
+            firstSelectedTime += 1
+            updateTimes()
+        }
     }
     
     @IBAction func secondTimeDecrease(_ sender: Any) {
-    }
-    
-    @IBAction func firstTimeAMPress(_ sender: Any) {
+        if(secondSelectedTime>1){
+            secondSelectedTime -= 1
+            updateTimes()
+        }
     }
     
     @IBAction func secondTimeIncrease(_ sender: Any) {
+        if(secondSelectedTime<12){
+            secondSelectedTime += 1
+            updateTimes()
+        }
+    }
+    
+    @IBAction func firstTimeAMPress(_ sender: Any) {
     }
     
     @IBAction func firstTimePMPress(_ sender: Any) {
