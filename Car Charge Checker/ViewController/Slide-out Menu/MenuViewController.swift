@@ -99,7 +99,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
                     let name = value?["groupName"] as? String
-                    //print("name: \(name)")
                     self.groupInNamesArrayTemp.append(name ?? "error")
                     if( group == self.groupsInArray[self.groupsInArray.count - 1] && self.groupInNamesArray != self.groupInNamesArrayTemp ){
                         self.groupInNamesArray = self.groupInNamesArrayTemp

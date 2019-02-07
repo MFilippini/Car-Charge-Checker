@@ -14,6 +14,10 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     
     var signInListener: AuthStateDidChangeListenerHandle? = nil
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance().uiDelegate = self
