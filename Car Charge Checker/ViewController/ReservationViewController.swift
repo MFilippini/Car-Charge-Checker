@@ -86,13 +86,16 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     fileprivate func uiSetup() {
         reserveButton.layer.cornerRadius = 10
         timeSelectionView.layer.cornerRadius = 20
+        timeSelectionViewTwo.layer.cornerRadius = 20
         calander.backgroundColor = notBlack
         monthLabel.layer.cornerRadius = 10
         nextMonthButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
-        firstLeftButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
-        //timeSelectionView.layer.backgroundColor = notBlack.cgColor
+        firstRightButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        secondRightButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        
+        firstTimeLabel.text = String(firstSelectedTime)
+        secondTimeLabel.text = String(secondSelectedTime)
     }
-    
     
     //**************
     //CALENDAR STUFF
@@ -122,6 +125,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         return cell
     }
     
+    
     @IBAction func nextMonth(_ sender: Any) {
         if shownMonth == currentMonth {
             if currentMonth == 12 {
@@ -148,9 +152,6 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
-
-    
-    
     
     @IBAction func previousMonth(_ sender: Any) {
         if shownMonth == currentMonth + 1 {
@@ -176,6 +177,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func firstTimeDecrease(_ sender: Any) {
@@ -187,10 +189,10 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBAction func secondTimeDecrease(_ sender: Any) {
     }
     
-    @IBAction func secondTimeIncrease(_ sender: Any) {
+    @IBAction func firstTimeAMPress(_ sender: Any) {
     }
     
-    @IBAction func firstTimeAMPress(_ sender: Any) {
+    @IBAction func secondTimeIncrease(_ sender: Any) {
     }
     
     @IBAction func firstTimePMPress(_ sender: Any) {
@@ -204,5 +206,5 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     
     @IBAction func reservePressed(_ sender: Any) {
     }
-    
+
 }

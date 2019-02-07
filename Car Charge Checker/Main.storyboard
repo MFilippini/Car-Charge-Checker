@@ -180,7 +180,7 @@
                                 <rect key="frame" x="20" y="88" width="374" height="716"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="custom" rowHeight="130" id="E2e-fM-zvP" customClass="CustomCell" customModule="Car_Charge_Checker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="custom" rowHeight="130" id="E2e-fM-zvP" customClass="CustomCell" customModule="Car_Charge_Checker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="374" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E2e-fM-zvP" id="FBF-QG-h35" customClass="CustomCell" customModule="Car_Charge_Checker" customModuleProvider="target">
@@ -424,7 +424,7 @@
                                         </constraints>
                                         <state key="normal" title="-&gt;" image="arrow"/>
                                         <connections>
-                                            <action selector="firstTimeIncrease:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="L0O-5Q-f8A"/>
+                                            <action selector="firstTimeIncrease:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="If4-Sn-7i7"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBw-I1-c6e">
@@ -445,7 +445,7 @@
                                         </constraints>
                                         <state key="normal" title="&lt;-" image="arrow"/>
                                         <connections>
-                                            <action selector="firstTimeDecrease:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="QSD-E6-b6H"/>
+                                            <action selector="firstTimeDecrease:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="zSr-6u-g3W"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yT-rn-nbh">
@@ -536,7 +536,7 @@
                                         </constraints>
                                         <state key="normal" title="Button" image="arrow"/>
                                         <connections>
-                                            <action selector="secondTimeIncrease:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="TZy-2g-jiM"/>
+                                            <action selector="secondTimeIncrease:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="r7K-be-5MR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n6X-bS-gHf">
@@ -547,7 +547,7 @@
                                         </constraints>
                                         <state key="normal" title="Button" image="arrow"/>
                                         <connections>
-                                            <action selector="secondTimeDecrease:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="HJZ-uW-9Br"/>
+                                            <action selector="secondTimeDecrease:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="oJy-X2-4zS"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3N-kQ-opa">
@@ -603,7 +603,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="arrow"/>
                                 <connections>
-                                    <action selector="backButtonPressed:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="qC2-fn-M8Y"/>
+                                    <action selector="backButtonPressed:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="ofW-Ou-31i"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -638,17 +638,17 @@
                     <connections>
                         <outlet property="calander" destination="ts2-Gs-93h" id="Up4-Pa-OW5"/>
                         <outlet property="firstAMButton" destination="LWS-yO-2Kl" id="0YZ-g1-Iiy"/>
-                        <outlet property="firstLeftButton" destination="4yq-b3-ifT" id="xqn-BL-ntI"/>
+                        <outlet property="firstLeftButton" destination="5vi-hG-crd" id="gNI-Hq-4H3"/>
                         <outlet property="firstPMButton" destination="4yT-rn-nbh" id="YnG-ic-3IQ"/>
-                        <outlet property="firstRightButton" destination="5vi-hG-crd" id="dhk-E4-B1O"/>
+                        <outlet property="firstRightButton" destination="4yq-b3-ifT" id="ixa-FL-w9V"/>
                         <outlet property="firstTimeLabel" destination="DBw-I1-c6e" id="q06-nx-AN3"/>
                         <outlet property="monthLabel" destination="3ps-ed-kdU" id="sW3-9J-HQg"/>
                         <outlet property="nextMonthButton" destination="2We-ra-PzV" id="bEf-Az-Cog"/>
                         <outlet property="reserveButton" destination="c3A-6Z-WUI" id="WNe-0X-lge"/>
                         <outlet property="secondAMButton" destination="V3N-kQ-opa" id="iLp-OY-Wlp"/>
-                        <outlet property="secondLeftButton" destination="n6X-bS-gHf" id="XRj-ER-67G"/>
+                        <outlet property="secondLeftButton" destination="n6X-bS-gHf" id="qQh-fl-Mgk"/>
                         <outlet property="secondPMButton" destination="LMM-Pf-O71" id="AXd-NM-j75"/>
-                        <outlet property="secondRightButton" destination="Ilu-wZ-TTo" id="KUy-f0-PHH"/>
+                        <outlet property="secondRightButton" destination="Ilu-wZ-TTo" id="SSv-E9-ZCc"/>
                         <outlet property="secondTimeLabel" destination="nvy-M5-ZTY" id="ZVG-c9-FXs"/>
                         <outlet property="timeSelectionView" destination="Ube-ti-IcH" id="Ubs-AI-QYS"/>
                         <outlet property="timeSelectionViewTwo" destination="SAA-66-wwM" id="xA9-8c-SsS"/>
@@ -656,7 +656,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rTs-48-ejT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="915.94202898550736" y="20.758928571428569"/>
+            <point key="canvasLocation" x="916" y="119"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="yh5-WN-UWi">
@@ -911,7 +911,7 @@
                                         <rect key="frame" x="-26" y="138" width="216" height="67"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TS-xL-D6F">
-                                                <rect key="frame" x="26" y="17.666666666666657" width="190" height="31.666666666666671"/>
+                                                <rect key="frame" x="26" y="17.666666666666657" width="190" height="32"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="23"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1574,6 +1574,6 @@
         <image name="signOut" width="1536" height="1536"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Pbj-y0-j7B"/>
+        <segue reference="keb-50-yHM"/>
     </inferredMetricsTieBreakers>
 </document>
