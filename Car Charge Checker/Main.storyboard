@@ -741,9 +741,9 @@
                     <connections>
                         <outlet property="calander" destination="ts2-Gs-93h" id="Up4-Pa-OW5"/>
                         <outlet property="firstAMButton" destination="LWS-yO-2Kl" id="0YZ-g1-Iiy"/>
-                        <outlet property="firstLeftButton" destination="4yq-b3-ifT" id="xqn-BL-ntI"/>
+                        <outlet property="firstLeftButton" destination="5vi-hG-crd" id="dhk-E4-B1O"/>
                         <outlet property="firstPMButton" destination="4yT-rn-nbh" id="YnG-ic-3IQ"/>
-                        <outlet property="firstRightButton" destination="5vi-hG-crd" id="dhk-E4-B1O"/>
+                        <outlet property="firstRightButton" destination="4yq-b3-ifT" id="xqn-BL-ntI"/>
                         <outlet property="firstTimeLabel" destination="DBw-I1-c6e" id="q06-nx-AN3"/>
                         <outlet property="monthLabel" destination="3ps-ed-kdU" id="sW3-9J-HQg"/>
                         <outlet property="nextMonthButton" destination="2We-ra-PzV" id="bEf-Az-Cog"/>

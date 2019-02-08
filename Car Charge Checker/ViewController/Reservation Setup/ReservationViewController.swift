@@ -38,8 +38,8 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     
     @IBOutlet weak var timeSelectionView: UIView!
     @IBOutlet weak var firstTimeLabel: UILabel!
-    @IBOutlet weak var firstLeftButton: UIButton!
     @IBOutlet weak var firstRightButton: UIButton!
+    @IBOutlet weak var firstLeftButton: UIButton!
     @IBOutlet weak var firstPMButton: UIButton!
     @IBOutlet weak var firstAMButton: UIButton!
     
