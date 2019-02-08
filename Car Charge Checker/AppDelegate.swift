@@ -33,14 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         //slide menu
         SlideMenuOptions.contentViewScale = 1
         SlideMenuOptions.leftBezelWidth = 100
-        
+        SlideMenuOptions.simultaneousGestureRecognizers = false
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainViewController = storyboard.instantiateViewController(withIdentifier: "SignIn") as! SignInViewController
         let leftViewController = storyboard.instantiateViewController(withIdentifier: "Menu") as! MenuViewController
 
         let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController)
-
+        
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
 

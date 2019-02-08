@@ -34,6 +34,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         usersReservationsCollectionView.dataSource = self
         todaysReservationsCollectionView.delegate = self
         todaysReservationsCollectionView.dataSource = self
+        
         setupUI()
     }
     
