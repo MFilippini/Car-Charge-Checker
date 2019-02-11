@@ -231,8 +231,9 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     @IBAction func firstTimePMPress(_ sender: Any) {
-        firstAM = false
-
+        if(firstAM){
+            firstAM = false
+        }
     }
     
     @IBAction func secondTimeAMPress(_ sender: Any) {
