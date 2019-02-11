@@ -192,8 +192,8 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         }
     }
 
-    class nameCell: UITableViewCell{
-        @IBOutlet weak var nameLabel: UILabel!
-    }
+}
 
+class nameCell: UITableViewCell{
+    @IBOutlet weak var nameLabel: UILabel!
 }

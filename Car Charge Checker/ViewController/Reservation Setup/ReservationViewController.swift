@@ -23,8 +23,10 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     var lastDayInMonthWeek = -1
     
     var firstSelectedTime = 8
+    var firstTrueTime = 8
     var firstAM = true
     var secondSelectedTime = 8
+    var secondTrueTime = 20
     var secondAM = false
     
     var shownMonth = -1
@@ -89,13 +91,10 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         firstDayOfWeek = components2.weekday!
     }
     
-    fileprivate func updateTimes() {
-        firstTimeLabel.text = String(firstSelectedTime)
-        secondTimeLabel.text = String(secondSelectedTime)
-    }
-    
     fileprivate func uiSetup() {
         reserveButton.layer.cornerRadius = 10
+        reserveButton.isEnabled = false
+        reserveButton.layer.backgroundColor = softRed.cgColor
         timeSelectionView.layer.cornerRadius = 20
         timeSelectionViewTwo.layer.cornerRadius = 20
         calander.backgroundColor = notBlack
@@ -185,6 +184,12 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
+    fileprivate func updateTimes() {
+        firstTimeLabel.text = String(firstSelectedTime)
+        secondTimeLabel.text = String(secondSelectedTime)
+        
+    }
+    
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -218,9 +223,16 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     @IBAction func firstTimeAMPress(_ sender: Any) {
+        firstAM = true
+        if(firstTrueTime>12){
+            firstTrueTime -= 12
+        }
+        
     }
     
     @IBAction func firstTimePMPress(_ sender: Any) {
+        firstAM = false
+
     }
     
     @IBAction func secondTimeAMPress(_ sender: Any) {
@@ -229,7 +241,19 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBAction func secondTimePMPress(_ sender: Any) {
     }
     
+    func buttonSelected(button:UIButton){
+        button.layer.backgroundColor = evqBlue.cgColor
+        button.tintColor = .white
+    }
+    
+    func buttonDeselected(button:UIButton){
+        button.layer.backgroundColor = notBlack.cgColor
+        button.tintColor = .white
+    }
+    
+    
     @IBAction func reservePressed(_ sender: Any) {
+        
     }
 
 }
