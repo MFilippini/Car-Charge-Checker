@@ -24,6 +24,8 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var continueButton: UIButton!
     
+    let defaults = UserDefaults.standard
+    
     var textFields : [UITextField] = []
     var backgroundViews : [UIView] = []
     let user = Auth.auth().currentUser
@@ -132,6 +134,20 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         firstName = firstNameField.text
         lastName = lastNameField.text
         userEmail = email
+        
+        if let encoded = try? JSONEncoder().encode(firstName) {
+            defaults.set(encoded, forKey: "firstName")
+        }
+        
+        if let encoded = try? JSONEncoder().encode(lastName) {
+            defaults.set(encoded, forKey: "lastName")
+        }
+        
+        if let encoded = try? JSONEncoder().encode(userEmail) {
+            defaults.set(encoded, forKey: "firstName")
+        }
+        
+        
         let profile = [ "firstName": firstNameField.text,
                         "lastName": lastNameField.text,
                         "licensePlate": licensePlateField.text,

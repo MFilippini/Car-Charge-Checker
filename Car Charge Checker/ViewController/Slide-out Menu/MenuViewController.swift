@@ -28,6 +28,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var selectedIndexRow: Int = -1
     var ref: DatabaseReference!
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         newGroupButton.layer.cornerRadius = 10
@@ -37,6 +39,11 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
         notificationBellLabel.isHidden = true
+        if let savedData = defaults.object(forKey: "firstName") as? Data {
+            if let decoded = try? JSONDecoder().decode(String.self, from: savedData) {
+                firstName = decoded
+            }
+        }
         self.welcomeNameLabel.text = "Hey, " + firstName! + "!"
     }
     
