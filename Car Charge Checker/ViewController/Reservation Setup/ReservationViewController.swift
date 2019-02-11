@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FirebaseAuth
+import Firebase
+import GoogleSignIn
 
 class ReservationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -23,11 +26,11 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     var lastDayInMonthWeek = -1
     
     var firstSelectedTime = 8
-    var firstTrueTime = 8
-    var firstAM = true
+    var firstTrueTime = 20
+    var firstAM = false
     var secondSelectedTime = 8
-    var secondTrueTime = 20
-    var secondAM = false
+    var secondTrueTime = 8
+    var secondAM = true
     
     var shownMonth = -1
     var shownDay = -1
@@ -89,12 +92,15 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         let date2 = Date(timeIntervalSinceNow: Double((-currentDay + 1) * 86400))
         let components2 = cal.dateComponents([.weekday, .month, .day], from: date2)
         firstDayOfWeek = components2.weekday!
+        
+        firstTimeAMPress(0)
+        secondTimePMPress(0)
     }
     
     fileprivate func uiSetup() {
         reserveButton.layer.cornerRadius = 10
         reserveButton.isEnabled = false
-        reserveButton.layer.backgroundColor = softRed.cgColor
+        reserveButton.layer.backgroundColor = toothpaste.cgColor
         timeSelectionView.layer.cornerRadius = 20
         timeSelectionViewTwo.layer.cornerRadius = 20
         calander.backgroundColor = notBlack
@@ -187,7 +193,17 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     fileprivate func updateTimes() {
         firstTimeLabel.text = String(firstSelectedTime)
         secondTimeLabel.text = String(secondSelectedTime)
-        
+        updateReserveButton()
+    }
+    
+    func updateReserveButton(){
+        if(firstTrueTime<secondTrueTime/*and date is not before today*/){
+            reserveButton.isEnabled = true
+            reserveButton.alpha = 1
+        }else{
+            reserveButton.isEnabled = false
+            reserveButton.alpha = 0.65
+        }
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -197,64 +213,116 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBAction func firstTimeDecrease(_ sender: Any) {
         if(firstSelectedTime>1){
             firstSelectedTime -= 1
-            updateTimes()
+            firstTrueTime -= 1
+        }else{
+            firstSelectedTime += 11
+            firstTrueTime += 11
         }
+        updateTimes()
     }
     
     @IBAction func firstTimeIncrease(_ sender: Any) {
         if(firstSelectedTime<12){
             firstSelectedTime += 1
-            updateTimes()
+            firstTrueTime += 1
+        }else{
+            firstSelectedTime -= 11
+            firstTrueTime -= 11
         }
+        updateTimes()
     }
     
     @IBAction func secondTimeDecrease(_ sender: Any) {
         if(secondSelectedTime>1){
             secondSelectedTime -= 1
-            updateTimes()
+            secondTrueTime -= 1
+        }else{
+            secondSelectedTime += 11
+            secondTrueTime += 11
         }
+        updateTimes()
     }
     
     @IBAction func secondTimeIncrease(_ sender: Any) {
         if(secondSelectedTime<12){
             secondSelectedTime += 1
-            updateTimes()
+            secondTrueTime += 1
+        }else{
+            secondSelectedTime -= 11
+            secondTrueTime -= 11
         }
+        updateTimes()
     }
     
     @IBAction func firstTimeAMPress(_ sender: Any) {
-        firstAM = true
-        if(firstTrueTime>12){
+        if(!firstAM){
+            firstAM = true
+            buttonSelected(button: firstAMButton)
+            buttonDeselected(button: firstPMButton)
             firstTrueTime -= 12
+            updateReserveButton()
         }
-        
     }
     
     @IBAction func firstTimePMPress(_ sender: Any) {
         if(firstAM){
             firstAM = false
+            buttonSelected(button: firstPMButton)
+            buttonDeselected(button: firstAMButton)
+            firstTrueTime += 12
+            updateReserveButton()
         }
     }
     
     @IBAction func secondTimeAMPress(_ sender: Any) {
+        if(!secondAM){
+            secondAM = true
+            buttonSelected(button: secondAMButton)
+            buttonDeselected(button: secondPMButton)
+            secondTrueTime -= 12
+            updateReserveButton()
+        }
     }
     
     @IBAction func secondTimePMPress(_ sender: Any) {
+        if(secondAM){
+            secondAM = false
+            buttonSelected(button: secondPMButton)
+            buttonDeselected(button: secondAMButton)
+            secondTrueTime += 12
+            updateReserveButton()
+        }
     }
     
     func buttonSelected(button:UIButton){
-        button.layer.backgroundColor = evqBlue.cgColor
+        button.layer.backgroundColor = notBlack.cgColor
+        button.layer.cornerRadius = 4
+        button.layer.borderColor = evqBlue.cgColor
+        button.layer.borderWidth = 2
         button.tintColor = .white
     }
     
     func buttonDeselected(button:UIButton){
         button.layer.backgroundColor = notBlack.cgColor
+        button.layer.cornerRadius = 4
+        button.layer.borderColor = notBlack.cgColor
+        button.layer.borderWidth = 2
         button.tintColor = .white
     }
     
     
     @IBAction func reservePressed(_ sender: Any) {
         
+        // check if time is available
+        
+        //create reservation
+        let profile = [ "date": "",
+                        "startTime": String(firstTrueTime),
+                        "endTime": String(secondTrueTime),
+                        "person": userEmail ?? "error"]
+        
+        //add to
     }
 
+    
 }
