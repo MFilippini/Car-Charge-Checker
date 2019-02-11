@@ -83,6 +83,8 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
     
     
     @IBAction func acceptTapped(_ sender: UIButton) {
+        print(groupRequests)
+        print(sender.tag)
         print(groupRequests[sender.tag])
         
         if let userID = Auth.auth().currentUser?.uid {

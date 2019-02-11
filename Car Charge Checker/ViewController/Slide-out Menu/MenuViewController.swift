@@ -107,6 +107,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let value = snapshot.value as? NSDictionary
                     let name = value?["groupName"] as? String
                     self.groupInNamesArrayTemp.append(name ?? "error")
+                    print(self.groupsInArray.count - 1)
+                    print(self.groupsInArray)
                     if( group == self.groupsInArray[self.groupsInArray.count - 1] && self.groupInNamesArray != self.groupInNamesArrayTemp ){
                         self.groupInNamesArray = self.groupInNamesArrayTemp
                         self.groupsTableView.reloadData()
