@@ -59,6 +59,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                 let value = snapshot.value as? NSDictionary
                                 let name = value?["groupName"] as? String
                                 self.selectedGroupLabel.text = name
+                                self.selectedGroupLabel.alpha = 0
+                                UIView.animate(withDuration: 0.5) {
+                                    self.selectedGroupLabel.alpha = 1
+                                }
                             }) { (error) in
                                 print(error.localizedDescription)
                             }
