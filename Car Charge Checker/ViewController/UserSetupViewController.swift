@@ -129,6 +129,9 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         let id = user!.uid
         let userKey = ref.child("users").child(id).key!
         var email = user!.email
+        firstName = firstNameField.text
+        lastName = lastNameField.text
+        userEmail = email
         let profile = [ "firstName": firstNameField.text,
                         "lastName": lastNameField.text,
                         "licensePlate": licensePlateField.text,
@@ -145,7 +148,7 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         let childUpdateEmail = ["/emails/\(emailKey)":["id":id],]
         ref.updateChildValues(childUpdateEmail)
         
-        let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+        let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
         self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
         
     }
