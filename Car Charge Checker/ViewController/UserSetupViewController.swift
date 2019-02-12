@@ -135,17 +135,11 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         lastName = lastNameField.text
         userEmail = email
         
-        if let encoded = try? JSONEncoder().encode(firstName) {
-            defaults.set(encoded, forKey: "firstName")
-        }
         
-        if let encoded = try? JSONEncoder().encode(lastName) {
-            defaults.set(encoded, forKey: "lastName")
-        }
+        defaults.set(firstName, forKey: "firstName")
+        defaults.set(lastName, forKey: "lastName")
+        defaults.set(userEmail, forKey: "email")
         
-        if let encoded = try? JSONEncoder().encode(userEmail) {
-            defaults.set(encoded, forKey: "firstName")
-        }
         
         
         let profile = [ "firstName": firstNameField.text,

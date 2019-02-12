@@ -32,6 +32,9 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     var secondTrueTime = 8
     var secondAM = true
     
+    var selectedDate = 0
+    var selectedMonth = 0
+    
     var shownMonth = -1
     var shownDay = -1
     
@@ -139,6 +142,10 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         return cell
     }
     
+    public func dateSelected(date: Int){
+        print(date)
+        selectedDate = date
+    }
     
     @IBAction func nextMonth(_ sender: Any) {
         if shownMonth == currentMonth {
@@ -170,6 +177,8 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBAction func previousMonth(_ sender: Any) {
         if shownMonth == currentMonth + 1 {
             shownMonth -= 1
+            self.calander.alpha = 1
+            self.monthLabel.alpha = 1
             UIView.animate(withDuration: 1) {
                 self.calander.alpha = 0
                 self.monthLabel.alpha = 0

@@ -14,3 +14,5 @@ var numberOfChargers: Int? = 0
 var firstName: String? = ""
 var lastName: String? = ""
 var userEmail: String? = ""
+var groupID: String? = ""
+

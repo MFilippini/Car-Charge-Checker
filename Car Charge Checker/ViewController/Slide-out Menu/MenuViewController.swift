@@ -39,11 +39,18 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
         notificationBellLabel.isHidden = true
-        if let savedData = defaults.object(forKey: "firstName") as? Data {
-            if let decoded = try? JSONDecoder().decode(String.self, from: savedData) {
-                firstName = decoded
-            }
+//        if let savedData = defaults.object(forKey: "firstName") as? Data {
+//            if let decoded = try? JSONDecoder().decode(String.self, from: savedData) {
+//                firstName = decoded
+//            }
+//        }
+        
+        let defaults = UserDefaults.standard
+        if let first = defaults.string(forKey: "firstName") {
+            firstName = first // Some String Value
         }
+        
+        
         self.welcomeNameLabel.text = "Hey, " + firstName! + "!"
     }
     

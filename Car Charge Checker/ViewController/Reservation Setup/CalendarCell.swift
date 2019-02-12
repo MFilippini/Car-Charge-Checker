@@ -18,14 +18,13 @@ class CalendarCell: UICollectionViewCell {
             if self.isSelected && self.isSelectable
             {
                 self.backgroundColor = evqBlue
+                ReservationViewController().dateSelected(date: Int(self.numberLabel.text!)!)
                 if self.numberLabel.textColor == evqBlue {
                     self.numberLabel.textColor = notBlack
                 }
                 
                 //This block will be executed whenever the cell’s selection state is set to true (i.e For the selected cell)
-            }
-            else
-            {
+            } else {
                 self.backgroundColor = nil
                 if self.numberLabel.textColor == notBlack {
                     self.numberLabel.textColor = evqBlue
