@@ -145,6 +145,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     public func dateSelected(date: Int){
         print(date)
         selectedDate = date
+        print(selectedDate)
     }
     
     @IBAction func nextMonth(_ sender: Any) {
@@ -323,7 +324,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBAction func reservePressed(_ sender: Any) {
         
         // check if time is available
-        
+        print("date: \(selectedDate) month: \(shownMonth)")
         //create reservation
         let profile = [ "date": "",
                         "startTime": String(firstTrueTime),

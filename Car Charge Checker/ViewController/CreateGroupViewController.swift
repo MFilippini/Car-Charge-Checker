@@ -149,10 +149,11 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
                         let value = snapshot.value as? NSDictionary
                         let foundID = value?["id"] as? String ?? "noID"
                         
-                        
                         let key = self.ref.child("users").childByAutoId().key!
                         
-                        if(foundID != "noID"){
+                        var creatorsEmail = self.user!.email ?? ""
+                        self.clean(String: &creatorsEmail)
+                        if(foundID != "noID" && email != creatorsEmail){
                             let childUpdates = ["/users/\(foundID)/groupRequests/\(key)": id,]
                             self.ref.updateChildValues(childUpdates)
                         }
