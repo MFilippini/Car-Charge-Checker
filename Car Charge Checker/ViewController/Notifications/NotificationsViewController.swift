@@ -32,13 +32,15 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
     let cell = requestsCollectionView.dequeueReusableCell(withReuseIdentifier: "requestCell", for: indexPath) as! RequestCollectionViewCell
         cell.groupNameLabel.text = groupRequestsInfo[indexPath.row][0]
         cell.createdByLabel.text = "Created By: \(groupRequestsInfo[indexPath.row][1])"
-        
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = notBlack.cgColor
         cell.acceptButton.backgroundColor = toothpaste
         cell.rejectButton.backgroundColor = softRed
         cell.acceptButton.layer.cornerRadius = 10
         cell.rejectButton.layer.cornerRadius = 10
         cell.acceptButton.tag = indexPath.row
         cell.rejectButton.tag = indexPath.row
+        cell.layer.cornerRadius = 12
         
         return cell
     }
