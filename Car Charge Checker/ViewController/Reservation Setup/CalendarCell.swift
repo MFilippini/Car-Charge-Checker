@@ -22,7 +22,6 @@ class CalendarCell: UICollectionViewCell {
                 if self.numberLabel.textColor == evqBlue {
                     self.numberLabel.textColor = notBlack
                 }
-                
                 //This block will be executed whenever the cell’s selection state is set to true (i.e For the selected cell)
             } else {
                 self.backgroundColor = nil

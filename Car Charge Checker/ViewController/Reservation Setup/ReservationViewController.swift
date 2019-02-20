@@ -32,7 +32,6 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     var secondTrueTime = 8
     var secondAM = true
     
-    var selectedDate = 0
     var selectedMonth = 0
     
     var shownMonth = -1
@@ -44,6 +43,9 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     var firstDayOfWeek = -1
     var leapYear: Bool = false
     
+    let user = Auth.auth().currentUser
+    var ref: DatabaseReference!
+
     @IBOutlet weak var timeSelectionView: UIView!
     @IBOutlet weak var firstTimeLabel: UILabel!
     @IBOutlet weak var firstRightButton: UIButton!
@@ -63,6 +65,9 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         return .lightContent
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        currentlySelectedDate = -1
+    }
     
     override func viewDidLoad() {
         //CALANDER STUFF
@@ -122,6 +127,10 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         return 42
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        updateReserveButton()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = calander.dequeueReusableCell(withReuseIdentifier: "calanderCell", for: indexPath) as! CalendarCell
         cell.layer.cornerRadius = 28
@@ -143,9 +152,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     public func dateSelected(date: Int){
-        print(date)
-        selectedDate = date
-        print(selectedDate)
+        currentlySelectedDate = date
     }
     
     @IBAction func nextMonth(_ sender: Any) {
@@ -171,6 +178,8 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
                 self.calander.alpha = 1
                 self.monthLabel.alpha = 1
             }
+            currentlySelectedDate = -1
+            updateReserveButton()
         }
     }
     
@@ -197,6 +206,8 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
                 self.calander.alpha = 1
                 self.monthLabel.alpha = 1
             }
+            currentlySelectedDate = -1
+            updateReserveButton()
         }
     }
     
@@ -207,7 +218,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func updateReserveButton(){
-        if(firstTrueTime<secondTrueTime/*and date is not before today*/){
+        if((firstTrueTime<secondTrueTime) && !(currentMonth == shownMonth && currentlySelectedDate < shownDay) && (currentlySelectedDate != -1) ){
             reserveButton.isEnabled = true
             reserveButton.alpha = 1
         }else{
@@ -323,16 +334,69 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     
     @IBAction func reservePressed(_ sender: Any) {
         
+        ref = Database.database().reference()
         // check if time is available
-        print("date: \(selectedDate) month: \(shownMonth)")
-        //create reservation
-        let profile = [ "date": "",
+        print("date: \(currentlySelectedDate) month: \(shownMonth)")
+        let currentDate = Calendar.current.dateComponents([.month, .day, .year], from: Date())
+        let currentDateString = "\(currentDate.value(for: .month) ?? -1),\(currentDate.value(for: .day) ?? -1),\(currentDate.value(for: .year) ?? -1)"
+        let newRes = [ "dayOfRes": "\(currentlySelectedDate)",
+                        "monthOfRes": "\(shownMonth)",
+                        "resMadeOn":  currentDateString ,
                         "startTime": String(firstTrueTime),
                         "endTime": String(secondTrueTime),
-                        "person": userEmail ?? "error"]
+                        "person": user?.uid ?? "error"]
+        print(newRes)
+        print(currentGroup)
         
-        //add to
-    }
+        let key = self.ref.child("groups").child(currentGroup ?? "error").child("reservations").childByAutoId().key!
+        
+        let childUpdates = ["/groups/\(currentGroup ?? "error")/reservations/\(key)": newRes,]
+       // self.ref.updateChildValues(childUpdates)
+        
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("groups").child(currentGroup ?? "error").child("reservations").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let values = snapshot.value as? NSDictionary
+                var maxChargerUsage = 0
+                var chargerUseAtTime = 0
+                
+                for time in self.firstTrueTime...self.secondTrueTime{
+                    for (resNum, reservation) in values ?? [:]{
+                        let res = reservation as! [String:String]
+                        let monthOfSetRes = Int(res["monthOfRes"] ?? "") ?? 0
+                        let dayOfSetRes = Int(res["dayOfRes"] ?? "") ?? 0
+                        if(monthOfSetRes == self.shownMonth && dayOfSetRes == currentlySelectedDate){
+                            let startTime = Int(res["startTime"] ?? "25") ?? 25
+                            let endTime = Int(res["endTime"] ?? "-1" ) ?? -1
+                            
+                            if(time >= startTime && time < endTime){
+                                chargerUseAtTime += 1
+                            }
+                            
+                            print("values: \(values) start: \(startTime) end: \(endTime)")
+                        }
+                    }
+                    if(chargerUseAtTime > maxChargerUsage){
+                        maxChargerUsage = chargerUseAtTime
+                    }
+                    chargerUseAtTime = 0
+                }
+                if(maxChargerUsage >= numberOfChargers ?? 0){
+                    let alert = UIAlertController(title: "Invalid Time", message: "The chargers are full during this time.", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }else{
+                    self.ref.updateChildValues(childUpdates)
+                }
+                print("charger Use at time\(maxChargerUsage) chargers for group\(numberOfChargers ?? 90)")
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
 
-    
+        
+        
+        
+        
+    }
 }
