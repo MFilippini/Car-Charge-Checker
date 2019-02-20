@@ -151,6 +151,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
                 numberOfChargers = value?["numChargers"] as? Int
+                print("numChargers: \(numberOfChargers)")
                 let deselectIndexPath = IndexPath(row: self.selectedIndexRow, section: 0)
                 self.groupsTableView.deselectRow(at: deselectIndexPath, animated: true)
                 self.groupsTableView.cellForRow(at: deselectIndexPath)?.isSelected = false
