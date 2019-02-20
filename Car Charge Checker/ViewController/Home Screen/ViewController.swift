@@ -80,8 +80,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let userResCell = collectionView.dequeueReusableCell(withReuseIdentifier: "usersCell", for: indexPath as IndexPath) as! UserReservationCell
             userResCell.layer.cornerRadius = 15
             userResCell.backgroundColor = itsSpelledGrey
-            userResCell.dateLabel.text = "12/22"
-            userResCell.timePeriodLabel.text = "12 - 4"
+//            userResCell.dateLabel.text = "12/22"
+//            userResCell.timePeriodLabel.text = "12 - 4"
             return userResCell
         }
             
@@ -89,8 +89,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let todayResCell = collectionView.dequeueReusableCell(withReuseIdentifier: "todayCell", for: indexPath as IndexPath) as! TodayReservationCell
             todayResCell.layer.cornerRadius = 15
             todayResCell.backgroundColor = itsSpelledGrey
-            todayResCell.nameLabel.text = "Tommy"
-            todayResCell.timePeriodLabel.text = "12 - 4"
+//            todayResCell.nameLabel.text = ""
+//            todayResCell.timePeriodLabel.text = "12 - 4"
             return todayResCell
         }
     }
@@ -101,7 +101,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
             
         else {
-            return 7
+            return 1
         }
     }
 

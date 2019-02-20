@@ -1,0 +1,130 @@
+//
+//  InitialHomeScreen.swift
+//  Car Charge Checker
+//
+//  Created by Alush Benitez on 2/8/19.
+//  Copyright © 2019 Michael Filippini. All rights reserved.
+//
+
+import UIKit
+import Firebase
+import FirebaseAuth
+import GoogleSignIn
+
+class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    @IBOutlet weak var nameGreetingLabel: UILabel!
+    @IBOutlet weak var createAGroupButton: UIButton!
+    @IBOutlet weak var invitesCollectionView: UICollectionView!
+    
+   
+    var ref: DatabaseReference!
+    var groupRequests: [String] = []
+    var groupRequestsInfo: [[String]] = [[]]
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        createAGroupButton.layer.cornerRadius = 10
+        nameGreetingLabel.text = "Hey " + firstName! + "!"
+        invitesCollectionView.backgroundColor = .clear
+        invitesCollectionView.delegate = self
+        invitesCollectionView.dataSource = self
+        
+        
+        view.layer.insertSublayer({
+            let layer = CAGradientLayer()
+            layer.frame = view.bounds
+            layer.colors = [evqBlue.cgColor, evqTeal.cgColor]
+            return layer
+        }(), at: 0)
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        callDatabase()
+    }
+    
+    
+    func callDatabase() {
+        ref = Database.database().reference()
+        if let userID = Auth.auth().currentUser?.uid {
+            print(1)
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                print(2)
+                self.groupRequests = []
+                let value = snapshot.value as? NSDictionary
+                let groups = value?["groupRequests"] as? NSDictionary
+                if(groups != nil){
+                    print(3)
+                    if(groups?.count != 0){
+                        print(4)
+                        for (_, group) in groups!{
+                            self.groupRequests.append(group as? String ?? "error")
+                        }
+                    }
+                }
+                print(self.groupRequests)
+                self.groupRequestsInfo = [[String]](repeating: ["",""], count: self.groupRequests.count)
+                for group in self.groupRequests{
+                    self.ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
+                        print(5)
+                        let value = snapshot.value as? NSDictionary
+                        let name = value?["groupName"] as? String ?? "nameError"
+                        let createdBy = value?["creator"] as? String ?? "createError"
+                        self.groupRequestsInfo[self.groupRequests.firstIndex(of: group) ?? 0][0] = name
+                        self.groupRequestsInfo[self.groupRequests.firstIndex(of: group) ?? 0][1] = createdBy
+                        
+                        self.invitesCollectionView.reloadData()
+                    }) { (error) in
+                        print(error.localizedDescription)
+                    }
+                }
+                self.invitesCollectionView.reloadData()
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    @IBAction func createAGroupPressed(_ sender: Any) {
+        let groupCreate = storyboard?.instantiateViewController(withIdentifier: "GroupCreate")
+        slideMenuController()?.changeMainViewController(groupCreate!, close: true)
+    }
+    
+    @IBAction func reloadPressed(_ sender: Any) {
+        callDatabase()
+        invitesCollectionView.reloadData()
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return groupRequests.count
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = invitesCollectionView.dequeueReusableCell(withReuseIdentifier: "firstHomeRequestCell", for: indexPath) as! RequestCollectionViewCell
+//        if groupRequests.count != 0 && groupRequestsInfo.count != 0 {
+//            cell.groupNameLabel.text = groupRequestsInfo[indexPath.row][0]
+//            cell.createdByLabel.text = "Created By: \(groupRequestsInfo[indexPath.row][1])"
+//            cell.layer.borderWidth = 2
+//            cell.layer.borderColor = notBlack.cgColor
+//            cell.acceptButton.backgroundColor = toothpaste
+//            cell.rejectButton.backgroundColor = softRed
+//            cell.acceptButton.layer.cornerRadius = 10
+//            cell.rejectButton.layer.cornerRadius = 10
+//            cell.acceptButton.tag = indexPath.row
+//            cell.rejectButton.tag = indexPath.row
+//            cell.layer.cornerRadius = 12
+//        }
+//        cell.groupNameLabel.isHidden = true
+//        cell.rejectButton.isHidden = true
+//        cell.acceptButton.isHidden = true
+//        cell.createdByLabel.isHidden = true
+        
+        return cell
+    }
+    
+}

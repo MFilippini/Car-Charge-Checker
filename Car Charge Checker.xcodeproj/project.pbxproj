@@ -24,10 +24,10 @@
 		4A9A864121E3ACFD004943EE /* GroupSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9A863F21E3ACFD004943EE /* GroupSelectionCell.swift */; };
 		4ABCA90A220CD8C300162DC8 /* UserReservationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCA909220CD8C300162DC8 /* UserReservationCell.swift */; };
 		4ABCA90C220CDFC500162DC8 /* TodayReservationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCA90B220CDFC500162DC8 /* TodayReservationCell.swift */; };
-		4ABCA90E220DE20700162DC8 /* firstHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCA90D220DE20700162DC8 /* firstHomeScreen.swift */; };
 		4AC4D42121F7753200FA5349 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC4D42021F7753200FA5349 /* ReservationViewController.swift */; };
 		4AC4D42321F7D35100FA5349 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC4D42221F7D35100FA5349 /* CalendarCell.swift */; };
 		4AC4D42521FB6C9700FA5349 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AC4D42421FB6C9700FA5349 /* Main.storyboard */; };
+		4AE3937B221611B800C30FE9 /* InitialHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE3937A221611B800C30FE9 /* InitialHomeScreen.swift */; };
 		CB27A27EB8CBBF22E0A505E6 /* Pods_Car_Charge_Checker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1E00A3EACA941F4B391A7BB /* Pods_Car_Charge_Checker.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,10 +52,10 @@
 		4A9A863F21E3ACFD004943EE /* GroupSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectionCell.swift; sourceTree = "<group>"; };
 		4ABCA909220CD8C300162DC8 /* UserReservationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReservationCell.swift; sourceTree = "<group>"; };
 		4ABCA90B220CDFC500162DC8 /* TodayReservationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayReservationCell.swift; sourceTree = "<group>"; };
-		4ABCA90D220DE20700162DC8 /* firstHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = firstHomeScreen.swift; sourceTree = "<group>"; };
 		4AC4D42021F7753200FA5349 /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
 		4AC4D42221F7D35100FA5349 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		4AC4D42421FB6C9700FA5349 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		4AE3937A221611B800C30FE9 /* InitialHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialHomeScreen.swift; sourceTree = "<group>"; };
 		764E3DD0E50A1CE240ECBEEB /* Pods-Car Charge Checker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Car Charge Checker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Car Charge Checker/Pods-Car Charge Checker.release.xcconfig"; sourceTree = "<group>"; };
 		B1E00A3EACA941F4B391A7BB /* Pods_Car_Charge_Checker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Car_Charge_Checker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFBAF94A06930653E2641C22 /* Pods-Car Charge Checker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Car Charge Checker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Car Charge Checker/Pods-Car Charge Checker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 				49FD4A32217E1EC60037DC74 /* ViewController.swift */,
 				4ABCA909220CD8C300162DC8 /* UserReservationCell.swift */,
 				4ABCA90B220CDFC500162DC8 /* TodayReservationCell.swift */,
-				4ABCA90D220DE20700162DC8 /* firstHomeScreen.swift */,
+				4AE3937A221611B800C30FE9 /* InitialHomeScreen.swift */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -348,7 +348,6 @@
 				49FD4A33217E1EC60037DC74 /* ViewController.swift in Sources */,
 				498CF2DE219B7C9200F2431E /* MenuViewController.swift in Sources */,
 				49BE8F3A21B717A300B19F71 /* CreateGroupViewController.swift in Sources */,
-				4ABCA90E220DE20700162DC8 /* firstHomeScreen.swift in Sources */,
 				49D1852321B5EA4C0034E239 /* SettingsViewController.swift in Sources */,
 				4916533721E650E80072D075 /* Globals.swift in Sources */,
 				49FD4A31217E1EC60037DC74 /* AppDelegate.swift in Sources */,
@@ -360,6 +359,7 @@
 				4916533A21E68F530072D075 /* RequestCollectionViewCell.swift in Sources */,
 				4ABCA90A220CD8C300162DC8 /* UserReservationCell.swift in Sources */,
 				49D3DE64218C9A2A00CE7964 /* UserSetupViewController.swift in Sources */,
+				4AE3937B221611B800C30FE9 /* InitialHomeScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

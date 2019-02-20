@@ -45,10 +45,41 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     func userDataAvailable(){
         let user = Auth.auth().currentUser
         let ref = Database.database().reference()
+        var groupsInArray: [String] = []
+        var inAGroup: Bool = false
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                let groups = value?["groupsIn"] as? NSDictionary
+                if(groups != nil){
+                    if(groups?.count != 0){
+                        inAGroup = true
+                        //Add data to groupsInArray
+                        for (_, group) in groups!{
+                            groupsInArray.append(group as! String)
+                        }
+                        currentGroup = groupsInArray[0]
+                    } else {
+                        inAGroup = false
+                    }
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+        
+        
+        
+        
         ref.child("users").child(user!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
             if(snapshot.exists()){
-                let mainView = self.storyboard?.instantiateViewController(withIdentifier: "Main")
-                self.slideMenuController()?.changeMainViewController(mainView!, close: true)
+                if inAGroup {
+                    let mainView = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+                    self.slideMenuController()?.changeMainViewController(mainView!, close: true)
+                } else {
+                    let initialHomeView = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
+                    self.slideMenuController()?.changeMainViewController(initialHomeView!, close: true)
+                }
             }else{
                 print("toSetup")
                 let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "UserData")

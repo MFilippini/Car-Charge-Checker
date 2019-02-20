@@ -15,4 +15,3 @@ var firstName: String? = ""
 var lastName: String? = ""
 var userEmail: String? = ""
 var groupID: String? = ""
-

@@ -96,7 +96,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let groups = value?["groupsIn"] as? NSDictionary
                 if(groups != nil){
                     if(groups?.count != 0){
-                        //self.groupsTableView.backgroundColor = .yellow
                         //Add data to groupsInArray
                         for (_, group) in groups!{
                             self.groupsInArray.append(group as! String)
