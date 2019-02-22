@@ -344,7 +344,8 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
                         "resMadeOn":  currentDateString ,
                         "startTime": String(firstTrueTime),
                         "endTime": String(secondTrueTime),
-                        "person": user?.uid ?? "error"]
+                        "person": firstName ?? "error",
+                        "userID": user?.uid ?? "error"]
         print(newRes)
         print(currentGroup)
         
