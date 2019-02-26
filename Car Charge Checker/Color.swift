@@ -22,7 +22,7 @@ extension UIColor {
 let evqBlue = UIColor(red: 0, green: 190, blue: 255)
 let evqTeal = UIColor(red: 0, green: 255, blue: 255)
 let anotherBlue = UIColor(red: 0, green: 190, blue: 255)
-let notBlack = UIColor(red: 50, green: 50, blue: 50)
+let notBlack = UIColor(red: 60, green: 60, blue: 60)
 let toothpaste = UIColor(red: 99, green: 255, blue: 148)
 let softRed = UIColor(red: 255, green: 107, blue: 122)
 let itsSpelledGrey = UIColor(red: 224, green: 224, blue: 224)

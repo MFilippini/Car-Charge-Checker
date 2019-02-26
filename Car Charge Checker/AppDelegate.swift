@@ -83,14 +83,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
     
-    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]?) -> Bool {
-
-        let colorView = UIView()
-        colorView.backgroundColor = itsSpelledGrey
-        colorView.layer.cornerRadius = 15
-        UITableViewCell.appearance().selectedBackgroundView = colorView
-        return true
-    }
+//    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]?) -> Bool {
+//
+////        let colorView = UIView()
+//////        colorView.backgroundColor = itsSpelledGrey
+//////        colorView.layer.cornerRadius = 15
+////        UITableViewCell.appearance().selectedBackgroundView = colorView
+//        return true
+//    }
     
     
     func applicationWillResignActive(_ application: UIApplication) {
