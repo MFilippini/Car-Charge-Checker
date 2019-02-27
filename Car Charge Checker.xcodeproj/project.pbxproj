@@ -22,6 +22,7 @@
 		49FD4A3B217E1EC70037DC74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49FD4A39217E1EC70037DC74 /* LaunchScreen.storyboard */; };
 		4A05100D218B4A7B00613315 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A05100C218B4A7B00613315 /* GoogleService-Info.plist */; };
 		4A9A864121E3ACFD004943EE /* GroupSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9A863F21E3ACFD004943EE /* GroupSelectionCell.swift */; };
+		4AB63F6122259E22007C0C34 /* FirstRequestsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB63F6022259E22007C0C34 /* FirstRequestsCollectionViewCell.swift */; };
 		4ABCA90A220CD8C300162DC8 /* UserReservationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCA909220CD8C300162DC8 /* UserReservationCell.swift */; };
 		4ABCA90C220CDFC500162DC8 /* TodayReservationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCA90B220CDFC500162DC8 /* TodayReservationCell.swift */; };
 		4AC4D42121F7753200FA5349 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC4D42021F7753200FA5349 /* ReservationViewController.swift */; };
@@ -50,6 +51,7 @@
 		49FD4A3C217E1EC70037DC74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A05100C218B4A7B00613315 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4A9A863F21E3ACFD004943EE /* GroupSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectionCell.swift; sourceTree = "<group>"; };
+		4AB63F6022259E22007C0C34 /* FirstRequestsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRequestsCollectionViewCell.swift; sourceTree = "<group>"; };
 		4ABCA909220CD8C300162DC8 /* UserReservationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReservationCell.swift; sourceTree = "<group>"; };
 		4ABCA90B220CDFC500162DC8 /* TodayReservationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayReservationCell.swift; sourceTree = "<group>"; };
 		4AC4D42021F7753200FA5349 /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				4ABCA909220CD8C300162DC8 /* UserReservationCell.swift */,
 				4ABCA90B220CDFC500162DC8 /* TodayReservationCell.swift */,
 				4AE3937A221611B800C30FE9 /* InitialHomeScreen.swift */,
+				4AB63F6022259E22007C0C34 /* FirstRequestsCollectionViewCell.swift */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				492C241C21E016A900DB88C7 /* NotificationsViewController.swift in Sources */,
 				4AC4D42321F7D35100FA5349 /* CalendarCell.swift in Sources */,
 				49FD4A33217E1EC60037DC74 /* ViewController.swift in Sources */,
+				4AB63F6122259E22007C0C34 /* FirstRequestsCollectionViewCell.swift in Sources */,
 				498CF2DE219B7C9200F2431E /* MenuViewController.swift in Sources */,
 				49BE8F3A21B717A300B19F71 /* CreateGroupViewController.swift in Sources */,
 				49D1852321B5EA4C0034E239 /* SettingsViewController.swift in Sources */,

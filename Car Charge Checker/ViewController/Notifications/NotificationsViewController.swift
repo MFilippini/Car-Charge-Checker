@@ -162,7 +162,8 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
             }) { (error) in
                 print(error.localizedDescription)
             }
-        }    }
+        }
+    }
     
     @IBAction func hamburgerTapped(_ sender: Any) {
         slideMenuController()?.openLeft()

@@ -68,8 +68,10 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
                 print(self.groupRequests)
                 self.groupRequestsInfo = [[String]](repeating: ["",""], count: self.groupRequests.count)
                 for group in self.groupRequests{
-                    self.ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
-                        print(5)
+                    print(5)
+                    print("\(group)")
+                    self.ref.child("groups").child("\(group)").observeSingleEvent(of: .value, with: { (snapshot) in
+                        print(6)
                         let value = snapshot.value as? NSDictionary
                         let name = value?["groupName"] as? String ?? "nameError"
                         let createdBy = value?["creator"] as? String ?? "createError"
@@ -78,10 +80,11 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
                         
                         self.invitesCollectionView.reloadData()
                     }) { (error) in
+                        print("here")
                         print(error.localizedDescription)
                     }
                 }
-                self.invitesCollectionView.reloadData()
+                //self.invitesCollectionView.reloadData()
             }) { (error) in
                 print(error.localizedDescription)
             }
@@ -100,31 +103,117 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return groupRequests.count
+        return groupRequestsInfo.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = invitesCollectionView.dequeueReusableCell(withReuseIdentifier: "firstHomeRequestCell", for: indexPath) as! RequestCollectionViewCell
-//        if groupRequests.count != 0 && groupRequestsInfo.count != 0 {
-//            cell.groupNameLabel.text = groupRequestsInfo[indexPath.row][0]
-//            cell.createdByLabel.text = "Created By: \(groupRequestsInfo[indexPath.row][1])"
+        let cell = invitesCollectionView.dequeueReusableCell(withReuseIdentifier: "firstHomeRequestCell", for: indexPath) as! FirstRequestsCollectionViewCell
+        if groupRequests.count != 0 && groupRequestsInfo.count != 0 {
+            print(groupRequestsInfo[0][0])
+            print("indexPath:\(indexPath)")
+            cell.groupNameLabel.text = groupRequestsInfo[indexPath.row][0]
+            cell.createdByLabel.text = "Created By: \(groupRequestsInfo[indexPath.row][1])"
+            cell.backgroundColor = .white
 //            cell.layer.borderWidth = 2
 //            cell.layer.borderColor = notBlack.cgColor
-//            cell.acceptButton.backgroundColor = toothpaste
-//            cell.rejectButton.backgroundColor = softRed
-//            cell.acceptButton.layer.cornerRadius = 10
-//            cell.rejectButton.layer.cornerRadius = 10
-//            cell.acceptButton.tag = indexPath.row
-//            cell.rejectButton.tag = indexPath.row
-//            cell.layer.cornerRadius = 12
-//        }
-//        cell.groupNameLabel.isHidden = true
-//        cell.rejectButton.isHidden = true
-//        cell.acceptButton.isHidden = true
-//        cell.createdByLabel.isHidden = true
-        
+            cell.acceptButton.backgroundColor = toothpaste
+            cell.rejectButton.backgroundColor = softRed
+            cell.acceptButton.layer.cornerRadius = 10
+            cell.rejectButton.layer.cornerRadius = 10
+            cell.acceptButton.tag = indexPath.row
+            cell.rejectButton.tag = indexPath.row
+            cell.acceptButton.tag = indexPath.row
+            cell.rejectButton.tag = indexPath.row
+            cell.layer.cornerRadius = 12
+        }
         return cell
+    }
+    
+    @IBAction func acceptTapped(_ sender: UIButton) {
+        print(groupRequests)
+        print(sender.tag)
+        print(groupRequests[sender.tag])
+        
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                let value = snapshot.value as? NSDictionary
+                var groups = value?["groupRequests"] as? NSMutableDictionary
+                
+                for (key,group) in groups ?? [:]{
+                    if self.groupRequests[sender.tag] == group as! String{
+                        groups![key] = nil
+                    }
+                }
+                let key = self.ref.child("users").childByAutoId().key!
+                self.ref.child("groups").child(self.groupRequests[sender.tag]).observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    let value = snapshot.value as? NSDictionary
+                    var inGroup = value?["membersInGroup"] as? NSMutableArray
+                    var requestedGroup = value?["membersInvited"] as? NSMutableArray
+                    
+                    let email = Auth.auth().currentUser?.email
+                    
+                    inGroup?.add(email)
+                    requestedGroup?.remove(email)
+                    
+                    let childUpdates = ["/users/\(userID)/groupRequests/": groups,
+                                        "/users/\(userID)/groupsIn/\(key)": self.groupRequests[sender.tag],
+                                        "/groups/\(self.groupRequests[sender.tag])/membersInGroup/": inGroup,
+                                        "/groups/\(self.groupRequests[sender.tag])/membersInvited/": requestedGroup,] as [String : Any]
+                    self.ref.updateChildValues(childUpdates)
+                    self.viewWillAppear(true)
+                    let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+                    self.slideMenuController()?.changeMainViewController(main!, close: true)
+                    
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    @IBAction func rejectTapped(_ sender: UIButton) {
+        print(groupRequests[sender.tag])
+        
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                let value = snapshot.value as? NSDictionary
+                var groups = value?["groupRequests"] as? NSMutableDictionary
+                
+                for (key,group) in groups ?? [:]{
+                    if self.groupRequests[sender.tag] == group as! String{
+                        groups![key] = nil
+                    }
+                }
+                self.ref.child("groups").child(self.groupRequests[sender.tag]).observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    let value = snapshot.value as? NSDictionary
+                    var requestedGroup = value?["membersInvited"] as? NSMutableArray
+                    
+                    let email = Auth.auth().currentUser?.email
+                    
+                    requestedGroup?.remove(email)
+                    
+                    let childUpdates = ["/users/\(userID)/groupRequests/": groups,
+                                        "/groups/\(self.groupRequests[sender.tag])/membersInvited/": requestedGroup,] as [String : Any]
+                    self.ref.updateChildValues(childUpdates)
+                    self.viewWillAppear(true)
+                    self.callDatabase()
+                    self.invitesCollectionView.reloadData()
+                    
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
     }
     
 }
