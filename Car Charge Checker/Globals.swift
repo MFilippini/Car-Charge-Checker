@@ -16,3 +16,4 @@ var lastName: String? = ""
 var userEmail: String? = ""
 var groupID: String? = ""
 var currentlySelectedDate = -1
+
