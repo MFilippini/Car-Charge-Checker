@@ -12,6 +12,8 @@ class GroupSelectionCell: UITableViewCell {
     
     
     @IBOutlet weak var groupNameLabel: UILabel!
+    @IBOutlet weak var groupInfoButton: UIButton!
+    @IBOutlet weak var leaveGroupButton: UIButton!
     
 
     override func awakeFromNib() {

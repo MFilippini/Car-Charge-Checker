@@ -96,7 +96,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let groups = value?["groupsIn"] as? NSDictionary
                 if(groups != nil){
                     if(groups?.count != 0){
-                        //self.groupsTableView.backgroundColor = .yellow
                         //Add data to groupsInArray
                         for (_, group) in groups!{
                             self.groupsInArray.append(group as! String)
@@ -132,18 +131,35 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
         print("row:\(indexPath.row) \n data\(groupInNamesArray)")
         cell.groupNameLabel.text = groupInNamesArray[indexPath.row]
+        cell.layer.cornerRadius = 15
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = notBlack.cgColor
+        cell.groupInfoButton.layer.cornerRadius = 10
+        cell.leaveGroupButton.layer.cornerRadius = 10
+        
+        
         if selectedIndexRow == indexPath.row {
             cell.backgroundColor = itsSpelledGrey
-            cell.layer.cornerRadius = 15
         } else {
             cell.backgroundColor = .white
         }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //return groupInNamesArray.count
+        return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return groupInNamesArray.count
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 8.0
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentGroup = groupsInArray[indexPath.row]
