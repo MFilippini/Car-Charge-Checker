@@ -341,7 +341,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         let currentDateString = "\(currentDate.value(for: .month) ?? -1),\(currentDate.value(for: .day) ?? -1),\(currentDate.value(for: .year) ?? -1)"
         let newRes = [ "dayOfRes": "\(currentlySelectedDate)",
                         "monthOfRes": "\(shownMonth)",
-                        "resMadeOn":  currentDateString ,
+                        "resMadeOn":  currentDateString,
                         "startTime": String(firstTrueTime),
                         "endTime": String(secondTrueTime),
                         "person": firstName ?? "error",

@@ -13,13 +13,11 @@ import Firebase
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-
     @IBOutlet weak var hamburgerButton: UIButton!
     @IBOutlet weak var selectedGroupLabel: UILabel!
     @IBOutlet weak var usersReservationsCollectionView: UICollectionView!
     @IBOutlet weak var todaysReservationsCollectionView: UICollectionView!
     @IBOutlet weak var reserveButton: UIButton!
-    
     
     var groupsInArray: [String] = []
     var groupInNamesArray: [String] = []
@@ -27,6 +25,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var myReservations: [[String:String]] = []
     var groupReservations: [[String:String]] = []
+    
+    var currentMonth = 0
+    var currentDate = 0
     
     var ref: DatabaseReference!
     
@@ -45,6 +46,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewWillAppear(_ animated: Bool) {
         slideMenuController()?.addLeftGestures()
+        let cal = Calendar.current.dateComponents([.year, .month, .day, .weekday], from: Date())
+        currentDate = cal.day ?? 0
+        currentMonth = cal.month ?? 0
         setupUI()
     }
     
@@ -62,7 +66,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                             self.ref.child("groups").child(group as! String).observeSingleEvent(of: .value, with: { (snapshot) in
                                 let value = snapshot.value as? NSDictionary
                                 let name = value?["groupName"] as? String
-                                let allReservations = value?["reservations"] as? NSDictionary as? [String:[String:String]]
+                                var allReservations = value?["reservations"] as? NSDictionary as? [String:[String:String]]
                                 print(allReservations)
                                 self.selectedGroupLabel.text = name
                                 self.selectedGroupLabel.alpha = 0
@@ -91,29 +95,34 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                             resTime += "\(endTime - 12)PM"
                                         }
                                         
-                                        self.myReservations.append(["date":resDateString,"time":resTime])
+                                        self.myReservations.append(["date":resDateString,"time":resTime,"realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1"])
                                     }else if(reservation["userID"] != nil){
-                                        let resCreatorName = reservation["person"] ?? "error"
-                                        
-                                        var resTime = ""
-                                        let startTime = Int(reservation["startTime"] ?? "-1") ?? 0
-                                        let endTime = Int(reservation["endTime"] ?? "-1") ?? 0
-                                        
-                                        if(startTime <= 12){
-                                            resTime += "\(startTime)AM - "
-                                        }else{
-                                            resTime += "\(startTime - 12)PM - "
+                                        if(Int(reservation["monthOfRes"] ?? "0") == self.currentMonth && Int(reservation["dayOfRes"] ?? "0") == self.currentDate){
+                                            
+                                            let resCreatorName = reservation["person"] ?? "error"
+                                            
+                                            var resTime = ""
+                                            let startTime = Int(reservation["startTime"] ?? "-1") ?? 0
+                                            let endTime = Int(reservation["endTime"] ?? "-1") ?? 0
+                                            
+                                            if(startTime <= 12){
+                                                resTime += "\(startTime)AM - "
+                                            }else{
+                                                resTime += "\(startTime - 12)PM - "
+                                            }
+                                            
+                                            if(endTime <= 12){
+                                                resTime += "\(endTime)AM"
+                                            }else{
+                                                resTime += "\(endTime - 12)PM"
+                                            }
+                                            
+                                            self.groupReservations.append(["personName":resCreatorName,"time":resTime,"realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1"])
                                         }
-                                        
-                                        if(endTime <= 12){
-                                            resTime += "\(endTime)AM"
-                                        }else{
-                                            resTime += "\(endTime - 12)PM"
-                                        }
-                                        
-                                        self.groupReservations.append(["personName":resCreatorName,"time":resTime])
                                     }
                                 }
+                                self.groupReservations = self.sortRes(resList: self.groupReservations)
+                                self.myReservations = self.sortRes(resList: self.myReservations)
                                 print("myRes: \(self.myReservations)")
                                 print("groupRes: \(self.groupReservations)")
                                 self.todaysReservationsCollectionView.reloadData()
@@ -128,6 +137,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func sortRes(resList:[[String:String]]) -> [[String:String]]{
+        var sortedRes: [[String:String]] = resList
+        for i in 0..<sortedRes.count {
+            var reservation = sortedRes[i]
+            let month = Int(reservation["monthOfRes"] ?? "0") ?? 0
+            let day = Int(reservation["dayOfRes"] ?? "0") ?? 0
+            let startTime = Int(reservation["startTime"] ?? "0") ?? 0
+            
+            let ultTime = (startTime) + (day * 100) + (month * 10000) // + (year * 1000000)
+            
+            reservation.updateValue("\(ultTime)", forKey: "ultTime")
+            sortedRes[i] = reservation
+        }
+        
+        return sortedRes.sorted{Int($0["ultTime"] ?? "") ?? 0 < Int($1["ultTime"] ?? "") ?? 0}
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
