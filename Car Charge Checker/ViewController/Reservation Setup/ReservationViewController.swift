@@ -36,7 +36,6 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     
     var shownMonth = -1
     var shownDay = -1
-    var currentlySelectedYear = -1
     
     let monthDays: NSDictionary = [1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31]
     let monthNames: NSDictionary = [1: "January", 2: "Febuary", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"]
@@ -68,6 +67,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     
     override func viewWillAppear(_ animated: Bool) {
         currentlySelectedDate = -1
+        currentlySelectedYear = -1
     }
     
     override func viewDidLoad() {
@@ -82,7 +82,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         let date = Date()
         let cal = Calendar.current
         let components = cal.dateComponents([.year, .month, .day, .weekday], from: date)
-        
+        print("date\(components)")
         currentYear =  components.year!
         currentMonth = components.month!
         shownMonth = currentMonth
@@ -154,11 +154,17 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     
     public func dateSelected(date: Int){
         currentlySelectedDate = date
+        
+        let date = Date()
+        let cal = Calendar.current
+        let components = cal.dateComponents([.year], from: date)
+        
         if shownMonth < currentMonth {
-            currentlySelectedYear = currentYear + 1
+            currentlySelectedYear = components.year! + 1
         } else {
-            currentlySelectedYear = currentYear
+            currentlySelectedYear = components.year!
         }
+        print("currentlySelectedYear: \(currentlySelectedYear)")
     }
     
     @IBAction func nextMonth(_ sender: Any) {
@@ -350,6 +356,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         let newRes = [ "dayOfRes": "\(currentlySelectedDate)",
                         "monthOfRes": "\(shownMonth)",
                         "resMadeOn":  currentDateString,
+                        "yearOfRes": "\(currentlySelectedYear)",
                         "startTime": String(firstTrueTime),
                         "endTime": String(secondTrueTime),
                         "person": firstName ?? "error",

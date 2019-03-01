@@ -28,6 +28,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var currentMonth = 0
     var currentDate = 0
+    var currentYear = 0
     
     var ref: DatabaseReference!
     
@@ -49,6 +50,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cal = Calendar.current.dateComponents([.year, .month, .day, .weekday], from: Date())
         currentDate = cal.day ?? 0
         currentMonth = cal.month ?? 0
+        currentYear = cal.year ?? 0
         setupUI()
     }
     
@@ -73,6 +75,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                 UIView.animate(withDuration: 0.5) {
                                     self.selectedGroupLabel.alpha = 1
                                 }
+                                for (key,reservation) in allReservations ?? ["":["":""]] {
+                                    if(Int(reservation["yearOfRes"] ?? "") ?? 0 < self.currentYear){
+                                        print(Int(reservation["yearOfRes"] ?? "") ?? 0 )
+                                        allReservations?[key] = nil
+                                    }else if(Int(reservation["yearOfRes"] ?? "") ?? 0 == self.currentYear){
+                                        if(Int(reservation["monthOfRes"] ?? "") ?? 0 < self.currentMonth){
+                                            allReservations?[key] = nil
+                                        }else if(Int(reservation["monthOfRes"] ?? "") ?? 0 == self.currentMonth){
+                                            if(Int(reservation["dayOfRes"] ?? "") ?? 0 < self.currentDate){
+                                                allReservations?[key] = nil
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                let childUpdates = ["/groups/\(currentGroup ?? "error")/reservations/": allReservations,]
+                                self.ref.updateChildValues(childUpdates)
                                 self.myReservations = []
                                 self.groupReservations = []
                                 for (_,reservation) in allReservations ?? ["":["":""]] {
