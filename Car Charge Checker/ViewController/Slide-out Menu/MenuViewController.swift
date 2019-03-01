@@ -39,33 +39,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
         notificationBellLabel.isHidden = true
-//        if let savedData = defaults.object(forKey: "firstName") as? Data {
-//            if let decoded = try? JSONDecoder().decode(String.self, from: savedData) {
-//                firstName = decoded
-//            }
-//        }
-        
-        let defaults = UserDefaults.standard
-        if let first = defaults.string(forKey: "firstName") {
-            firstName = first // Some String Value
-        }
         
         
-        self.welcomeNameLabel.text = "Hey, " + firstName! + "!"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         ref = Database.database().reference()
-//        if let userID = Auth.auth().currentUser?.uid {
-//            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-//                // Get user value
-//                let value = snapshot.value as? NSDictionary
-//                let firstName = value?["firstName"] as? String ?? ""
-//            }) { (error) in
-//                print(error.localizedDescription)
-//            }
-//        }
-        
         //check for notifications
         ref = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
@@ -93,6 +72,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 self.groupsInArray = []
                 let value = snapshot.value as? NSDictionary
+                firstName = value?["firstName"] as? String
+                self.welcomeNameLabel.text = "Hey, " + firstName! + "!"
                 let groups = value?["groupsIn"] as? NSDictionary
                 if(groups != nil){
                     if(groups?.count != 0){
@@ -127,15 +108,19 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
         print("row:\(indexPath.row) \n data\(groupInNamesArray)")
         cell.groupNameLabel.text = groupInNamesArray[indexPath.row]
         cell.layer.cornerRadius = 15
         cell.layer.borderWidth = 2
-        cell.layer.borderColor = notBlack.cgColor
+        cell.layer.borderColor = itsSpelledGrey.cgColor
         cell.groupInfoButton.layer.cornerRadius = 10
         cell.leaveGroupButton.layer.cornerRadius = 10
+        cell.groupInfoButton.tag = indexPath.row
+        cell.leaveGroupButton.tag = indexPath.row
         
         
         if selectedIndexRow == indexPath.row {
@@ -220,6 +205,14 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         slideMenuController()?.changeMainViewController(groupCreate!, close: true)
     }
     
+    
+    @IBAction func groupInfoTapped(_ sender: UIButton) {
+        
+        
+    }
+    
+    @IBAction func leaveGroupTapped(_ sender: UIButton ) {
+    }
     
 
 }

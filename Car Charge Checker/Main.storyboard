@@ -285,7 +285,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or if your group manager has invited you, it will appear below" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xu-JL-xq5">
-                                <rect key="frame" x="25" y="290" width="363" height="140"/>
+                                <rect key="frame" x="25.666666666666657" y="290" width="363" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="363" id="NRC-oe-gBo"/>
                                     <constraint firstAttribute="height" constant="140" id="kqr-bX-p0d"/>
@@ -1555,6 +1555,9 @@
                                                             <state key="normal" title="Group Info">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="grouInfoTapped:" destination="2wI-Bu-DfH" eventType="touchUpInside" id="5HQ-iY-veJ"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-2i-Wig">
                                                             <rect key="frame" x="276" y="100" width="116" height="43"/>
@@ -1566,6 +1569,9 @@
                                                             <state key="normal" title="Leave Group">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="leaveGroupTapped:" destination="2wI-Bu-DfH" eventType="touchUpInside" id="SaJ-Bc-yu2"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
