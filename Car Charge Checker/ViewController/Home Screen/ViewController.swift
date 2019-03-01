@@ -73,6 +73,22 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                 UIView.animate(withDuration: 0.5) {
                                     self.selectedGroupLabel.alpha = 1
                                 }
+                                for (key,reservation) in allReservations ?? ["":["":""]] {
+                                    // if(Int(reservation["yearOfRes"] ?? "") ?? 0 < currenYear){
+                                    //     allReservations?[key] = nil
+                                    //} else if(Int(reservation["yearOfRes"] ?? "") ?? 0 == currenYear){
+                                            if(Int(reservation["monthOfRes"] ?? "") ?? 0 < self.currentMonth){
+                                                allReservations?[key] = nil
+                                            }else if(Int(reservation["monthOfRes"] ?? "") ?? 0 == self.currentMonth){
+                                                if(Int(reservation["dayOfRes"] ?? "") ?? 0 < self.currentDate){
+                                                    allReservations?[key] = nil
+                                                }
+                                            }
+                                    //  }
+                                    //}
+                                }
+                                let childUpdates = ["/groups/\(currentGroup ?? "error")/reservations/": allReservations,]
+                                self.ref.updateChildValues(childUpdates)
                                 self.myReservations = []
                                 self.groupReservations = []
                                 for (_,reservation) in allReservations ?? ["":["":""]] {
