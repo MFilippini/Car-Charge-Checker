@@ -36,6 +36,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     
     var shownMonth = -1
     var shownDay = -1
+    var currentlySelectedYear = -1
     
     let monthDays: NSDictionary = [1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31]
     let monthNames: NSDictionary = [1: "January", 2: "Febuary", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"]
@@ -153,6 +154,11 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     
     public func dateSelected(date: Int){
         currentlySelectedDate = date
+        if shownMonth < currentMonth {
+            currentlySelectedYear = currentYear + 1
+        } else {
+            currentlySelectedYear = currentYear
+        }
     }
     
     @IBAction func nextMonth(_ sender: Any) {
@@ -179,6 +185,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
                 self.monthLabel.alpha = 1
             }
             currentlySelectedDate = -1
+            currentlySelectedYear = -1
             updateReserveButton()
         }
     }
@@ -207,6 +214,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
                 self.monthLabel.alpha = 1
             }
             currentlySelectedDate = -1
+            currentlySelectedYear = -1
             updateReserveButton()
         }
     }

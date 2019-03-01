@@ -39,8 +39,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
         notificationBellLabel.isHidden = true
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
