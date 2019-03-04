@@ -239,6 +239,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
             reserveButton.isEnabled = false
             reserveButton.alpha = 0.65
         }
+        print("start:\(firstTrueTime) end:\(secondTrueTime)")
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -248,32 +249,64 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBAction func firstTimeDecrease(_ sender: Any) {
         if(firstSelectedTime>1){
             firstSelectedTime -= 1
-            firstTrueTime -= 1
         }else{
             firstSelectedTime += 11
-            firstTrueTime += 11
         }
+        
+        if(firstAM){
+            firstTrueTime = firstSelectedTime
+        }else{
+            firstTrueTime = firstSelectedTime + 12
+        }
+        
+        if(firstTrueTime == 12){
+            firstTrueTime = 0
+        } else if(firstTrueTime == 24){
+            firstTrueTime = 12
+        }
+        
         updateTimes()
     }
     
     @IBAction func firstTimeIncrease(_ sender: Any) {
         if(firstSelectedTime<12){
             firstSelectedTime += 1
-            firstTrueTime += 1
         }else{
             firstSelectedTime -= 11
-            firstTrueTime -= 11
         }
+        
+        if(firstAM){
+            firstTrueTime = firstSelectedTime
+        }else{
+            firstTrueTime = firstSelectedTime + 12
+        }
+        
+        if(firstTrueTime == 12){
+            firstTrueTime = 0
+        } else if(firstTrueTime == 24){
+            firstTrueTime = 12
+        }
+        
         updateTimes()
     }
     
     @IBAction func secondTimeDecrease(_ sender: Any) {
         if(secondSelectedTime>1){
             secondSelectedTime -= 1
-            secondTrueTime -= 1
         }else{
             secondSelectedTime += 11
-            secondTrueTime += 11
+        }
+        
+        if(secondAM){
+            secondTrueTime = secondSelectedTime
+        }else{
+            secondTrueTime = secondSelectedTime + 12
+        }
+        
+        if (secondTrueTime == 12){
+            secondTrueTime = 24
+        } else if (secondTrueTime == 24){
+            secondTrueTime = 12
         }
         updateTimes()
     }
@@ -281,11 +314,22 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBAction func secondTimeIncrease(_ sender: Any) {
         if(secondSelectedTime<12){
             secondSelectedTime += 1
-            secondTrueTime += 1
         }else{
             secondSelectedTime -= 11
-            secondTrueTime -= 11
         }
+        
+        if(secondAM){
+            secondTrueTime = secondSelectedTime
+        }else{
+            secondTrueTime = secondSelectedTime + 12
+        }
+        
+        if(secondTrueTime == 24){
+            secondTrueTime = 12
+        } else if(secondTrueTime == 12){
+            secondTrueTime = 24
+        }
+        
         updateTimes()
     }
     
@@ -295,6 +339,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
             buttonSelected(button: firstAMButton)
             buttonDeselected(button: firstPMButton)
             firstTrueTime -= 12
+            
             updateReserveButton()
         }
     }
@@ -305,6 +350,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
             buttonSelected(button: firstPMButton)
             buttonDeselected(button: firstAMButton)
             firstTrueTime += 12
+            
             updateReserveButton()
         }
     }
@@ -315,6 +361,11 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
             buttonSelected(button: secondAMButton)
             buttonDeselected(button: secondPMButton)
             secondTrueTime -= 12
+            
+            if(secondTrueTime == 0){
+                secondTrueTime = 24
+            }
+            
             updateReserveButton()
         }
     }
@@ -325,6 +376,11 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
             buttonSelected(button: secondPMButton)
             buttonDeselected(button: secondAMButton)
             secondTrueTime += 12
+            
+            if(secondTrueTime == 36){
+                secondTrueTime = 12
+            }
+            
             updateReserveButton()
         }
     }
