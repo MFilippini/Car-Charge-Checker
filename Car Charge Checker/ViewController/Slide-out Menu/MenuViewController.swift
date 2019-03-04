@@ -131,12 +131,14 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return groupInNamesArray.count
-        return 1
+        return groupInNamesArray.count
+        //return 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return groupInNamesArray.count
+        //return groupInNamesArray.count
+        return 1
+
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
