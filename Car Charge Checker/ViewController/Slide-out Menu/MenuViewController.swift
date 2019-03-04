@@ -28,6 +28,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var selectedIndexRow: Int = -1
     var ref: DatabaseReference!
     
+    let user = Auth.auth().currentUser
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -43,7 +44,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        ref = Database.database().reference()
         //check for notifications
         ref = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
@@ -72,7 +72,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.groupsInArray = []
                 let value = snapshot.value as? NSDictionary
                 firstName = value?["firstName"] as? String
-                self.welcomeNameLabel.text = "Hey, " + firstName! + "!"
+                self.welcomeNameLabel.text = "Hey, " + (firstName ?? "error") + "!"
                 let groups = value?["groupsIn"] as? NSDictionary
                 if(groups != nil){
                     if(groups?.count != 0){
@@ -88,6 +88,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             self.groupInNamesArrayTemp = []
             
+            print(groupsInArray)
             for group in groupsInArray{
                 ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
@@ -154,7 +155,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return 0
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentGroup = groupsInArray[indexPath.section]
         ref = Database.database().reference()
@@ -186,7 +186,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBAction func signOutClicked(_ sender: Any) {
         let firebaseAuth = Auth.auth()
-        
         do {
             try firebaseAuth.signOut()
             GIDSignIn.sharedInstance().signOut()
@@ -215,12 +214,70 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-    @IBAction func groupInfoTapped(_ sender: UIButton) {
-        
-        
-    }
     
     @IBAction func leaveGroupTapped(_ sender: UIButton ) {
+        let groupToDelete = groupsInArray[sender.tag]
+        ref = Database.database().reference()
+        
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                let groups = value?["groupsIn"] as? NSDictionary ?? ["":""]
+                
+                for (key,group) in groups{
+                    if(group as! String == groupToDelete){
+                        groups.setValue(nil, forKey: key as! String)
+                    }
+                }
+                
+                let childUpdatesUserGroup = ["/users/\(userID ?? "error")/groupsIn/": groups,]
+                self.ref.updateChildValues(childUpdatesUserGroup)
+                
+    
+                self.ref.child("groups").child(groupToDelete).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSDictionary
+                    let inGroupNS = value?["membersInGroup"] as? NSArray ?? []
+                    var inGroup: Array = inGroupNS as Array
+                    for i in 0..<inGroup.count {
+                        if(inGroup[i] as! String == self.user?.email ?? ""){
+                            inGroup.remove(at: i)
+                        }
+                    }
+                    let childUpdatesGroupMem = ["/groups/\(groupToDelete)/membersInGroup/": inGroup as NSArray,]
+                    self.ref.updateChildValues(childUpdatesGroupMem)
+                    
+                    self.ref.child("groups").child(groupToDelete).observeSingleEvent(of: .value, with: { (snapshot) in
+                        let value = snapshot.value as? NSDictionary
+                        let reservationsNS = value?["reservations"] as? NSDictionary ?? ["":""]
+                        var reservations = reservationsNS as Dictionary
+                        
+                        print(reservations)
+                        for (key,reservation) in reservations{
+                            if(reservation["userID"] as! String == userID){
+                                reservations.removeValue(forKey: key)
+                            }
+                        }
+
+                        let childUpdatesGroupRes = ["/groups/\(groupToDelete)/reservations/": reservations as NSDictionary,]
+                        self.ref.updateChildValues(childUpdatesGroupRes)
+
+                        
+                    }) { (error) in
+                        print(error.localizedDescription)
+                    }
+
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+                
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+        
+        
+        groupsTableView.reloadData()
     }
     
 

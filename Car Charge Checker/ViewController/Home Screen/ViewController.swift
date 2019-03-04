@@ -104,8 +104,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                         
                                         if(startTime == 0){
                                             resTime += "12AM - "
-                                        }else if(endTime == 12){
-                                            resTime += "\(endTime)PM"
+                                        }else if(startTime == 12){
+                                            resTime += "\(startTime)PM - "
                                         }else if(startTime < 12){
                                             resTime += "\(startTime)AM - "
                                         }else{
@@ -135,8 +135,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                             
                                             if(startTime == 0){
                                                 resTime += "12AM - "
-                                            }else if(endTime == 12){
-                                                resTime += "\(endTime)PM"
+                                            }else if(startTime == 12){
+                                                resTime += "\(startTime)PM - "
                                             }else if(startTime < 12){
                                                 resTime += "\(startTime)AM - "
                                             }else{

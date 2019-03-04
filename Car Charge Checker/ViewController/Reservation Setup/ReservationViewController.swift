@@ -459,6 +459,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
                     self.present(alert, animated: true, completion: nil)
                 }else{
                     self.ref.updateChildValues(childUpdates)
+                    self.dismiss(animated: true, completion: nil)
                 }
                 print("charger Use at time\(maxChargerUsage) chargers for group\(numberOfChargers ?? 90)")
             }) { (error) in
@@ -466,9 +467,5 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
             }
         }
 
-        
-        
-        
-        
     }
 }
