@@ -39,6 +39,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
         notificationBellLabel.isHidden = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,22 +107,26 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = groupsTableView.dequeueReusableCell(withIdentifier: "groupsCell", for: indexPath) as! GroupSelectionCell
-        print("row:\(indexPath.row) \n data\(groupInNamesArray)")
-        cell.groupNameLabel.text = groupInNamesArray[indexPath.row]
+        print("row:\(indexPath.section) \n data\(groupInNamesArray)")
+        cell.groupNameLabel.text = groupInNamesArray[indexPath.section]
         cell.layer.cornerRadius = 15
         cell.layer.borderWidth = 2
         cell.layer.borderColor = itsSpelledGrey.cgColor
         cell.groupInfoButton.layer.cornerRadius = 10
         cell.leaveGroupButton.layer.cornerRadius = 10
-        cell.groupInfoButton.tag = indexPath.row
-        cell.leaveGroupButton.tag = indexPath.row
+        cell.groupInfoButton.tag = indexPath.section
+        cell.leaveGroupButton.tag = indexPath.section
         
         
-        if selectedIndexRow == indexPath.row {
+        if selectedIndexRow == indexPath.section {
             cell.backgroundColor = itsSpelledGrey
         } else {
             cell.backgroundColor = .white
@@ -131,23 +136,27 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groupInNamesArray.count
-        //return 1
+        //return groupInNamesArray.count
+        return 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        //return groupInNamesArray.count
-        return 1
+        return groupInNamesArray.count
+        //return 1
 
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 8.0
+        return 15
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currentGroup = groupsInArray[indexPath.row]
+        currentGroup = groupsInArray[indexPath.section]
         ref = Database.database().reference()
         if currentGroup != nil {
             ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -157,7 +166,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let deselectIndexPath = IndexPath(row: self.selectedIndexRow, section: 0)
                 self.groupsTableView.deselectRow(at: deselectIndexPath, animated: true)
                 self.groupsTableView.cellForRow(at: deselectIndexPath)?.isSelected = false
-                self.selectedIndexRow = indexPath.row
+                self.selectedIndexRow = indexPath.section
                 self.groupsTableView.reloadData()
                 let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
                 self.slideMenuController()?.changeMainViewController(main!, close: true)
