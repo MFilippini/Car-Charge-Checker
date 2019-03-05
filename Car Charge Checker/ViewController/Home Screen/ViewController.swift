@@ -103,19 +103,28 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                         let startTime = Int(reservation["startTime"] ?? "-1") ?? 0
                                         let endTime = Int(reservation["endTime"] ?? "-1") ?? 0
                                         
-                                        if(startTime <= 12){
+                                        if(startTime == 0){
+                                            resTime += "12AM - "
+                                        }else if(startTime == 12){
+                                            resTime += "\(startTime)PM - "
+                                        }else if(startTime < 12){
                                             resTime += "\(startTime)AM - "
                                         }else{
                                             resTime += "\(startTime - 12)PM - "
                                         }
                                         
-                                        if(endTime <= 12){
+                                        if(endTime == 24){
+                                            resTime += "12AM"
+                                        }else if(endTime == 12){
+                                            resTime += "\(endTime)PM"
+                                        }else if(endTime < 12){
                                             resTime += "\(endTime)AM"
                                         }else{
                                             resTime += "\(endTime - 12)PM"
                                         }
                                         
-                                        self.myReservations.append(["date":resDateString,"time":resTime,"realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1"])
+                                        self.myReservations.append(["date":resDateString,"time":resTime,"realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1","yearOfRes":reservation["yearOfRes"] ?? "-1"])
+                                        
                                     }else if(reservation["userID"] != nil){
                                         if(Int(reservation["monthOfRes"] ?? "0") == self.currentMonth && Int(reservation["dayOfRes"] ?? "0") == self.currentDate){
                                             
@@ -125,19 +134,28 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                             let startTime = Int(reservation["startTime"] ?? "-1") ?? 0
                                             let endTime = Int(reservation["endTime"] ?? "-1") ?? 0
                                             
-                                            if(startTime <= 12){
+                                            if(startTime == 0){
+                                                resTime += "12AM - "
+                                            }else if(startTime == 12){
+                                                resTime += "\(startTime)PM - "
+                                            }else if(startTime < 12){
                                                 resTime += "\(startTime)AM - "
                                             }else{
                                                 resTime += "\(startTime - 12)PM - "
                                             }
                                             
-                                            if(endTime <= 12){
+                                            if(endTime == 24){
+                                                resTime += "12AM"
+                                            }else if(endTime == 12){
+                                                resTime += "\(endTime)PM"
+                                            }else if(endTime < 12){
                                                 resTime += "\(endTime)AM"
                                             }else{
                                                 resTime += "\(endTime - 12)PM"
                                             }
                                             
-                                            self.groupReservations.append(["personName":resCreatorName,"time":resTime,"realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1"])
+                                            
+                                            self.groupReservations.append(["personName":resCreatorName,"time":resTime,"realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1","yearOfRes":reservation["yearOfRes"] ?? "-1"])
                                         }
                                     }
                                 }
@@ -165,9 +183,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             var reservation = sortedRes[i]
             let month = Int(reservation["monthOfRes"] ?? "0") ?? 0
             let day = Int(reservation["dayOfRes"] ?? "0") ?? 0
+            let year = Int(reservation["yearOfRes"] ?? "0") ?? 0
             let startTime = Int(reservation["startTime"] ?? "0") ?? 0
             
-            let ultTime = (startTime) + (day * 100) + (month * 10000) // + (year * 1000000)
+            let ultTime = (startTime) + (day * 100) + (month * 10000)  + (year * 1000000)
+            
+            print("year: \(reservation["yearOfRes"])")
             
             reservation.updateValue("\(ultTime)", forKey: "ultTime")
             sortedRes[i] = reservation

@@ -80,7 +80,6 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
                         
                         self.invitesCollectionView.reloadData()
                     }) { (error) in
-                        print("here")
                         print(error.localizedDescription)
                     }
                 }
