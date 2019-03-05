@@ -71,7 +71,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.groupsInArray = []
                 let value = snapshot.value as? NSDictionary
                 firstName = value?["firstName"] as? String
-                self.welcomeNameLabel.text = "Hey, " + firstName! + "!"
+                self.welcomeNameLabel.text = "Hey, " + (firstName ?? "error") + "!"
                 let groups = value?["groupsIn"] as? NSDictionary
                 if(groups != nil){
                     if(groups?.count != 0){
@@ -84,6 +84,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }) { (error) in
                 print(error.localizedDescription)
             }
+            
+            print(groupsInArray)
             
             self.groupInNamesArrayTemp = []
             
@@ -102,6 +104,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     print(error.localizedDescription)
                 }
             }
+            print("HERE!")
+            print(groupInNamesArray)
+            
         }
     }
     

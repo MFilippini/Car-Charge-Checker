@@ -33,6 +33,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         ref = Database.database().reference()
         usersReservationsCollectionView.delegate = self
