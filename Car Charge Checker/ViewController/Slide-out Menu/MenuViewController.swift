@@ -131,7 +131,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.groupInNamesArrayTemp.append(name ?? "error")
                     print(self.groupsInArray.count - 1)
                     print(self.groupsInArray)
-                    if( group == self.groupsInArray[self.groupsInArray.count - 1] && self.groupInNamesArray != self.groupInNamesArrayTemp ){
+                    print("groupNameTemp: \(self.groupInNamesArrayTemp)")
+                    if( group == self.groupsInArray[self.groupsInArray.count - 1]){
                         self.groupInNamesArray = self.groupInNamesArrayTemp
                         self.groupsTableView.reloadData()
                     }
