@@ -44,6 +44,7 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
     
     override func viewWillAppear(_ animated: Bool) {
         callDatabase()
+        self.slideMenuController()?.removeLeftGestures()
     }
     
     
@@ -92,6 +93,7 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
     
     @IBAction func createAGroupPressed(_ sender: Any) {
         let groupCreate = storyboard?.instantiateViewController(withIdentifier: "GroupCreate")
+        groupCreate?.restorationIdentifier = "GroupCreate"
         slideMenuController()?.changeMainViewController(groupCreate!, close: true)
     }
     
