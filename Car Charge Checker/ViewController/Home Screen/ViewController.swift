@@ -210,9 +210,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let todayResCell = collectionView.dequeueReusableCell(withReuseIdentifier: "todayCell", for: indexPath as IndexPath) as! TodayReservationCell
             todayResCell.layer.cornerRadius = 15
             todayResCell.backgroundColor = itsSpelledGrey
-            todayResCell.timePeriodLabel.adjustsFontSizeToFitWidth = true
-            todayResCell.nameLabel.text = groupReservations[indexPath.row]["personName"]
-            todayResCell.timePeriodLabel.text = groupReservations[indexPath.row]["time"]
+//            todayResCell.timePeriodLabel.adjustsFontSizeToFitWidth = true
+//            todayResCell.nameLabel.text = groupReservations[indexPath.row]["personName"]
+//            todayResCell.timePeriodLabel.text = groupReservations[indexPath.row]["time"]
             return todayResCell
         }
     }
