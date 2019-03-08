@@ -255,8 +255,16 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                             i -= 1
                         }
                     }
+                    
                     let childUpdatesGroupMem = ["/groups/\(groupToDelete)/membersInGroup/": inGroup as NSArray,]
                     self.ref.updateChildValues(childUpdatesGroupMem)
+                    
+                    if(inGroup.count == 0){
+                        let childUpdatesGroup = ["/groups/\(groupToDelete)/": ["group":nil],]
+                        self.ref.updateChildValues(childUpdatesGroup)
+                    }
+                    
+                    
                     
                     self.ref.child("groups").child(groupToDelete).observeSingleEvent(of: .value, with: { (snapshot) in
                         let value = snapshot.value as? NSDictionary
