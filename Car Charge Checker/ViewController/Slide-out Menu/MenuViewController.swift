@@ -40,11 +40,13 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
         notificationBellLabel.isHidden = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         //check for notifications
+        super.viewWillAppear(animated)
+        
+        print("wooooooorkkkkk")
         ref = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -74,6 +76,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 firstName = value?["firstName"] as? String
                 self.welcomeNameLabel.text = "Hey, " + (firstName ?? "error") + "!"
                 let groups = value?["groupsIn"] as? NSDictionary
+                print("groups HERE  \(groups)")
                 if(groups != nil){
                     if(groups?.count != 0){
                         //Add data to groupsInArray
@@ -82,27 +85,38 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         }
                     }
                 }
+                
+                self.groupInNamesArrayTemp = []
+                
+                print("groupsInArray: \(self.groupsInArray)")
+                if(self.groupsInArray.count == 0){
+                    print("ID: \(self.slideMenuController()?.mainViewController?.restorationIdentifier)")
+                   if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" ){
+                    
+                        let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
+                        self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
+                    }
+                }
+                
+                for group in self.groupsInArray{
+                    self.ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
+                        let value = snapshot.value as? NSDictionary
+                        let name = value?["groupName"] as? String
+                        self.groupInNamesArrayTemp.append(name ?? "error")
+                        print(self.groupsInArray.count - 1)
+                        print(self.groupsInArray)
+                        print(self.groupInNamesArray)
+                        print(self.groupInNamesArrayTemp)
+                        if( group == self.groupsInArray[self.groupsInArray.count - 1] && self.groupInNamesArray != self.groupInNamesArrayTemp ){
+                            self.groupInNamesArray = self.groupInNamesArrayTemp
+                            self.groupsTableView.reloadData()
+                        }
+                    }) { (error) in
+                        print(error.localizedDescription)
+                    }
+                }
             }) { (error) in
                 print(error.localizedDescription)
-            }
-            
-            self.groupInNamesArrayTemp = []
-            
-            print(groupsInArray)
-            for group in groupsInArray{
-                ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let value = snapshot.value as? NSDictionary
-                    let name = value?["groupName"] as? String
-                    self.groupInNamesArrayTemp.append(name ?? "error")
-                    print(self.groupsInArray.count - 1)
-                    print(self.groupsInArray)
-                    if( group == self.groupsInArray[self.groupsInArray.count - 1] && self.groupInNamesArray != self.groupInNamesArrayTemp ){
-                        self.groupInNamesArray = self.groupInNamesArrayTemp
-                        self.groupsTableView.reloadData()
-                    }
-                }) { (error) in
-                    print(error.localizedDescription)
-                }
             }
         }
     }
@@ -137,18 +151,15 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return groupInNamesArray.count
         return 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return groupInNamesArray.count
-        //return 1
-
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 15
+        return 8
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -238,9 +249,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let value = snapshot.value as? NSDictionary
                     let inGroupNS = value?["membersInGroup"] as? NSArray ?? []
                     var inGroup: Array = inGroupNS as Array
-                    for i in 0..<inGroup.count {
+                    for var i in 0..<inGroup.count {
                         if(inGroup[i] as! String == self.user?.email ?? ""){
                             inGroup.remove(at: i)
+                            i -= 1
                         }
                     }
                     let childUpdatesGroupMem = ["/groups/\(groupToDelete)/membersInGroup/": inGroup as NSArray,]
@@ -249,18 +261,26 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.ref.child("groups").child(groupToDelete).observeSingleEvent(of: .value, with: { (snapshot) in
                         let value = snapshot.value as? NSDictionary
                         let reservationsNS = value?["reservations"] as? NSDictionary ?? ["":""]
-                        var reservations = reservationsNS as Dictionary
+                        var reservations = reservationsNS as? Dictionary<String,Dictionary<String,String>> ?? ["":["":""]]
                         
                         print(reservations)
-                        for (key,reservation) in reservations{
-                            if(reservation["userID"] as! String == userID){
-                                reservations.removeValue(forKey: key)
+                        print(userID)
+                        
+                        for (key,reservation) in reservations {
+                            if(key != "" && reservation != ["":""]){
+                                if((reservation["userID"]) == userID){
+                                    reservations.removeValue(forKey: key)
+                                }
                             }
                         }
-
-                        let childUpdatesGroupRes = ["/groups/\(groupToDelete)/reservations/": reservations as NSDictionary,]
-                        self.ref.updateChildValues(childUpdatesGroupRes)
-
+                        
+                        if(reservations != ["":["":""]]){
+                            let childUpdatesGroupRes = ["/groups/\(groupToDelete)/reservations/": reservations as NSDictionary,]
+                            self.ref.updateChildValues(childUpdatesGroupRes)
+                        }
+                        
+                        
+                        self.viewWillAppear(true)
                         
                     }) { (error) in
                         print(error.localizedDescription)
