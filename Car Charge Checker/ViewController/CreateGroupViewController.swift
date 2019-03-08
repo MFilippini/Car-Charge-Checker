@@ -25,6 +25,7 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     @IBOutlet weak var stepperLabel: UILabel!
     
     @IBOutlet weak var createGroupButton: UIButton!
+    @IBOutlet weak var hamburgerButton: UIButton!
     
     var textFields : [UITextField] = []
     var inGroupNames : [String] = []
@@ -91,7 +92,18 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         slideMenuController()?.addLeftGestures()
-
+        hamburgerButton.imageView?.image = UIImage(named: "menu")
+        print("restricted\(restrictedMode)")
+        if(restrictedMode){
+            slideMenuController()?.removeLeftGestures()
+            //hamburgerButton.imageView?.image = UIImage(named: "arrow")
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if(restrictedMode){
+            hamburgerButton.imageView?.image = UIImage(named: "arrow")
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -106,7 +118,12 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     }
     
     @IBAction func hamburgerTapped(_ sender: Any) {
-        slideMenuController()?.openLeft()
+        if(!restrictedMode){
+            slideMenuController()?.openLeft()
+        }else{
+            let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
+            self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
+        }
     }
     
     @IBAction func addNameToGroupPressed(_ sender: Any) {

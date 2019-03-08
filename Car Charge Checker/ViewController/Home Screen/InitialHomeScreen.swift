@@ -44,6 +44,7 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
     
     override func viewWillAppear(_ animated: Bool) {
         callDatabase()
+        restrictedMode = true
         self.slideMenuController()?.removeLeftGestures()
     }
     
