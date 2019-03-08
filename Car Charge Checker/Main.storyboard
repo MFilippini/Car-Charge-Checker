@@ -1521,6 +1521,7 @@
                         <outlet property="createGroupButton" destination="LSS-eN-RpT" id="ToJ-hi-hnk"/>
                         <outlet property="groupMembersView" destination="KSQ-80-f2o" id="a22-ge-Jb6"/>
                         <outlet property="groupNameView" destination="mJV-aU-xBg" id="pyo-dC-SEj"/>
+                        <outlet property="hamburgerButton" destination="fYM-Zf-WLb" id="fXi-9C-5gp"/>
                         <outlet property="inGroupList" destination="4jT-FZ-tmU" id="xyG-ez-jA4"/>
                         <outlet property="inviteField" destination="1U3-t8-feP" id="fYg-hn-XYJ"/>
                         <outlet property="menuButton" destination="fYM-Zf-WLb" id="vJk-WG-SLB"/>

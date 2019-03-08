@@ -91,7 +91,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print("groupsInArray: \(self.groupsInArray)")
                 if(self.groupsInArray.count == 0){
                     print("ID: \(self.slideMenuController()?.mainViewController?.restorationIdentifier)")
-                   if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" ){
+                   if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
                     
                         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
                         self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
@@ -274,6 +274,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let inGroupNS = value?["membersInGroup"] as? NSArray ?? []
                     var inGroup: Array = inGroupNS as Array
                     for var i in 0..<inGroup.count {
+                        print("i:\(i)")
                         if(inGroup[i] as! String == self.user?.email ?? ""){
                             inGroup.remove(at: i)
                             i -= 1
