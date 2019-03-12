@@ -115,33 +115,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         print(error.localizedDescription)
                     }
                 }
+                
             }) { (error) in
                 print(error.localizedDescription)
             }
             
-            print(groupsInArray)
             
-            self.groupInNamesArrayTemp = []
-            
-            print(groupsInArray)
-            for group in groupsInArray{
-                ref.child("groups").child(group).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let value = snapshot.value as? NSDictionary
-                    let name = value?["groupName"] as? String
-                    self.groupInNamesArrayTemp.append(name ?? "error")
-                    print(self.groupsInArray.count - 1)
-                    print(self.groupsInArray)
-                    print("groupNameTemp: \(self.groupInNamesArrayTemp)")
-                    if( group == self.groupsInArray[self.groupsInArray.count - 1]){
-                        self.groupInNamesArray = self.groupInNamesArrayTemp
-                        self.groupsTableView.reloadData()
-                    }
-                }) { (error) in
-                    print(error.localizedDescription)
-                }
-            }
-            print("HERE!")
-            print(groupInNamesArray)
             
         }
     }

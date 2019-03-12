@@ -11,8 +11,12 @@ import UIKit
 class UserReservationCell: UICollectionViewCell {
     
     @IBOutlet weak var accentView: UIView!
-    @IBOutlet weak var timePeriodLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak var endTimeLabel: UILabel!
+    @IBOutlet weak var startAmPm: UILabel!
+    @IBOutlet weak var endAmPm: UILabel!
+    
     
     
     
