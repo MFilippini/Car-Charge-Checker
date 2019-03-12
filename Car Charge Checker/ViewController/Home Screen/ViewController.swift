@@ -33,6 +33,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         ref = Database.database().reference()
         usersReservationsCollectionView.delegate = self
@@ -98,63 +99,85 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                     print(reservation["userID"])
                                     if(reservation["userID"] == userID){
                                         let resDateString = "\(reservation["monthOfRes"] ?? "-1")/\(reservation["dayOfRes"] ?? "-1")"
-                                        var resTime = ""
+                                        var startTimeStr = ""
+                                        var endTimeStr = ""
+                                        var startAmPm = ""
+                                        var endAmPm = ""
                                         let startTime = Int(reservation["startTime"] ?? "-1") ?? 0
                                         let endTime = Int(reservation["endTime"] ?? "-1") ?? 0
                                         
                                         if(startTime == 0){
-                                            resTime += "12AM - "
+                                            startTimeStr += "12"
+                                            startAmPm = "AM"
                                         }else if(startTime == 12){
-                                            resTime += "\(startTime)PM - "
+                                            startTimeStr += "\(startTime)"
+                                            startAmPm = "PM"
                                         }else if(startTime < 12){
-                                            resTime += "\(startTime)AM - "
+                                            startTimeStr += "\(startTime)"
+                                            startAmPm = "AM"
                                         }else{
-                                            resTime += "\(startTime - 12)PM - "
+                                            startTimeStr += "\(startTime - 12)PM"
+                                            startAmPm = "PM"
                                         }
                                         
                                         if(endTime == 24){
-                                            resTime += "12AM"
+                                            endTimeStr += "12AM"
+                                            endAmPm = "AM"
                                         }else if(endTime == 12){
-                                            resTime += "\(endTime)PM"
+                                            endTimeStr += "\(endTime)PM"
+                                            endAmPm = "PM"
                                         }else if(endTime < 12){
-                                            resTime += "\(endTime)AM"
+                                            endTimeStr += "\(endTime)"
+                                            endAmPm = "AM"
                                         }else{
-                                            resTime += "\(endTime - 12)PM"
+                                            endTimeStr += "\(endTime - 12)"
+                                            endAmPm = "PM"
                                         }
                                         
-                                        self.myReservations.append(["date":resDateString,"time":resTime,"realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1","yearOfRes":reservation["yearOfRes"] ?? "-1"])
+                                        self.myReservations.append(["date":resDateString,"shownStartTime":startTimeStr,"startAmPm":startAmPm,"shownEndTime":endTimeStr,"endAmPm":endAmPm, "realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1","yearOfRes":reservation["yearOfRes"] ?? "-1"])
                                         
                                     }else if(reservation["userID"] != nil){
                                         if(Int(reservation["monthOfRes"] ?? "0") == self.currentMonth && Int(reservation["dayOfRes"] ?? "0") == self.currentDate){
                                             
                                             let resCreatorName = reservation["person"] ?? "error"
                                             
-                                            var resTime = ""
+                                            var startTimeStr = ""
+                                            var endTimeStr = ""
+                                            var startAmPm = ""
+                                            var endAmPm = ""
                                             let startTime = Int(reservation["startTime"] ?? "-1") ?? 0
                                             let endTime = Int(reservation["endTime"] ?? "-1") ?? 0
                                             
                                             if(startTime == 0){
-                                                resTime += "12AM - "
+                                                startTimeStr += "12"
+                                                startAmPm = "AM"
                                             }else if(startTime == 12){
-                                                resTime += "\(startTime)PM - "
+                                                startTimeStr += "\(startTime)"
+                                                startAmPm = "PM"
                                             }else if(startTime < 12){
-                                                resTime += "\(startTime)AM - "
+                                                startTimeStr += "\(startTime)"
+                                                startAmPm = "AM"
                                             }else{
-                                                resTime += "\(startTime - 12)PM - "
+                                                startTimeStr += "\(startTime - 12)PM"
+                                                startAmPm = "PM"
                                             }
                                             
                                             if(endTime == 24){
-                                                resTime += "12AM"
+                                                endTimeStr += "12AM"
+                                                endAmPm = "AM"
                                             }else if(endTime == 12){
-                                                resTime += "\(endTime)PM"
+                                                endTimeStr += "\(endTime)PM"
+                                                endAmPm = "PM"
                                             }else if(endTime < 12){
-                                                resTime += "\(endTime)AM"
+                                                endTimeStr += "\(endTime)"
+                                                endAmPm = "AM"
                                             }else{
-                                                resTime += "\(endTime - 12)PM"
+                                                endTimeStr += "\(endTime - 12)"
+                                                endAmPm = "PM"
                                             }
                                             
                                             
-                                            self.groupReservations.append(["personName":resCreatorName,"time":resTime,"realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1","yearOfRes":reservation["yearOfRes"] ?? "-1"])
+                                            self.groupReservations.append(["personName":resCreatorName,"shownStartTime":startTimeStr,"startAmPm":startAmPm,"shownEndTime":endTimeStr,"endAmPm":endAmPm, "realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1","yearOfRes":reservation["yearOfRes"] ?? "-1"])
                                         }
                                     }
                                 }
@@ -201,17 +224,26 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let userResCell = collectionView.dequeueReusableCell(withReuseIdentifier: "usersCell", for: indexPath as IndexPath) as! UserReservationCell
             userResCell.layer.cornerRadius = 15
             userResCell.backgroundColor = itsSpelledGrey
-            userResCell.timePeriodLabel.adjustsFontSizeToFitWidth = true
+            //userResCell.timePeriodLabel.adjustsFontSizeToFitWidth = true
             userResCell.dateLabel.text = myReservations[indexPath.row]["date"]
-            userResCell.timePeriodLabel.text = myReservations[indexPath.row]["time"]
+            //userResCell.timePeriodLabel.text = myReservations[indexPath.row]["time"]
+            userResCell.startTimeLabel.text = myReservations[indexPath.row]["shownStartTime"]
+            userResCell.endTimeLabel.text = myReservations[indexPath.row]["shownEndTime"]
+            userResCell.startAmPm.text = myReservations[indexPath.row]["startAmPm"]
+            userResCell.endAmPm.text = myReservations[indexPath.row]["endAmPm"]
             return userResCell
         } else {
             let todayResCell = collectionView.dequeueReusableCell(withReuseIdentifier: "todayCell", for: indexPath as IndexPath) as! TodayReservationCell
             todayResCell.layer.cornerRadius = 15
             todayResCell.backgroundColor = itsSpelledGrey
-            todayResCell.timePeriodLabel.adjustsFontSizeToFitWidth = true
+//            todayResCell.timePeriodLabel.adjustsFontSizeToFitWidth = true
+//            todayResCell.timePeriodLabel.text = groupReservations[indexPath.row]["time"]
             todayResCell.nameLabel.text = groupReservations[indexPath.row]["personName"]
-            todayResCell.timePeriodLabel.text = groupReservations[indexPath.row]["time"]
+            todayResCell.startTimeLabel.text = groupReservations[indexPath.row]["shownStartTime"]
+            todayResCell.endTimeLabel.text = groupReservations[indexPath.row]["shownEndTime"]
+            todayResCell.startAmPmLabel.text = groupReservations[indexPath.row]["startAmPm"]
+            todayResCell.endAmPmLabel.text = groupReservations[indexPath.row]["endAmPm"]
+
             return todayResCell
         }
     }

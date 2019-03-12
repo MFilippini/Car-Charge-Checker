@@ -114,6 +114,7 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
         if groupRequests.count != 0 && groupRequestsInfo.count != 0 {
             print(groupRequestsInfo[0][0])
             print("indexPath:\(indexPath)")
+            cell.isHidden = false
             cell.groupNameLabel.text = groupRequestsInfo[indexPath.row][0]
             cell.createdByLabel.text = "Created By: \(groupRequestsInfo[indexPath.row][1])"
             cell.backgroundColor = .white
@@ -128,6 +129,8 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
             cell.acceptButton.tag = indexPath.row
             cell.rejectButton.tag = indexPath.row
             cell.layer.cornerRadius = 12
+        } else {
+            cell.isHidden = true
         }
         return cell
     }

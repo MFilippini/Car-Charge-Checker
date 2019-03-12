@@ -16,6 +16,7 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     @IBOutlet weak var inviteField: UITextField!
     
     @IBOutlet weak var inGroupList: UITableView!
+    @IBOutlet weak var menuButton: UIButton!
     
     @IBOutlet weak var groupNameView: UIView!
     @IBOutlet weak var groupMembersView: UIView!
@@ -35,6 +36,22 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
+        //Check if first time creating a group
+        if let userID = Auth.auth().currentUser?.uid {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                let groups = value?["groupsIn"] as? NSDictionary
+                if groups == nil {
+                    self.menuButton.isHidden = true
+                } else {
+                    self.menuButton.isHidden = false
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+                
         
         for view in [groupNameView,groupMembersView,numChargersView]{
             view!.layer.cornerRadius = 26
