@@ -224,6 +224,19 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         slideMenuController()?.changeMainViewController(groupCreate!, close: true)
     }
     
+    func setCurrentGroup(){
+        if(self.groupsInArray.count == 0){
+            print("ID: \(self.slideMenuController()?.mainViewController?.restorationIdentifier)")
+            if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
+                
+                let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
+                self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
+            }
+        }
+        currentGroup = groupsInArray[0]
+        //groupsTableView.se
+    }
+    
     
     
     @IBAction func leaveGroupTapped(_ sender: UIButton ) {
@@ -253,6 +266,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         print("i:\(i)")
                         if(inGroup[i] as! String == self.user?.email ?? ""){
                             inGroup.remove(at: i)
+                            print("removed")
                             i -= 1
                         }
                     }
