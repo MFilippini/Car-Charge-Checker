@@ -34,6 +34,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        restrictedMode = false
         backgroundViews = [firstNameView,lastNameView,licenseView,colorView]
         textFields = [firstNameTextField,lastNameTextField,carColorTextField,licensePlateTextField]
         setupUI();
@@ -43,10 +44,10 @@ class SettingsViewController: UIViewController {
         for view in backgroundViews{
             view.layer.cornerRadius = 20
         }
-        saveButton.layer.backgroundColor = notBlack.cgColor
-        saveButton.alpha = 0.4
+        saveButton.layer.backgroundColor = toothpaste.cgColor
+        //saveButton.alpha = 0.4
         saveButton.layer.cornerRadius = 15
-        saveButton.isEnabled = false
+        //saveButton.isEnabled = false
         for field in textFields{
             field.layer.borderWidth = 1
             field.layer.borderColor = evqBlue.cgColor
@@ -67,6 +68,8 @@ class SettingsViewController: UIViewController {
                 self.userData[2] = value?["carColor"] as? String ?? ""
                 self.userData[3] = value?["licensePlate"] as? String ?? ""
                 
+                
+                
                 for i in 0..<4{
                     self.textFields[i].text = self.userData[i]
                 }
@@ -83,6 +86,20 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func saveChangesPressed(_ sender: Any) {
+        let id = user!.uid
+        let userKey = ref.child("users").child(id).key!
+        
+        
+        let carColor = carColorTextField.text ?? "error"
+        
+        //let profile = [ "firstName": firstNameTextField.text,
+                    //    "lastName": lastNameTextField.text,
+                      //  "licensePlate": licensePlateTextField.text,
+                   //     "carColor": carColorTextField.text]
+        let childUpdatesUser = ["/users/\(userKey)/carColor": carColor]
+        ref.updateChildValues(childUpdatesUser)
+        
+        
     }
     
 }

@@ -46,7 +46,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //check for notifications
         super.viewWillAppear(animated)
         
-        print("wooooooorkkkkk")
         ref = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -94,6 +93,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                    if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
                     
                         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
+                    print("askdjhfasdjfhajksdhflaksdhfaljsdhfajsdhfjadshfioadshfoaiwehfoaiuewhfoiaewfndksjfndsljhfasiohfaewiofhasklfndsljfhdjaoshfljadsfhaljsdfhaleshjfaewlfhaewjkfbawejkgbaewrjkgbenrjk")
                         self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
                     }
                 }
