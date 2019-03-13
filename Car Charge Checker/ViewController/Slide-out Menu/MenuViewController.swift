@@ -92,11 +92,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print("groupsInArray: \(self.groupsInArray)")
                 if(self.groupsInArray.count == 0){
                     print("ID: \(self.slideMenuController()?.mainViewController?.restorationIdentifier)")
-                   if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
+                    if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" && "UserData" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" && "SignIn" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
                     
                         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
                         self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
                     }
+                    
                 }
                 
                 for group in self.groupsInArray{

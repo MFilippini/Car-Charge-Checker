@@ -1858,7 +1858,7 @@
         <!--User Setup View Controller-->
         <scene sceneID="q3c-7p-3gO">
             <objects>
-                <viewController storyboardIdentifier="UserData" id="h8S-Np-17l" customClass="UserSetupViewController" customModule="Car_Charge_Checker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserData" useStoryboardIdentifierAsRestorationIdentifier="YES" id="h8S-Np-17l" customClass="UserSetupViewController" customModule="Car_Charge_Checker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EDZ-SB-yzM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2085,6 +2085,6 @@
         <image name="signOut" width="1536" height="1536"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="keb-50-yHM"/>
+        <segue reference="Pbj-y0-j7B"/>
     </inferredMetricsTieBreakers>
 </document>
