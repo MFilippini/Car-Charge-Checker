@@ -25,7 +25,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var groupsInArray: [String] = []
     var groupInNamesArray: [String] = []
     var groupInNamesArrayTemp: [String] = []
-    var selectedIndexRow: Int = -1
+    var selectedIndexSection: Int = -1
     var ref: DatabaseReference!
     
     let user = Auth.auth().currentUser
@@ -40,6 +40,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
         notificationBellLabel.isHidden = true
+        print("setCurrentGroup()")
+        setCurrentGroup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,12 +92,13 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print("groupsInArray: \(self.groupsInArray)")
                 if(self.groupsInArray.count == 0){
                     print("ID: \(self.slideMenuController()?.mainViewController?.restorationIdentifier)")
-                   if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
+                    if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" && "UserData" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" && "SignIn" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
                     
                         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
                     print("askdjhfasdjfhajksdhflaksdhfaljsdhfajsdhfjadshfioadshfoaiwehfoaiuewhfoiaewfndksjfndsljhfasiohfaewiofhasklfndsljfhdjaoshfljadsfhaljsdfhaleshjfaewlfhaewjkfbawejkgbaewrjkgbenrjk")
                         self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
                     }
+                    
                 }
                 
                 for group in self.groupsInArray{
@@ -110,7 +113,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         if( group == self.groupsInArray[self.groupsInArray.count - 1] && self.groupInNamesArray != self.groupInNamesArrayTemp ){
                             self.groupInNamesArray = self.groupInNamesArrayTemp
                             self.groupsTableView.reloadData()
+                            self.setCurrentGroup()
                         }
+                        
                     }) { (error) in
                         print(error.localizedDescription)
                     }
@@ -144,8 +149,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.groupInfoButton.tag = indexPath.section
         cell.leaveGroupButton.tag = indexPath.section
         
-        
-        if selectedIndexRow == indexPath.section {
+        print("selectedIndexSection: \(selectedIndexSection) index.section: \(indexPath.section)")
+        if selectedIndexSection == indexPath.section {
             cell.backgroundColor = itsSpelledGrey
         } else {
             cell.backgroundColor = .white
@@ -178,10 +183,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let value = snapshot.value as? NSDictionary
                 numberOfChargers = value?["numChargers"] as? Int
                 print("numChargers: \(numberOfChargers)")
-                let deselectIndexPath = IndexPath(row: self.selectedIndexRow, section: 0)
+                let deselectIndexPath = IndexPath(row: self.selectedIndexSection, section: 0)
                 self.groupsTableView.deselectRow(at: deselectIndexPath, animated: true)
                 self.groupsTableView.cellForRow(at: deselectIndexPath)?.isSelected = false
-                self.selectedIndexRow = indexPath.section
+                self.selectedIndexSection = indexPath.section
                 self.groupsTableView.reloadData()
                 let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
                 self.slideMenuController()?.changeMainViewController(main!, close: true)
@@ -236,9 +241,32 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
                 self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
             }
+        }else{
+            let indexPathOfGroup = IndexPath(row: 0, section: 0)
+            currentGroup = groupsInArray[indexPathOfGroup.section]
+            groupsTableView.selectRow(at: indexPathOfGroup, animated: true, scrollPosition: .top)
+            ref = Database.database().reference()
+            print("currentGroup: \(currentGroup)")
+            if currentGroup != nil {
+                ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSDictionary
+                    numberOfChargers = value?["numChargers"] as? Int
+                    print("numChargers: \(numberOfChargers)")
+                    let deselectIndexPath = IndexPath(row: 0, section: self.selectedIndexSection)
+                    
+                    self.groupsTableView.deselectRow(at: deselectIndexPath, animated: true)
+                    self.groupsTableView.cellForRow(at: deselectIndexPath)?.isSelected = false
+                
+                    print("hey??#R?")
+                    self.selectedIndexSection = indexPathOfGroup.section
+                    self.groupsTableView.reloadData()
+                    let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+                    self.slideMenuController()?.changeMainViewController(main!, close: true)
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+            }
         }
-        currentGroup = groupsInArray[0]
-        //groupsTableView.se
     }
     
     
@@ -324,7 +352,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         
-        groupsTableView.reloadData()
+        //groupsTableView.reloadData()
     }
     
 
