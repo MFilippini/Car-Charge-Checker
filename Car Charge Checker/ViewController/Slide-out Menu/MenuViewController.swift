@@ -51,7 +51,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         ref = Database.database().reference()
         if let userID = Auth.auth().currentUser?.uid {
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
                 let value = snapshot.value as? NSDictionary
                 let requests = value?["groupRequests"] as? NSDictionary
                 if(requests != nil && requests?.count != 0){
@@ -95,7 +94,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" && "UserData" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" && "SignIn" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
                     
                         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
-                    print("askdjhfasdjfhajksdhflaksdhfaljsdhfajsdhfjadshfioadshfoaiwehfoaiuewhfoiaewfndksjfndsljhfasiohfaewiofhasklfndsljfhdjaoshfljadsfhaljsdfhaleshjfaewlfhaewjkfbawejkgbaewrjkgbenrjk")
                         self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
                     }
                     
@@ -351,8 +349,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
         
-        
-        //groupsTableView.reloadData()
     }
     
 
