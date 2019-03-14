@@ -95,6 +95,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" && "UserData" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" && "SignIn" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
                     
                         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
+                    print("askdjhfasdjfhajksdhflaksdhfaljsdhfajsdhfjadshfioadshfoaiwehfoaiuewhfoiaewfndksjfndsljhfasiohfaewiofhasklfndsljfhdjaoshfljadsfhaljsdfhaleshjfaewlfhaewjkfbawejkgbaewrjkgbenrjk")
                         self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
                     }
                 }
