@@ -48,6 +48,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewWillAppear(_ animated: Bool) {
         slideMenuController()?.addLeftGestures()
+        restrictedMode = false
         let cal = Calendar.current.dateComponents([.year, .month, .day, .weekday], from: Date())
         currentDate = cal.day ?? 0
         currentMonth = cal.month ?? 0
