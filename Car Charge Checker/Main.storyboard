@@ -1509,7 +1509,6 @@
                                     <constraint firstAttribute="height" constant="30" id="VGo-0t-SBM"/>
                                     <constraint firstAttribute="width" constant="32" id="qPO-PR-hhc"/>
                                 </constraints>
-                                <state key="normal" title="MenuBoi" image="menu"/>
                                 <connections>
                                     <action selector="hamburgerTapped:" destination="hHa-sq-a3H" eventType="touchUpInside" id="ZRc-OL-T28"/>
                                 </connections>
@@ -1535,7 +1534,6 @@
                         <outlet property="hamburgerButton" destination="fYM-Zf-WLb" id="fXi-9C-5gp"/>
                         <outlet property="inGroupList" destination="4jT-FZ-tmU" id="xyG-ez-jA4"/>
                         <outlet property="inviteField" destination="1U3-t8-feP" id="fYg-hn-XYJ"/>
-                        <outlet property="menuButton" destination="fYM-Zf-WLb" id="vJk-WG-SLB"/>
                         <outlet property="nameField" destination="7VW-SU-rtT" id="6Y0-Dd-lwF"/>
                         <outlet property="numChargersStepper" destination="4GJ-r6-QSJ" id="hxT-vp-Uav"/>
                         <outlet property="numChargersView" destination="WFB-bc-Ue6" id="8kx-hW-erQ"/>

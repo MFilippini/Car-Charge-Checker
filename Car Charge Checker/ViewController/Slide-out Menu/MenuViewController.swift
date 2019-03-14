@@ -96,7 +96,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
                         self.slideMenuController()?.changeMainViewController(setupScreen!, close: true)
                     }
-                    
                 }
                 
                 for group in self.groupsInArray{

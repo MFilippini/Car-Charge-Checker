@@ -16,7 +16,6 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     @IBOutlet weak var inviteField: UITextField!
     
     @IBOutlet weak var inGroupList: UITableView!
-    @IBOutlet weak var menuButton: UIButton!
     
     @IBOutlet weak var groupNameView: UIView!
     @IBOutlet weak var groupMembersView: UIView!
@@ -42,11 +41,6 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
                 let groups = value?["groupsIn"] as? NSDictionary
-                if groups == nil {
-                    self.menuButton.isHidden = true
-                } else {
-                    self.menuButton.isHidden = false
-                }
             }) { (error) in
                 print(error.localizedDescription)
             }
@@ -108,8 +102,9 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         slideMenuController()?.addLeftGestures()
-        hamburgerButton.imageView?.image = UIImage(named: "menu")
+        //hamburgerButton.imageView?.image = UIImage(named: "menu")
         print("restricted\(restrictedMode)")
         if(restrictedMode){
             slideMenuController()?.removeLeftGestures()
@@ -118,8 +113,12 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if(restrictedMode){
-            hamburgerButton.imageView?.image = UIImage(named: "arrow")
+            print("WORK!!!")
+            hamburgerButton.setBackgroundImage(UIImage(named: "arrow"), for: .normal)
+        }else{
+            hamburgerButton.setBackgroundImage(UIImage(named: "menu"), for: .normal)
         }
     }
     
