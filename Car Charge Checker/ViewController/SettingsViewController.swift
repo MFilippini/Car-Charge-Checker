@@ -91,12 +91,14 @@ class SettingsViewController: UIViewController {
         
         
         let carColor = carColorTextField.text ?? "error"
+        let firstName = firstNameTextField.text ?? "error"
+        let lastName = lastNameTextField.text ?? "error"
+        let licensePlate = licensePlateTextField.text ?? "error"
         
-        //let profile = [ "firstName": firstNameTextField.text,
-                    //    "lastName": lastNameTextField.text,
-                      //  "licensePlate": licensePlateTextField.text,
-                   //     "carColor": carColorTextField.text]
-        let childUpdatesUser = ["/users/\(userKey)/carColor": carColor]
+        let childUpdatesUser = ["/users/\(userKey)/carColor": carColor, "/users/\(userKey)/firstName": firstName, "/users/\(userKey)/lastName": lastName, "/users/\(userKey)/licensePlate": licensePlate]
+        
+        
+        
         ref.updateChildValues(childUpdatesUser)
         
         
