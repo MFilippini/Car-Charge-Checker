@@ -109,7 +109,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     fileprivate func uiSetup() {
         reserveButton.layer.cornerRadius = 10
         reserveButton.isEnabled = false
-        reserveButton.layer.backgroundColor = toothpaste.cgColor
+        reserveButton.layer.backgroundColor = itsSpelledGrey.cgColor
         timeSelectionView.layer.cornerRadius = 20
         timeSelectionViewTwo.layer.cornerRadius = 20
         calander.backgroundColor = notBlack
@@ -129,6 +129,10 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        updateReserveButton()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         updateReserveButton()
     }
     
@@ -234,10 +238,10 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     func updateReserveButton(){
         if((firstTrueTime<secondTrueTime) && !(currentMonth == shownMonth && currentlySelectedDate < shownDay) && (currentlySelectedDate != -1) ){
             reserveButton.isEnabled = true
-            reserveButton.alpha = 1
+            reserveButton.layer.backgroundColor = toothpaste.cgColor
         }else{
             reserveButton.isEnabled = false
-            reserveButton.alpha = 0.65
+            reserveButton.layer.backgroundColor = itsSpelledGrey.cgColor
         }
         print("start:\(firstTrueTime) end:\(secondTrueTime)")
     }
