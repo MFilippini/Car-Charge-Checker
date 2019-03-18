@@ -230,6 +230,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         slideMenuController()?.changeMainViewController(groupCreate!, close: true)
     }
     
+    @IBAction func groupInfoTapped(_ sender: UIButton) {
+        let groupInfo = storyboard?.instantiateViewController(withIdentifier: "GroupInfo")
+        selectedGroup = groupsInArray[sender.tag]
+        slideMenuController()?.changeMainViewController(groupInfo!, close: true)
+    }
+    
     func setCurrentGroup(){
         if(self.groupsInArray.count == 0){
             print("ID: \(self.slideMenuController()?.mainViewController?.restorationIdentifier)")

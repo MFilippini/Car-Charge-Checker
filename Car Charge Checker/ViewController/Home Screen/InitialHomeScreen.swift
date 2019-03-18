@@ -17,17 +17,21 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
     @IBOutlet weak var createAGroupButton: UIButton!
     @IBOutlet weak var invitesCollectionView: UICollectionView!
     
-   
+    
     var ref: DatabaseReference!
     var groupRequests: [String] = []
     var groupRequestsInfo: [[String]] = [[]]
     
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createAGroupButton.layer.cornerRadius = 10
-        nameGreetingLabel.text = "Hey " + firstName! + "!"
+        nameGreetingLabel.text = "Hey " + (firstName ?? "wow u found a bug") + "!"
         invitesCollectionView.backgroundColor = .clear
         invitesCollectionView.delegate = self
         invitesCollectionView.dataSource = self
@@ -220,5 +224,21 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
             }
         }
     }
+    
+    
+    @IBAction func signOutPressed(_ sender: Any) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            GIDSignIn.sharedInstance().signOut()
+            
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+        let signIn = storyboard?.instantiateViewController(withIdentifier: "SignIn")
+        slideMenuController()?.changeMainViewController(signIn!, close: true)
+    }
+    
     
 }
