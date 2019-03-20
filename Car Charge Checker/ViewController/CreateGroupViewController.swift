@@ -156,56 +156,88 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         let id = "\(groupName)\(user!.uid)"
         let groupKey = ref.child("groups").child(id).key!
         let numChargers = Int(numChargersStepper.value)
-        
+        var membersInvited: [String] = []
+        print("update CC")
+        print("inGroupNames \(inGroupNames)")
+        print("groupKey \(groupKey)")
         ref.child("groups").observeSingleEvent(of: .value, with: { (snapshot) in
             let groups = snapshot.value as? NSDictionary
-            
+            print("groups: \(groups)")
             if(groups?[groupKey] == nil){
-            
-                let groupInfo = [ "groupName": self.nameField.text,
-                                  "numChargers": numChargers,
-                                  "creator": "\(self.user?.email ?? "error")",
-                    "membersInvited": self.inGroupNames,
-                    "membersInGroup": ["\(self.user?.email ?? "error")"]] as [String : Any]
-                let childUpdatesUser = ["/groups/\(groupKey)": groupInfo,]
-                self.ref.updateChildValues(childUpdatesUser)
                 
                 //Find People
-                for name in self.inGroupNames{
-                    var email = name
-                    self.clean(String: &email)
-                    print(email)
-                    self.ref = Database.database().reference()
-                    self.ref.child("emails").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
-                        // Get user value
-                        let value = snapshot.value as? NSDictionary
-                        let foundID = value?["id"] as? String ?? "noID"
+                if(self.inGroupNames.count != 0){
+                    for name in self.inGroupNames{
+                        var email = name
+                        self.clean(String: &email)
+                        print(email)
+                        self.ref = Database.database().reference()
+                        self.ref.child("emails").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
+                            // Get user value
+                            let value = snapshot.value as? NSDictionary
+                            let foundID = value?["id"] as? String ?? "noID"
+                            
+                            let key = self.ref.child("users").childByAutoId().key!
+                            
+                            var creatorsEmail = self.user!.email ?? ""
+                            self.clean(String: &creatorsEmail)
+                            
+                            if(foundID != "noID" && email != creatorsEmail){
+                                let childUpdates = ["/users/\(foundID)/groupRequests/(\(id)+request)": id,]
+                                self.ref.updateChildValues(childUpdates)
+                                membersInvited.append(foundID)
+                            }
+                            
+                            print("update BB")
+                            if(self.inGroupNames.last == name){
+                                print("update AAA")
+                                let groupInfo = [ "groupName": self.nameField.text,
+                                                  "numChargers": numChargers,
+                                                  "creator": "\(self.user?.email ?? "error")",
+                                                  "membersInvited": membersInvited,
+                                                  "membersInGroup": ["\(self.user?.email ?? "error")"]] as [String : Any]
+                                let childUpdatesUser = ["/groups/\(groupKey)": groupInfo,]
+                                self.ref.updateChildValues(childUpdatesUser)
+
+                                //adds creator to group
+                                self.ref = Database.database().reference()
+                                let key = self.ref.child("users").childByAutoId().key!
+                                
+                                let childUpdates = ["/users/\(self.user!.uid)/groupsIn/\(key)": id,]
+                                self.ref.updateChildValues(childUpdates)
+                                
+                                //Return to Main Screen
+                                let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+                                self.slideMenuController()?.changeMainViewController(main!, close: true)
+                                
+                            }
                         
-                        let key = self.ref.child("users").childByAutoId().key!
-                        
-                        var creatorsEmail = self.user!.email ?? ""
-                        self.clean(String: &creatorsEmail)
-                        if(foundID != "noID" && email != creatorsEmail){
-                            let childUpdates = ["/users/\(foundID)/groupRequests/\(key)": id,]
-                            self.ref.updateChildValues(childUpdates)
+                        }) { (error) in
+                            print(error.localizedDescription)
                         }
-                        
-                    }) { (error) in
-                        print(error.localizedDescription)
                     }
+                }else{
+                    print("update AAA")
+                    let groupInfo = [ "groupName": self.nameField.text,
+                                      "numChargers": numChargers,
+                                      "creator": "\(self.user?.email ?? "error")",
+                        "membersInvited": membersInvited,
+                        "membersInGroup": ["\(self.user?.email ?? "error")"]] as [String : Any]
+                    let childUpdatesUser = ["/groups/\(groupKey)": groupInfo,]
+                    self.ref.updateChildValues(childUpdatesUser)
+                    
+                    //adds creator to group
+                    self.ref = Database.database().reference()
+                    let key = self.ref.child("users").childByAutoId().key!
+                    
+                    let childUpdates = ["/users/\(self.user!.uid)/groupsIn/\(key)": id,]
+                    self.ref.updateChildValues(childUpdates)
+                    
+                    //Return to Main Screen
+                    let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+                    self.slideMenuController()?.changeMainViewController(main!, close: true)
                 }
-                //adds creator to group
-                self.ref = Database.database().reference()
-                let key = self.ref.child("users").childByAutoId().key!
-                
-                let childUpdates = ["/users/\(self.user!.uid)/groupsIn/\(key)": id,]
-                self.ref.updateChildValues(childUpdates)
-                
-                //Return to Main Screen
-                
-                let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
-                self.slideMenuController()?.changeMainViewController(main!, close: true)
-                
+                            
             }else{
                 let alert = UIAlertController(title: "Invalid Name", message: "You may not make two groups with the same name.", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
