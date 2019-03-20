@@ -32,6 +32,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var ref: DatabaseReference!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -117,7 +122,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                             startTimeStr += "\(startTime)"
                                             startAmPm = "AM"
                                         }else{
-                                            startTimeStr += "\(startTime - 12)PM"
+                                            startTimeStr += "\(startTime - 12)"
                                             startAmPm = "PM"
                                         }
                                         
@@ -125,7 +130,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                             endTimeStr += "12AM"
                                             endAmPm = "AM"
                                         }else if(endTime == 12){
-                                            endTimeStr += "\(endTime)PM"
+                                            endTimeStr += "\(endTime)"
                                             endAmPm = "PM"
                                         }else if(endTime < 12){
                                             endTimeStr += "\(endTime)"
@@ -159,7 +164,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                                 startTimeStr += "\(startTime)"
                                                 startAmPm = "AM"
                                             }else{
-                                                startTimeStr += "\(startTime - 12)PM"
+                                                startTimeStr += "\(startTime - 12)"
                                                 startAmPm = "PM"
                                             }
                                             
@@ -167,7 +172,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                                 endTimeStr += "12AM"
                                                 endAmPm = "AM"
                                             }else if(endTime == 12){
-                                                endTimeStr += "\(endTime)PM"
+                                                endTimeStr += "\(endTime)"
                                                 endAmPm = "PM"
                                             }else if(endTime < 12){
                                                 endTimeStr += "\(endTime)"
@@ -229,6 +234,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             userResCell.dateLabel.text = myReservations[indexPath.row]["date"]
             //userResCell.timePeriodLabel.text = myReservations[indexPath.row]["time"]
             userResCell.startTimeLabel.text = myReservations[indexPath.row]["shownStartTime"]
+            
             userResCell.endTimeLabel.text = myReservations[indexPath.row]["shownEndTime"]
             userResCell.startAmPm.text = myReservations[indexPath.row]["startAmPm"]
             userResCell.endAmPm.text = myReservations[indexPath.row]["endAmPm"]
@@ -267,6 +273,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBAction func reserveButtonPressed(_ sender: Any) {
         
     }
+    
+    @IBAction func deleteReservationPressed(_ sender: Any) {
+        
+        
+    }
+    
     
 }
 

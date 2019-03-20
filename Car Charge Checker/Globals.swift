@@ -18,3 +18,4 @@ var groupID: String? = ""
 var currentlySelectedDate = -1
 var currentlySelectedYear = -1
 var restrictedMode = false
+var selectedGroup: String? = ""
