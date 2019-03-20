@@ -298,11 +298,15 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let inGroupNS = value?["membersInGroup"] as? NSArray ?? []
                     var inGroup: Array = inGroupNS as Array
                     for var i in 0..<inGroup.count {
-                        print("i:\(i)")
-                        if(inGroup[i] as! String == self.user?.email ?? ""){
-                            inGroup.remove(at: i)
-                            print("removed")
-                            i -= 1
+                        if(i < inGroup.count){
+                            print("i:\(i)")
+                            if(inGroup[i] as! String == self.user?.email ?? ""){
+                                inGroup.remove(at: i)
+                                print("removed")
+                                print("i:\(i)")
+                                i -= 1
+                                print("i:\(i)")
+                            }
                         }
                     }
                     
