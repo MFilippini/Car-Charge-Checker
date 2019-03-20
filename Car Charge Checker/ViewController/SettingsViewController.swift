@@ -53,6 +53,9 @@ class SettingsViewController: UIViewController {
             field.layer.borderColor = evqBlue.cgColor
             field.layer.cornerRadius = 5
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +83,12 @@ class SettingsViewController: UIViewController {
         }
         
     }
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        for field in textFields{
+            field.endEditing(true)
+        }
+    }
 
     @IBAction func hamburgerTapped(_ sender: Any) {
         slideMenuController()?.openLeft()
@@ -100,6 +109,15 @@ class SettingsViewController: UIViewController {
         
         
         ref.updateChildValues(childUpdatesUser)
+        
+        let alert = UIAlertController(title: "Saved!", message: "", preferredStyle: UIAlertController.Style.alert)
+        
+        present(alert, animated: true)
+        
+        let when = DispatchTime.now() + 0.6
+        DispatchQueue.main.asyncAfter(deadline: when){
+            alert.dismiss(animated: true, completion: nil)
+        }
         
         
     }

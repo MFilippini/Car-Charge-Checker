@@ -31,6 +31,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let user = Auth.auth().currentUser
     let defaults = UserDefaults.standard
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         newGroupButton.layer.cornerRadius = 10

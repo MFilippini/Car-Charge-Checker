@@ -115,7 +115,6 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if(restrictedMode){
-            print("WORK!!!")
             hamburgerButton.setBackgroundImage(UIImage(named: "arrow"), for: .normal)
         }else{
             hamburgerButton.setBackgroundImage(UIImage(named: "menu"), for: .normal)

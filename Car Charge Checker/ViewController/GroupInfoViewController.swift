@@ -16,6 +16,7 @@ class GroupInfoViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var groupNameLabel: UILabel!
     @IBOutlet weak var memberListTableView: UITableView!
+    @IBOutlet weak var addMemberButton: UIButton!
     
     var ref: DatabaseReference!
     var membersInGroup: [String] = []
@@ -24,6 +25,8 @@ class GroupInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         memberListTableView.delegate = self
         memberListTableView.dataSource = self
+        addMemberButton.layer.cornerRadius = 15
+        
         //setup()
     }
     
@@ -84,8 +87,17 @@ class GroupInfoViewController: UIViewController, UITableViewDelegate, UITableVie
 
     @IBAction func addMemberButtonPressed(_ sender: Any) {
         
+        let alert = UIAlertController(title: "Add A Member", message: "Input the email associated with the account", preferredStyle: UIAlertController.Style.alert)
+        let action = UIAlertAction(title: "Add", style: .default) { (alertAction) in
+            let textField = alert.textFields![0] as UITextField
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = "Email"
+        }
         
-        
+        alert.addAction(action)
+        //self.view.present(GroupInfoViewController, animated:true, completion: nil)
+        present(alert, animated: true)
     }
     
     @IBAction func hamburgerPressed(_ sender: Any) {
