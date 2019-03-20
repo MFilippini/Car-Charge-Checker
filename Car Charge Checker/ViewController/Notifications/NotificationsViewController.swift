@@ -110,7 +110,7 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
                     let email = Auth.auth().currentUser?.email
 
                     inGroup?.add(email)
-                    requestedGroup?.remove(email)
+                    requestedGroup?.remove(userID)
   
                     let childUpdates = ["/users/\(userID)/groupRequests/": groups,
                                         "/users/\(userID)/groupsIn/\(key)": self.groupRequests[sender.tag],
@@ -149,7 +149,7 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
                     
                     let email = Auth.auth().currentUser?.email
                     
-                    requestedGroup?.remove(email)
+                    requestedGroup?.remove(userID)
                     
                     let childUpdates = ["/users/\(userID)/groupRequests/": groups,
                                         "/groups/\(self.groupRequests[sender.tag])/membersInvited/": requestedGroup,] as [String : Any]
