@@ -368,8 +368,8 @@
                                             <action selector="hamburgerPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tcS-v8-w54"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2my-QV-Mgf">
-                                        <rect key="frame" x="69" y="38" width="277" height="81"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2my-QV-Mgf">
+                                        <rect key="frame" x="68.666666666666686" y="38" width="277" height="81"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="81" id="eLz-tw-s9c"/>
                                             <constraint firstAttribute="width" constant="277" id="ij6-5g-J2w"/>
@@ -1689,7 +1689,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="398" height="160"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test Groupsadfjhadhfj hajdsfajdskfjakldsjfkajdfk" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmT-Fa-a6K">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test Groupsadfjhadhfj hajdsfajdskfjakldsjfkajdfk" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmT-Fa-a6K">
                                                             <rect key="frame" x="7" y="11" width="385" height="71"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="71" id="gyV-Cm-tR6"/>
