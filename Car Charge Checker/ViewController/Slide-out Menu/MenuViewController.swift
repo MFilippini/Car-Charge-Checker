@@ -302,75 +302,76 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let inGroupNS = value?["membersInGroup"] as? NSArray ?? []
                     var inGroup: Array = inGroupNS as Array
                     for var i in 0..<inGroup.count {
-                        print("i:\(i)")
-                        if(inGroup[i] as! String == self.user?.email ?? ""){
-                            inGroup.remove(at: i)
-                            print("removed")
-                            i -= 1
+                        if(i < inGroup.count){
+                            print("i:\(i)")
+                            if(inGroup[i] as! String == self.user?.email ?? ""){
+                                inGroup.remove(at: i)
+                                print("removed")
+                                print("i:\(i)")
+                                i -= 1
+                                print("i:\(i)")
+                            }
                         }
                     }
                     
                     let childUpdatesGroupMem = ["/groups/\(groupToDelete)/membersInGroup/": inGroup as NSArray,]
                     self.ref.updateChildValues(childUpdatesGroupMem)
                     
-                    
-                    
-                    
                     self.ref.child("groups").child(groupToDelete).observeSingleEvent(of: .value, with: { (snapshot) in
                         let value = snapshot.value as? NSDictionary
                         let invitedNS = value?["membersInvited"] as? NSArray ?? []
                         var invited: Array = invitedNS as Array
-                        for var i in 0..<invited.count {
-                            print("i:\(i)")
-                            let id = invited[i] as? String ?? "error"
-                            let childUpdatesGroupReq = ["/users/\(id)/groupRequests/(\(groupToDelete)+request)/": nil,] as [String : Any?]
-                            self.ref.updateChildValues(childUpdatesGroupReq)
-                        }
                     
                     
-                    
-                            if(inGroup.count == 0){
-                                let childUpdatesGroup = ["/groups/\(groupToDelete)/": ["group":nil],]
-                                self.ref.updateChildValues(childUpdatesGroup)
+                        if(inGroup.count == 0){
+                            
+                            for var i in 0..<invited.count {
+                                print("i:\(i)")
+                                let id = invited[i] as? String ?? "error"
+                                let childUpdatesGroupReq = ["/users/\(id)/groupRequests/(\(groupToDelete)+request)/": nil,] as [String : Any?]
+                                self.ref.updateChildValues(childUpdatesGroupReq)
                             }
+                    
+                            let childUpdatesGroup = ["/groups/\(groupToDelete)/": ["group":nil],]
+                            self.ref.updateChildValues(childUpdatesGroup)
+                        }
                             
                             
-                            self.ref.child("groups").child(groupToDelete).observeSingleEvent(of: .value, with: { (snapshot) in
-                                let value = snapshot.value as? NSDictionary
-                                let reservationsNS = value?["reservations"] as? NSDictionary ?? ["":""]
-                                var reservations = reservationsNS as? Dictionary<String,Dictionary<String,String>> ?? ["":["":""]]
-                                
-                                print(reservations)
-                                print(userID)
-                                
-                                for (key,reservation) in reservations {
-                                    if(key != "" && reservation != ["":""]){
-                                        if((reservation["userID"]) == userID){
-                                            reservations.removeValue(forKey: key)
-                                        }
+                        self.ref.child("groups").child(groupToDelete).observeSingleEvent(of: .value, with: { (snapshot) in
+                            let value = snapshot.value as? NSDictionary
+                            let reservationsNS = value?["reservations"] as? NSDictionary ?? ["":""]
+                            var reservations = reservationsNS as? Dictionary<String,Dictionary<String,String>> ?? ["":["":""]]
+                            
+                            print(reservations)
+                            print(userID)
+                            
+                            for (key,reservation) in reservations {
+                                if(key != "" && reservation != ["":""]){
+                                    if((reservation["userID"]) == userID){
+                                        reservations.removeValue(forKey: key)
                                     }
                                 }
-                                
-                                if(reservations != ["":["":""]]){
-                                    let childUpdatesGroupRes = ["/groups/\(groupToDelete)/reservations/": reservations as NSDictionary,]
-                                    self.ref.updateChildValues(childUpdatesGroupRes)
-                                }
-                                
-                                
-                                self.viewWillAppear(true)
-                                
-                            }) { (error) in
-                                print(error.localizedDescription)
                             }
                             
+                            if(reservations != ["":["":""]]){
+                                let childUpdatesGroupRes = ["/groups/\(groupToDelete)/reservations/": reservations as NSDictionary,]
+                                self.ref.updateChildValues(childUpdatesGroupRes)
+                            }
+                            
+                            
+                            self.viewWillAppear(true)
+                                
                         }) { (error) in
                             print(error.localizedDescription)
                         }
+                            
+                    }) { (error) in
+                        print(error.localizedDescription)
+                    }
                     
                 }) { (error) in
                     print(error.localizedDescription)
                 }
-                
                 
             }) { (error) in
                 print(error.localizedDescription)
