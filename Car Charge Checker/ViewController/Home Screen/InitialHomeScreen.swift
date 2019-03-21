@@ -155,6 +155,7 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
                         groups![key] = nil
                     }
                 }
+                
                 let key = self.ref.child("users").childByAutoId().key!
                 self.ref.child("groups").child(self.groupRequests[sender.tag]).observeSingleEvent(of: .value, with: { (snapshot) in
                     
@@ -165,7 +166,7 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
                     let email = Auth.auth().currentUser?.email
                     
                     inGroup?.add(email)
-                    requestedGroup?.remove(email)
+                    requestedGroup?.remove(userID)
                     
                     let childUpdates = ["/users/\(userID)/groupRequests/": groups,
                                         "/users/\(userID)/groupsIn/\(key)": self.groupRequests[sender.tag],
