@@ -89,7 +89,9 @@ class GroupInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let alert = UIAlertController(title: "Add A Member", message: "Input the email associated with the account", preferredStyle: UIAlertController.Style.alert)
         let action = UIAlertAction(title: "Add", style: .default) { (alertAction) in
-            let textField = alert.textFields![0] as UITextField
+            //let textField = alert.textFields![0] as UITextField
+            let newEmail = alert.textFields![0]
+            
         }
         alert.addTextField { (textField) in
             textField.placeholder = "Email"
