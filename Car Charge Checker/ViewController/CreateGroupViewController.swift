@@ -160,10 +160,10 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         print("update CC")
         print("inGroupNames \(inGroupNames)")
         print("groupKey \(groupKey)")
-        ref.child("groups").observeSingleEvent(of: .value, with: { (snapshot) in
-            let groups = snapshot.value as? NSDictionary
-            print("groups: \(groups)")
-            if(groups?[groupKey] == nil){
+        ref.child("groups").child(groupKey).observeSingleEvent(of: .value, with: { (snapshot) in
+            let group = snapshot.value as? NSDictionary
+            print("groups: \(group)")
+            if(group == nil){
                 
                 //Find People
                 if(self.inGroupNames.count != 0){
@@ -191,7 +191,7 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
                             print("update BB")
                             if(self.inGroupNames.last == name){
                                 print("update AAA")
-                                let groupInfo = [ "groupName": self.nameField.text,
+                                let groupInfo = [ "groupName": self.nameField.text ?? "error",
                                                   "numChargers": numChargers,
                                                   "creator": "\(self.user?.email ?? "error")",
                                                   "membersInvited": membersInvited,
@@ -218,7 +218,7 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
                     }
                 }else{
                     print("update AAA")
-                    let groupInfo = [ "groupName": self.nameField.text,
+                    let groupInfo = [ "groupName": self.nameField.text ?? "error",
                                       "numChargers": numChargers,
                                       "creator": "\(self.user?.email ?? "error")",
                         "membersInvited": membersInvited,
