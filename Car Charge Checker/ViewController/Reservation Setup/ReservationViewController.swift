@@ -157,18 +157,23 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     public func dateSelected(date: Int){
-        currentlySelectedDate = date
-        
-        let date = Date()
-        let cal = Calendar.current
-        let components = cal.dateComponents([.year], from: date)
-        
-        if shownMonth < currentMonth {
-            currentlySelectedYear = components.year! + 1
+        if date != -1 {
+            currentlySelectedDate = date
+            
+            let date = Date()
+            let cal = Calendar.current
+            let components = cal.dateComponents([.year], from: date)
+            
+            if shownMonth < currentMonth {
+                currentlySelectedYear = components.year! + 1
+            } else {
+                currentlySelectedYear = components.year!
+            }
+            print("currentlySelectedYear: \(currentlySelectedYear)")
         } else {
-            currentlySelectedYear = components.year!
+            currentlySelectedDate = -1
+            currentlySelectedYear = -1
         }
-        print("currentlySelectedYear: \(currentlySelectedYear)")
     }
     
     @IBAction func nextMonth(_ sender: Any) {

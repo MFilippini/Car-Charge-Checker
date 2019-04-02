@@ -127,7 +127,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                         }
                                         
                                         if(endTime == 24){
-                                            endTimeStr += "12AM"
+                                            endTimeStr += "12"
                                             endAmPm = "AM"
                                         }else if(endTime == 12){
                                             endTimeStr += "\(endTime)"
