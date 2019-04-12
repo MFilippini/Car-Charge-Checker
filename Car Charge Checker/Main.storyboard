@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3nB-lH-jUx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3nB-lH-jUx">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -502,6 +502,7 @@
                                         <connections>
                                             <outlet property="accentView" destination="6sp-PT-VQd" id="dIk-uH-y2p"/>
                                             <outlet property="dateLabel" destination="T1N-Xw-5GK" id="rQw-JB-9jy"/>
+                                            <outlet property="deleteReservationButton" destination="lx0-O6-4N4" id="LjN-by-smN"/>
                                             <outlet property="endAmPm" destination="7Uc-KH-sd2" id="mpN-dt-L6U"/>
                                             <outlet property="endTimeLabel" destination="LIo-7w-nmz" id="xkp-Gw-kZq"/>
                                             <outlet property="startAmPm" destination="VCM-CK-gjp" id="weV-Wj-hvn"/>

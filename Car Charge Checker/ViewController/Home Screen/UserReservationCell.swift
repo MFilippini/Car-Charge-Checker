@@ -16,6 +16,7 @@ class UserReservationCell: UICollectionViewCell {
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var startAmPm: UILabel!
     @IBOutlet weak var endAmPm: UILabel!
+    @IBOutlet weak var deleteReservationButton: UIButton!
     
     
     
