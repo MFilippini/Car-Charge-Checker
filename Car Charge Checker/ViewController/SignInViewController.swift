@@ -32,12 +32,22 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        signInListener = Auth.auth().addStateDidChangeListener { auth, user in
-            if user != nil {
-                self.userDataAvailable()
-            } else {
-                print("no User")
+        let screenWidth = UIScreen.main.bounds.size.width
+        let screenHeight = UIScreen.main.bounds.size.height
+        
+        if(max(screenWidth, screenHeight) > 568.0){
+            signInListener = Auth.auth().addStateDidChangeListener { auth, user in
+                if user != nil {
+                    self.userDataAvailable()
+                }else {
+                    print("no User")
+                }
             }
+        }else{
+            let alert = UIAlertController(title: "Error", message: "EVQ is not yet compatible with this device.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            print("googlePressed?2")
         }
         slideMenuController()?.removeLeftGestures()
     }
@@ -102,6 +112,7 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        print("googlePressed?1")
         if let error = error {
             // ...
             return

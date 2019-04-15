@@ -11,7 +11,7 @@ import Foundation
 import FirebaseAuth
 import Firebase
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var hamburgerButton: UIButton!
     @IBOutlet weak var selectedGroupLabel: UILabel!
@@ -40,6 +40,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        print("this VC")
         ref = Database.database().reference()
         usersReservationsCollectionView.delegate = self
         usersReservationsCollectionView.dataSource = self
@@ -264,6 +265,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.usersReservationsCollectionView {
             return myReservations.count
@@ -274,6 +277,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
 
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        
+//        print("size")
+//        if collectionView == self.usersReservationsCollectionView {
+//            print(CGSize(width: ((self.usersReservationsCollectionView.frame.width / 2) - 0), height: ((self.usersReservationsCollectionView.frame.height) - 20)))
+//            return CGSize(width: ((collectionView.frame.width / 2) - 40), height: ((collectionView.frame.height) - 20))
+//        }else{
+//             print(CGSize(width: ((collectionView.frame.width / 2) - 40), height: ((self.todaysReservationsCollectionView.frame.height/2) - 40)))
+//            return CGSize(width: ((collectionView.frame.width / 2) - 40), height: ((self.todaysReservationsCollectionView.frame.height / 2) - 40))
+//        }
+//        
+//    }
+    
     
     @IBAction func hamburgerPressed(_ sender: Any) {
         slideMenuController()?.openLeft()
