@@ -475,6 +475,7 @@
                                         <connections>
                                             <outlet property="accentView" destination="6sp-PT-VQd" id="dIk-uH-y2p"/>
                                             <outlet property="dateLabel" destination="T1N-Xw-5GK" id="rQw-JB-9jy"/>
+                                            <outlet property="deleteReservationButton" destination="lx0-O6-4N4" id="LjN-by-smN"/>
                                             <outlet property="endAmPm" destination="7Uc-KH-sd2" id="mpN-dt-L6U"/>
                                             <outlet property="endTimeLabel" destination="LIo-7w-nmz" id="xkp-Gw-kZq"/>
                                             <outlet property="startAmPm" destination="VCM-CK-gjp" id="weV-Wj-hvn"/>

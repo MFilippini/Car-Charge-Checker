@@ -78,10 +78,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                 let name = value?["groupName"] as? String
                                 var allReservations = value?["reservations"] as? NSDictionary as? [String:[String:String]]
                                 print(allReservations)
-                                self.selectedGroupLabel.text = name
-                                self.selectedGroupLabel.alpha = 0
-                                UIView.animate(withDuration: 0.5) {
-                                    self.selectedGroupLabel.alpha = 1
+                                if self.selectedGroupLabel.text != name {
+                                    self.selectedGroupLabel.text = name
+                                    self.selectedGroupLabel.alpha = 0
+                                    UIView.animate(withDuration: 0.5) {
+                                        self.selectedGroupLabel.alpha = 1
+                                    }
                                 }
                                 for (key,reservation) in allReservations ?? ["":["":""]] {
                                     if(Int(reservation["yearOfRes"] ?? "") ?? 0 < self.currentYear){
@@ -106,6 +108,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                     print(reservation["userID"])
                                     if(reservation["userID"] == userID){
                                         let resDateString = "\(reservation["monthOfRes"] ?? "-1")/\(reservation["dayOfRes"] ?? "-1")"
+                                        let dateWithoutDashString = "\(reservation["monthOfRes"] ?? "-1")\(reservation["dayOfRes"] ?? "-1")"
                                         var startTimeStr = ""
                                         var endTimeStr = ""
                                         var startAmPm = ""
@@ -128,7 +131,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                         }
                                         
                                         if(endTime == 24){
-                                            endTimeStr += "12AM"
+                                            endTimeStr += "12"
                                             endAmPm = "AM"
                                         }else if(endTime == 12){
                                             endTimeStr += "\(endTime)"
@@ -141,7 +144,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                             endAmPm = "PM"
                                         }
                                         
-                                        self.myReservations.append(["date":resDateString,"shownStartTime":startTimeStr,"startAmPm":startAmPm,"shownEndTime":endTimeStr,"endAmPm":endAmPm, "realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1","yearOfRes":reservation["yearOfRes"] ?? "-1"])
+                                        self.myReservations.append(["date":resDateString,"dateWithoutDash":dateWithoutDashString, "shownStartTime":startTimeStr,"startAmPm":startAmPm,"shownEndTime":endTimeStr,"endAmPm":endAmPm, "realEndTime": "\(endTime)", "realStartTime":"\(startTime)", "startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1","yearOfRes":reservation["yearOfRes"] ?? "-1"])
                                         
                                     }else if(reservation["userID"] != nil){
                                         if(Int(reservation["monthOfRes"] ?? "0") == self.currentMonth && Int(reservation["dayOfRes"] ?? "0") == self.currentDate){
@@ -184,12 +187,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                             }
                                             
                                             
-                                            self.groupReservations.append(["personName":resCreatorName,"shownStartTime":startTimeStr,"startAmPm":startAmPm,"shownEndTime":endTimeStr,"endAmPm":endAmPm, "realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1","yearOfRes":reservation["yearOfRes"] ?? "-1"])
+                                            self.groupReservations.append(["personName":resCreatorName,"shownStartTime":startTimeStr,"startAmPm":startAmPm,"shownEndTime":endTimeStr,"endAmPm":endAmPm, "realStartTime":"\(startTime)","startTime":reservation["startTime"] ?? "-1", "realEndTime": "\(endTime)","monthOfRes":reservation["monthOfRes"] ?? "-1","dayOfRes":reservation["dayOfRes"] ?? "-1","yearOfRes":reservation["yearOfRes"] ?? "-1"])
                                         }
                                     }
                                 }
                                 self.groupReservations = self.sortRes(resList: self.groupReservations)
                                 self.myReservations = self.sortRes(resList: self.myReservations)
+                                self.usersReservationsCollectionView.reloadData()
+                                
+                                
                                 print("myRes: \(self.myReservations)")
                                 print("groupRes: \(self.groupReservations)")
                                 self.todaysReservationsCollectionView.reloadData()
@@ -239,6 +245,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             userResCell.endTimeLabel.text = myReservations[indexPath.row]["shownEndTime"]
             userResCell.startAmPm.text = myReservations[indexPath.row]["startAmPm"]
             userResCell.endAmPm.text = myReservations[indexPath.row]["endAmPm"]
+            userResCell.deleteReservationButton.tag = Int(myReservations[indexPath.row]["dateWithoutDash"]! + myReservations[indexPath.row]["realStartTime"]! + myReservations[indexPath.row]["realEndTime"]!) ?? 0
+            print(userResCell.deleteReservationButton.tag)
             return userResCell
         } else {
             let todayResCell = collectionView.dequeueReusableCell(withReuseIdentifier: "todayCell", for: indexPath as IndexPath) as! TodayReservationCell
@@ -251,6 +259,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             todayResCell.endTimeLabel.text = groupReservations[indexPath.row]["shownEndTime"]
             todayResCell.startAmPmLabel.text = groupReservations[indexPath.row]["startAmPm"]
             todayResCell.endAmPmLabel.text = groupReservations[indexPath.row]["endAmPm"]
+            
 
             return todayResCell
         }
@@ -290,11 +299,40 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     
-    @IBAction func deleteReservationPressed(_ sender: Any) {
-        
-        
+    @IBAction func deleteReservationPressed(_ sender: UIButton) {
+        if let userID = Auth.auth().currentUser?.uid {
+            self.ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                let reservationsNS = value?["reservations"] as? NSDictionary ?? ["":""]
+                var reservations = reservationsNS as? Dictionary<String,Dictionary<String,String>> ?? ["":["":""]]
+                
+                print("Hfaskbhjijldhzkcbvxfdsailbzkaiseopdijlnasipeowjdisgnlzasoieprwafdjsg")
+                
+                for (key,reservation) in reservations {
+                    let resKey = reservation["monthOfRes"]! + reservation["dayOfRes"]! + reservation["startTime"]! + reservation["endTime"]!
+                    let resKeyInt = Int(resKey)
+                    print("RES KEY")
+                    print(resKey)
+                    print(sender.tag)
+                    if resKeyInt == sender.tag {
+                        reservations.removeValue(forKey: key)
+                        break
+                    }
+                }
+
+                if(reservations != ["":["":""]]){
+                    let childUpdatesGroupRes = ["/groups/\(currentGroup!)/reservations/": reservations as NSDictionary,]
+                    self.ref.updateChildValues(childUpdatesGroupRes)
+                }
+                self.usersReservationsCollectionView.reloadData()
+                self.setupUI()
+
+
+
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
     }
-    
-    
 }
 

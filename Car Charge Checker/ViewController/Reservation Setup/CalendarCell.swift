@@ -10,17 +10,23 @@ import UIKit
 
 class CalendarCell: UICollectionViewCell {
     
+    var selectedAnUnselectable: Bool = false
+    
     @IBOutlet weak var numberLabel: UILabel!
     var isSelectable: Bool = false
     
     override var isSelected: Bool{
         didSet{
-            if self.isSelected && self.isSelectable
+            if self.isSelected
             {
-                self.backgroundColor = evqBlue
-                ReservationViewController().dateSelected(date: Int(self.numberLabel.text!)!)
-                if self.numberLabel.textColor == evqBlue {
-                    self.numberLabel.textColor = notBlack
+                if self.isSelectable {
+                    self.backgroundColor = evqBlue
+                    if self.numberLabel.textColor == evqBlue {
+                        self.numberLabel.textColor = notBlack
+                    }
+                    ReservationViewController().dateSelected(date: Int(self.numberLabel.text!)!)
+                } else {
+                    ReservationViewController().dateSelected(date: -1)
                 }
                 //This block will be executed whenever the cell’s selection state is set to true (i.e For the selected cell)
             } else {
@@ -28,6 +34,7 @@ class CalendarCell: UICollectionViewCell {
                 if self.numberLabel.textColor == notBlack {
                     self.numberLabel.textColor = evqBlue
                 }
+                
                 //This block will be executed whenever the cell’s selection state is set to false (i.e For the rest of the cells)
             }
         }
