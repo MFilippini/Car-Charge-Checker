@@ -173,7 +173,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                             }
                                             
                                             if(endTime == 24){
-                                                endTimeStr += "12AM"
+                                                endTimeStr += "12"
                                                 endAmPm = "AM"
                                             }else if(endTime == 12){
                                                 endTimeStr += "\(endTime)"
@@ -246,7 +246,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             userResCell.startAmPm.text = myReservations[indexPath.row]["startAmPm"]
             userResCell.endAmPm.text = myReservations[indexPath.row]["endAmPm"]
             userResCell.deleteReservationButton.tag = Int(myReservations[indexPath.row]["dateWithoutDash"]! + myReservations[indexPath.row]["realStartTime"]! + myReservations[indexPath.row]["realEndTime"]!) ?? 0
-            print(userResCell.deleteReservationButton.tag)
+           // print(userResCell.deleteReservationButton.tag)
+            
             return userResCell
         } else {
             let todayResCell = collectionView.dequeueReusableCell(withReuseIdentifier: "todayCell", for: indexPath as IndexPath) as! TodayReservationCell
@@ -259,7 +260,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             todayResCell.endTimeLabel.text = groupReservations[indexPath.row]["shownEndTime"]
             todayResCell.startAmPmLabel.text = groupReservations[indexPath.row]["startAmPm"]
             todayResCell.endAmPmLabel.text = groupReservations[indexPath.row]["endAmPm"]
-            
 
             return todayResCell
         }
@@ -305,8 +305,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 let value = snapshot.value as? NSDictionary
                 let reservationsNS = value?["reservations"] as? NSDictionary ?? ["":""]
                 var reservations = reservationsNS as? Dictionary<String,Dictionary<String,String>> ?? ["":["":""]]
-                
-                print("Hfaskbhjijldhzkcbvxfdsailbzkaiseopdijlnasipeowjdisgnlzasoieprwafdjsg")
                 
                 for (key,reservation) in reservations {
                     let resKey = reservation["monthOfRes"]! + reservation["dayOfRes"]! + reservation["startTime"]! + reservation["endTime"]!

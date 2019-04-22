@@ -31,7 +31,8 @@ class GroupInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         memberListTableView.dataSource = self
         addMemberButton.layer.cornerRadius = 15
         
-        //setup()
+        memberListTableView.allowsSelection = false
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,7 +88,13 @@ class GroupInfoViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.memberListTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! memberCell
         cell.nameLabel.text = membersInGroup[indexPath.row]
+        
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 
     func clean(String: inout String){
@@ -106,12 +113,15 @@ class GroupInfoViewController: UIViewController, UITableViewDelegate, UITableVie
             //let textField = alert.textFields![0] as UITextField
             let newEmailField = alert.textFields![0]
             
-            var newEmail = newEmailField.text ?? ""
+            var newEmail = newEmailField.text ?? "a"
             
                 let uncleanEmail = newEmail
             
+            if newEmail != "a" {
                 self.clean(String: &newEmail)
                 print(newEmail)
+            }
+            
             
                 self.ref = Database.database().reference()
                 self.ref.child("emails").child(newEmail).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -120,7 +130,7 @@ class GroupInfoViewController: UIViewController, UITableViewDelegate, UITableVie
                     let foundID = value?["id"] as? String ?? "noID"
 
                     // user exists is not already in group and has not already been invited
-                    if(foundID != "noID" && !self.membersInGroup.contains(uncleanEmail) && !self.membersInvited.contains(foundID)){
+                    if(newEmail != "a" && foundID != "noID" && !self.membersInGroup.contains(uncleanEmail) && !self.membersInvited.contains(foundID)){
                         
                         let childUpdatesRequest = ["/users/\(foundID)/groupRequests/(\(selectedGroup ?? "error")+request)": (selectedGroup ?? "error"),]
 
@@ -130,15 +140,32 @@ class GroupInfoViewController: UIViewController, UITableViewDelegate, UITableVie
                             
                         self.ref.updateChildValues(childUpdateMemebersInvite)
                         self.ref.updateChildValues(childUpdatesRequest)
+                        
+                        let alert = UIAlertController(title: "Sent!", message: "", preferredStyle: UIAlertController.Style.alert)
+                        
+                        self.present(alert, animated: true)
+                        
+                        let when = DispatchTime.now() + 0.6
+                        DispatchQueue.main.asyncAfter(deadline: when){
+                            alert.dismiss(animated: true, completion: nil)
+                        }
+                        
                     }else if(foundID == "noID"){
+                        //User Not Found
                         let alert = UIAlertController(title: "Invalid User", message: "Double check the email you tried to add. The user was not found.", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                     }else if(self.membersInvited.contains(foundID)){
+                        //Already invited
                         let alert = UIAlertController(title: "Invalid User", message: "That user has already been invited to join this group.", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
+                    } else if(newEmail == "a"){
+                        let alert = UIAlertController(title: "Invalid Input", message: "Please enter the email into the text field.", preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     }else{
+                        //Already in group
                         let alert = UIAlertController(title: "Invalid User", message: "That user is already in the group.", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                         self.present(alert, animated: true, completion: nil)

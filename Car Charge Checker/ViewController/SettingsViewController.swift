@@ -104,22 +104,26 @@ class SettingsViewController: UIViewController {
         let lastName = lastNameTextField.text ?? "error"
         let licensePlate = licensePlateTextField.text ?? "error"
         
-        let childUpdatesUser = ["/users/\(userKey)/carColor": carColor, "/users/\(userKey)/firstName": firstName, "/users/\(userKey)/lastName": lastName, "/users/\(userKey)/licensePlate": licensePlate]
-        
-        
-        
-        ref.updateChildValues(childUpdatesUser)
-        
-        let alert = UIAlertController(title: "Saved!", message: "", preferredStyle: UIAlertController.Style.alert)
-        
-        present(alert, animated: true)
-        
-        let when = DispatchTime.now() + 0.6
-        DispatchQueue.main.asyncAfter(deadline: when){
-            alert.dismiss(animated: true, completion: nil)
+        if carColor == "" || firstName == "" || lastName == "" || licensePlate == "" {
+            
+            let alert = UIAlertController(title: "Invalid Input", message: "Please make sure all the fields are filled in!", preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+        } else {
+            let childUpdatesUser = ["/users/\(userKey)/carColor": carColor, "/users/\(userKey)/firstName": firstName, "/users/\(userKey)/lastName": lastName, "/users/\(userKey)/licensePlate": licensePlate]
+            ref.updateChildValues(childUpdatesUser)
+            
+            let alert = UIAlertController(title: "Saved!", message: "", preferredStyle: UIAlertController.Style.alert)
+            
+            present(alert, animated: true)
+            
+            let when = DispatchTime.now() + 0.6
+            DispatchQueue.main.asyncAfter(deadline: when){
+                alert.dismiss(animated: true, completion: nil)
+            }
         }
-        
-        
     }
     
 }
