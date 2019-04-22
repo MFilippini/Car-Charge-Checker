@@ -30,7 +30,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.23999999999999999" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="2oq-qM-iv4" secondAttribute="trailing" constant="70" id="IRa-4k-26a"/>
                                     <constraint firstAttribute="width" secondItem="8hJ-d3-Sk9" secondAttribute="height" multiplier="414:127" id="a9S-ed-de1"/>
@@ -1224,7 +1224,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.17999999999999999" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ts2-Gs-93h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LUU-fE-5bT" secondAttribute="leading" constant="11" id="2Eb-0d-XjZ"/>
                             <constraint firstItem="bcB-bq-GPn" firstAttribute="leading" secondItem="iPf-VL-UqZ" secondAttribute="leading" id="2r6-ei-v6x"/>
@@ -1535,7 +1535,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.23999999999999999" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="fYC-L2-4JB" firstAttribute="centerX" secondItem="SF6-kz-ydi" secondAttribute="centerX" id="Vak-hC-qOe"/>
                                             <constraint firstAttribute="width" secondItem="SF6-kz-ydi" secondAttribute="height" multiplier="414:127" id="YBE-4l-6Jc"/>
