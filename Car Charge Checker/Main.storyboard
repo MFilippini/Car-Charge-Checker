@@ -1114,7 +1114,7 @@
                                     <constraint firstAttribute="height" constant="30" id="hup-mU-KQ1"/>
                                     <constraint firstAttribute="width" constant="30" id="san-0k-jHS"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="arrow"/>
+                                <state key="normal" title="Button" image="minimalArrow"/>
                                 <connections>
                                     <action selector="nextMonth:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="hIy-qB-xI3"/>
                                 </connections>
@@ -1125,7 +1125,7 @@
                                     <constraint firstAttribute="width" constant="30" id="LgX-kE-Jc1"/>
                                     <constraint firstAttribute="height" constant="30" id="UDx-Hm-YeK"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="arrow"/>
+                                <state key="normal" title="Button" image="minimalArrow"/>
                                 <connections>
                                     <action selector="previousMonth:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="Yz6-pD-1y0"/>
                                 </connections>
@@ -2237,6 +2237,7 @@
         <image name="arrow" width="1536" height="1536"/>
         <image name="bellIcon" width="1536" height="1536"/>
         <image name="menu" width="220" height="220"/>
+        <image name="minimalArrow" width="1050" height="1050"/>
         <image name="settingsIcon" width="1536" height="1536"/>
         <image name="signOut" width="1536" height="1536"/>
         <image name="xIcon" width="1536" height="1536"/>
