@@ -10,7 +10,7 @@ import Firebase
 import FirebaseAuth
 import GoogleSignIn
 
-class NotificationsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
+class NotificationsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var requestsCollectionView: UICollectionView!
     
@@ -168,6 +168,17 @@ class NotificationsViewController: UIViewController,UICollectionViewDelegate,UIC
     @IBAction func hamburgerTapped(_ sender: Any) {
         slideMenuController()?.openLeft()
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        return CGSize(width: self.requestsCollectionView.frame.width - 10, height: (self.requestsCollectionView.frame.width - 10) * (250/344))
+    }
+    
+    
+    
+    
+    
     
     /*
     // MARK: - Navigation

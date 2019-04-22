@@ -11,7 +11,7 @@ import FirebaseAuth
 import Firebase
 import GoogleSignIn
 
-class ReservationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ReservationViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var calander: UICollectionView!
     @IBOutlet weak var monthLabel: UILabel!
@@ -138,10 +138,12 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = calander.dequeueReusableCell(withReuseIdentifier: "calanderCell", for: indexPath) as! CalendarCell
-        cell.layer.cornerRadius = 28
+        cell.layer.cornerRadius = cell.bounds.width/2
         cell.backgroundColor = notBlack
         cell.isSelectable = false
-
+        cell.numberLabel.textAlignment = .center
+        cell.numberLabel.adjustsFontSizeToFitWidth = true
+        
         if (indexPath.row >= firstDayOfWeek - 1) && (indexPath.row - (firstDayOfWeek-2) <= daysInMonth) {
             cell.numberLabel.text = String(indexPath.row - (firstDayOfWeek-2))
             cell.isSelectable = true
@@ -477,4 +479,13 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         }
 
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let size = min(((collectionView.frame.width - 20 )/7.0), ((collectionView.frame.height) / 6.0))
+        
+        return CGSize(width: size, height: size)
+        
+    }
+    
 }

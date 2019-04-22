@@ -22,6 +22,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var inboxButton: UIButton!
     
+    @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var groupBarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var newGroupHeightConstraint: NSLayoutConstraint!
+    
     var groupsInArray: [String] = []
     var groupInNamesArray: [String] = []
     var groupInNamesArrayTemp: [String] = []
@@ -44,6 +48,14 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
         notificationBellLabel.isHidden = true
+        
+        let screenWidth = UIScreen.main.bounds.size.width
+        headerHeightConstraint.constant = screenWidth * (127.0/414.0)
+        groupBarHeightConstraint.constant = screenWidth * (1.0/6.0)
+        newGroupHeightConstraint.constant = screenWidth * (1.0/6.0)
+        view.layoutIfNeeded()
+        
+        
         print("setCurrentGroup()")
         setCurrentGroup()
     }
