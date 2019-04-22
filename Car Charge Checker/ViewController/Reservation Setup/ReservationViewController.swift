@@ -117,6 +117,8 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
         nextMonthButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
         firstRightButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
         secondRightButton.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        currentlySelectedDate = -1
+        currentlySelectedYear = -1
         updateTimes()
     }
     
