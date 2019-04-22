@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 import GoogleSignIn
 
-class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var nameGreetingLabel: UILabel!
     @IBOutlet weak var createAGroupButton: UIButton!
@@ -241,5 +241,9 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
         slideMenuController()?.changeMainViewController(signIn!, close: true)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: self.invitesCollectionView.frame.width - 10, height: (self.invitesCollectionView.frame.width - 10) * (250/344))
+    }
     
 }

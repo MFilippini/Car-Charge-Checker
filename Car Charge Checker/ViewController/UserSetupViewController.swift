@@ -14,13 +14,9 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
-    @IBOutlet weak var licensePlateField: UITextField!
-    @IBOutlet weak var carColorTextField: UITextField!
 
     @IBOutlet weak var firstNameBackgroundView: UIView!
     @IBOutlet weak var lastNameBackgroundView: UIView!
-    @IBOutlet weak var lisencePlateBackgroundView: UIView!
-    @IBOutlet weak var carColorBackgroundView: UIView!
     
     @IBOutlet weak var continueButton: UIButton!
     
@@ -35,8 +31,8 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textFields = [firstNameField,lastNameField,licensePlateField,carColorTextField]
-        backgroundViews = [firstNameBackgroundView,lastNameBackgroundView,lisencePlateBackgroundView,carColorBackgroundView]
+        textFields = [firstNameField,lastNameField]
+        backgroundViews = [firstNameBackgroundView,lastNameBackgroundView]
         setupUI()
         
         for field in textFields{
@@ -78,6 +74,7 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         firstNameField.text = String(name[..<nameBreak])
         name.removeSubrange(...nameBreak)
         lastNameField.text = name
+        updateButton()
     }
     
     @IBAction func firstNameFieldChanged(_ sender: Any) {
@@ -85,14 +82,6 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
     }
    
     @IBAction func lastNameFieldChanged(_ sender: Any) {
-        updateButton()
-    }
-    
-    @IBAction func lisencePlateFieldChanged(_ sender: Any) {
-        updateButton()
-    }
-    
-    @IBAction func carColorFieldChanged(_ sender: Any) {
         updateButton()
     }
     
@@ -144,8 +133,6 @@ class UserSetupViewController: UIViewController,UITextFieldDelegate {
         
         let profile = [ "firstName": firstNameField.text,
                         "lastName": lastNameField.text,
-                        "licensePlate": licensePlateField.text,
-                        "carColor": carColorTextField.text,
                         "email": email]
         let childUpdatesUser = ["/users/\(userKey)": profile,]
         ref.updateChildValues(childUpdatesUser)
