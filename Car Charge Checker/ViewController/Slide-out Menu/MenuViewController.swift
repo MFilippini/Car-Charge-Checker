@@ -92,7 +92,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 firstName = value?["firstName"] as? String
                 self.welcomeNameLabel.text = "Hey, " + (firstName ?? "error") + "!"
                 let groups = value?["groupsIn"] as? NSDictionary
-                print("groups HERE  \(groups)")
                 if(groups != nil){
                     if(groups?.count != 0){
                         //Add data to groupsInArray
@@ -106,7 +105,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
                 print("groupsInArray: \(self.groupsInArray)")
                 if(self.groupsInArray.count == 0){
-                    print("ID: \(self.slideMenuController()?.mainViewController?.restorationIdentifier)")
                     if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" && "UserData" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" && "SignIn" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
                     
                         let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
@@ -195,7 +193,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
                 numberOfChargers = value?["numChargers"] as? Int
-                print("numChargers: \(numberOfChargers)")
                 let deselectIndexPath = IndexPath(row: self.selectedIndexSection, section: 0)
                 self.groupsTableView.deselectRow(at: deselectIndexPath, animated: true)
                 self.groupsTableView.cellForRow(at: deselectIndexPath)?.isSelected = false
@@ -254,7 +251,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func setCurrentGroup(){
         if(self.groupsInArray.count == 0){
-            print("ID: \(self.slideMenuController()?.mainViewController?.restorationIdentifier)")
             if(self.slideMenuController()?.mainViewController?.restorationIdentifier ?? "" != "GroupCreate" && "greeting" != self.slideMenuController()?.mainViewController?.restorationIdentifier ?? ""){
                 
                 let setupScreen = self.storyboard?.instantiateViewController(withIdentifier: "greeting")
@@ -265,18 +261,15 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             currentGroup = groupsInArray[indexPathOfGroup.section]
             groupsTableView.selectRow(at: indexPathOfGroup, animated: true, scrollPosition: .top)
             ref = Database.database().reference()
-            print("currentGroup: \(currentGroup)")
             if currentGroup != nil {
                 ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
                     numberOfChargers = value?["numChargers"] as? Int
-                    print("numChargers: \(numberOfChargers)")
                     let deselectIndexPath = IndexPath(row: 0, section: self.selectedIndexSection)
                     
                     self.groupsTableView.deselectRow(at: deselectIndexPath, animated: true)
                     self.groupsTableView.cellForRow(at: deselectIndexPath)?.isSelected = false
                 
-                    print("hey??#R?")
                     self.selectedIndexSection = indexPathOfGroup.section
                     self.groupsTableView.reloadData()
                     let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
@@ -305,7 +298,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     }
                 }
                 
-                let childUpdatesUserGroup = ["/users/\(userID ?? "error")/groupsIn/": groups,]
+                let childUpdatesUserGroup = ["/users/\(userID)/groupsIn/": groups,]
                 self.ref.updateChildValues(childUpdatesUserGroup)
                 
     
@@ -337,11 +330,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                         if(inGroup.count == 0){
                             
-                            for var i in 0..<invited.count {
-                                print("i:\(i)")
+                            for i in 0..<invited.count {
                                 let id = invited[i] as? String ?? "error"
                                 let childUpdatesGroupReq = ["/users/\(id)/groupRequests/(\(groupToDelete)+request)/": nil,] as [String : Any?]
-                                self.ref.updateChildValues(childUpdatesGroupReq)
+                                self.ref.updateChildValues(childUpdatesGroupReq as [AnyHashable : Any])
                             }
                     
                             let childUpdatesGroup = ["/groups/\(groupToDelete)/": ["group":nil],]

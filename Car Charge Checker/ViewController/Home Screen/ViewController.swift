@@ -77,7 +77,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                 let value = snapshot.value as? NSDictionary
                                 let name = value?["groupName"] as? String
                                 var allReservations = value?["reservations"] as? NSDictionary as? [String:[String:String]]
-                                print(allReservations)
                                 if self.selectedGroupLabel.text != name {
                                     self.selectedGroupLabel.text = name
                                     self.selectedGroupLabel.alpha = 0
@@ -101,11 +100,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                 }
                                 
                                 let childUpdates = ["/groups/\(currentGroup ?? "error")/reservations/": allReservations,]
-                                self.ref.updateChildValues(childUpdates)
+                                self.ref.updateChildValues(childUpdates as [AnyHashable : Any])
                                 self.myReservations = []
                                 self.groupReservations = []
                                 for (_,reservation) in allReservations ?? ["":["":""]] {
-                                    print(reservation["userID"])
                                     if(reservation["userID"] == userID){
                                         let resDateString = "\(reservation["monthOfRes"] ?? "-1")/\(reservation["dayOfRes"] ?? "-1")"
                                         let dateWithoutDashString = "\(reservation["monthOfRes"] ?? "-1")\(reservation["dayOfRes"] ?? "-1")"
@@ -222,9 +220,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let startTime = Int(reservation["startTime"] ?? "0") ?? 0
             
             let ultTime = (startTime) + (day * 100) + (month * 10000)  + (year * 1000000)
-            
-            print("year: \(reservation["yearOfRes"])")
-            
+                        
             reservation.updateValue("\(ultTime)", forKey: "ultTime")
             sortedRes[i] = reservation
         }
@@ -300,7 +296,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     @IBAction func deleteReservationPressed(_ sender: UIButton) {
-        if let userID = Auth.auth().currentUser?.uid {
+        if (Auth.auth().currentUser?.uid) != nil {
             self.ref.child("groups").child(currentGroup!).observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
                 let reservationsNS = value?["reservations"] as? NSDictionary ?? ["":""]

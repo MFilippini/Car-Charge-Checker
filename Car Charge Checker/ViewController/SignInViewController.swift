@@ -113,7 +113,7 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         print("googlePressed?1")
-        if let error = error {
+        if error != nil {
             // ...
             return
         }
@@ -122,17 +122,13 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
                                                        accessToken: authentication.accessToken)
         
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
-            if let error = error {
+            if error != nil {
                 // ...
                 return
             }
             // User is signed in
             // ...
         }
-    }
-    
-    @IBAction func questionBlockHit(_ sender: Any) {
-        print(Auth.auth().currentUser)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

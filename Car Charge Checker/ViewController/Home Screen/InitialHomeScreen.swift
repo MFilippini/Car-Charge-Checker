@@ -148,7 +148,7 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 let value = snapshot.value as? NSDictionary
-                var groups = value?["groupRequests"] as? NSMutableDictionary
+                let groups = value?["groupRequests"] as? NSMutableDictionary
                 
                 for (key,group) in groups ?? [:]{
                     if self.groupRequests[sender.tag] == group as! String{
@@ -160,18 +160,18 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
                 self.ref.child("groups").child(self.groupRequests[sender.tag]).observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     let value = snapshot.value as? NSDictionary
-                    var inGroup = value?["membersInGroup"] as? NSMutableArray
-                    var requestedGroup = value?["membersInvited"] as? NSMutableArray
+                    let inGroup = value?["membersInGroup"] as? NSMutableArray
+                    let requestedGroup = value?["membersInvited"] as? NSMutableArray
                     
-                    let email = Auth.auth().currentUser?.email
+                    let email = Auth.auth().currentUser?.email ?? "error"
                     
                     inGroup?.add(email)
                     requestedGroup?.remove(userID)
                     
-                    let childUpdates = ["/users/\(userID)/groupRequests/": groups,
+                    let childUpdates = ["/users/\(userID)/groupRequests/": groups as Any,
                                         "/users/\(userID)/groupsIn/\(key)": self.groupRequests[sender.tag],
-                                        "/groups/\(self.groupRequests[sender.tag])/membersInGroup/": inGroup,
-                                        "/groups/\(self.groupRequests[sender.tag])/membersInvited/": requestedGroup,] as [String : Any]
+                                        "/groups/\(self.groupRequests[sender.tag])/membersInGroup/": inGroup as Any,
+                                        "/groups/\(self.groupRequests[sender.tag])/membersInvited/": requestedGroup as Any,] as [String : Any]
                     self.ref.updateChildValues(childUpdates)
                     self.viewWillAppear(true)
                     let main = self.storyboard?.instantiateViewController(withIdentifier: "Main")
@@ -194,7 +194,7 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 let value = snapshot.value as? NSDictionary
-                var groups = value?["groupRequests"] as? NSMutableDictionary
+                let groups = value?["groupRequests"] as? NSMutableDictionary
                 
                 for (key,group) in groups ?? [:]{
                     if self.groupRequests[sender.tag] == group as! String{
@@ -204,14 +204,14 @@ class InitialHomeScreen: UIViewController, UICollectionViewDelegate, UICollectio
                 self.ref.child("groups").child(self.groupRequests[sender.tag]).observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     let value = snapshot.value as? NSDictionary
-                    var requestedGroup = value?["membersInvited"] as? NSMutableArray
+                    let requestedGroup = value?["membersInvited"] as? NSMutableArray
                     
                     let email = Auth.auth().currentUser?.email
                     
-                    requestedGroup?.remove(email)
+                    requestedGroup?.remove(email as Any)
                     
-                    let childUpdates = ["/users/\(userID)/groupRequests/": groups,
-                                        "/groups/\(self.groupRequests[sender.tag])/membersInvited/": requestedGroup,] as [String : Any]
+                    let childUpdates = ["/users/\(userID)/groupRequests/": groups as Any,
+                                        "/groups/\(self.groupRequests[sender.tag])/membersInvited/": requestedGroup as Any,] as [String : Any]
                     self.ref.updateChildValues(childUpdates)
                     self.viewWillAppear(true)
                     self.callDatabase()
