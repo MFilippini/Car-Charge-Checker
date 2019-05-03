@@ -1218,7 +1218,7 @@
                                     <constraint firstAttribute="width" secondItem="iyB-cu-e7h" secondAttribute="height" multiplier="1:1" id="ggY-yT-SA9"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="r6K-7u-SNz"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="arrow"/>
+                                <state key="normal" title="Button" image="minimalArrow"/>
                                 <connections>
                                     <action selector="backButtonPressed:" destination="3xY-Fx-ayR" eventType="touchUpInside" id="qC2-fn-M8Y"/>
                                 </connections>
