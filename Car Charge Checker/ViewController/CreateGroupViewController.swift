@@ -40,7 +40,7 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         if let userID = Auth.auth().currentUser?.uid {
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
-                let groups = value?["groupsIn"] as? NSDictionary
+                _ = value?["groupsIn"] as? NSDictionary
             }) { (error) in
                 print(error.localizedDescription)
             }
@@ -162,7 +162,6 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
         print("groupKey \(groupKey)")
         ref.child("groups").child(groupKey).observeSingleEvent(of: .value, with: { (snapshot) in
             let group = snapshot.value as? NSDictionary
-            print("groups: \(group)")
             if(group == nil){
                 
                 //Find People
@@ -177,7 +176,7 @@ class CreateGroupViewController: UIViewController,UITextFieldDelegate,UITableVie
                             let value = snapshot.value as? NSDictionary
                             let foundID = value?["id"] as? String ?? "noID"
                             
-                            let key = self.ref.child("users").childByAutoId().key!
+                            // let key = self.ref.child("users").childByAutoId().key!
                             
                             var creatorsEmail = self.user!.email ?? ""
                             self.clean(String: &creatorsEmail)

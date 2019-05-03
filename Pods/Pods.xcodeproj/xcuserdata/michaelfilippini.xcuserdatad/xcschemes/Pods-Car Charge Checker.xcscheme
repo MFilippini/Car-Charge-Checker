@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "668A7A37FEDC6910F8AEF5E70D7C0774"
+               BlueprintIdentifier = "154F17D12F8720D21DFBED1957F0470B"
                BuildableName = "Pods_Car_Charge_Checker.framework"
                BlueprintName = "Pods-Car Charge Checker"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "668A7A37FEDC6910F8AEF5E70D7C0774"
+            BlueprintIdentifier = "154F17D12F8720D21DFBED1957F0470B"
             BuildableName = "Pods_Car_Charge_Checker.framework"
             BlueprintName = "Pods-Car Charge Checker"
             ReferencedContainer = "container:Pods.xcodeproj">

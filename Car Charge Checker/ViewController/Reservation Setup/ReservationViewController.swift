@@ -430,15 +430,13 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
                         "endTime": String(secondTrueTime),
                         "person": firstName ?? "error",
                         "userID": user?.uid ?? "error"]
-        print(newRes)
-        print(currentGroup)
         
         let key = self.ref.child("groups").child(currentGroup ?? "error").child("reservations").childByAutoId().key!
         
         let childUpdates = ["/groups/\(currentGroup ?? "error")/reservations/\(key)": newRes,]
        // self.ref.updateChildValues(childUpdates)
         
-        if let userID = Auth.auth().currentUser?.uid {
+        if (Auth.auth().currentUser?.uid) != nil {
             ref.child("groups").child(currentGroup ?? "error").child("reservations").observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let values = snapshot.value as? NSDictionary
@@ -446,7 +444,7 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
                 var chargerUseAtTime = 0
                 
                 for time in self.firstTrueTime...self.secondTrueTime{
-                    for (resNum, reservation) in values ?? [:]{
+                    for (_, reservation) in values ?? [:]{
                         let res = reservation as! [String:String]
                         let monthOfSetRes = Int(res["monthOfRes"] ?? "") ?? 0
                         let dayOfSetRes = Int(res["dayOfRes"] ?? "") ?? 0
@@ -458,7 +456,6 @@ class ReservationViewController: UIViewController, UICollectionViewDelegate, UIC
                                 chargerUseAtTime += 1
                             }
                             
-                            print("values: \(values) start: \(startTime) end: \(endTime)")
                         }
                     }
                     if(chargerUseAtTime > maxChargerUsage){
