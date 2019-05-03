@@ -14,19 +14,16 @@ class SettingsViewController: UIViewController {
 
     @IBOutlet weak var firstNameView: UIView!
     @IBOutlet weak var lastNameView: UIView!
-    @IBOutlet weak var colorView: UIView!
-    @IBOutlet weak var licenseView: UIView!
+    
     
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
-    @IBOutlet weak var carColorTextField: UITextField!
-    @IBOutlet weak var licensePlateTextField: UITextField!
     
     @IBOutlet weak var saveButton: UIButton!
     
     var textFields : [UITextField] = []
     var backgroundViews : [UIView] = []
-    var userData = ["first","last","color","license"]
+    var userData = ["first","last"]
     
     var ref: DatabaseReference!
     let user = Auth.auth().currentUser
@@ -35,8 +32,8 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         restrictedMode = false
-        backgroundViews = [firstNameView,lastNameView,licenseView,colorView]
-        textFields = [firstNameTextField,lastNameTextField,carColorTextField,licensePlateTextField]
+        backgroundViews = [firstNameView,lastNameView]
+        textFields = [firstNameTextField,lastNameTextField]
         setupUI();
     }
     
@@ -68,12 +65,10 @@ class SettingsViewController: UIViewController {
                 let value = snapshot.value as? NSDictionary
                 self.userData[0] = value?["firstName"] as? String ?? ""
                 self.userData[1] = value?["lastName"] as? String ?? ""
-                self.userData[2] = value?["carColor"] as? String ?? ""
-                self.userData[3] = value?["licensePlate"] as? String ?? ""
                 
                 
                 
-                for i in 0..<4{
+                for i in 0..<2{
                     self.textFields[i].text = self.userData[i]
                 }
                 
@@ -99,12 +94,10 @@ class SettingsViewController: UIViewController {
         let userKey = ref.child("users").child(id).key!
         
         
-        let carColor = carColorTextField.text ?? "error"
         let firstName = firstNameTextField.text ?? "error"
         let lastName = lastNameTextField.text ?? "error"
-        let licensePlate = licensePlateTextField.text ?? "error"
         
-        if carColor == "" || firstName == "" || lastName == "" || licensePlate == "" {
+        if firstName == "" || lastName == "" {
             
             let alert = UIAlertController(title: "Invalid Input", message: "Please make sure all the fields are filled in!", preferredStyle: UIAlertController.Style.alert)
             
@@ -112,7 +105,7 @@ class SettingsViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             
         } else {
-            let childUpdatesUser = ["/users/\(userKey)/carColor": carColor, "/users/\(userKey)/firstName": firstName, "/users/\(userKey)/lastName": lastName, "/users/\(userKey)/licensePlate": licensePlate]
+            let childUpdatesUser = ["/users/\(userKey)/firstName": firstName, "/users/\(userKey)/lastName": lastName]
             ref.updateChildValues(childUpdatesUser)
             
             let alert = UIAlertController(title: "Saved!", message: "", preferredStyle: UIAlertController.Style.alert)
